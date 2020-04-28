@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
      * Callback method that handles what needs to happen when the register button is clicked.
      */
     public void onRegisterClick(){
-        if(checkPasswords() && checkFilledIn()){
+        if(checkFilledIn() && checkPasswords()){
             // Create user
             insertIntoDataBase((m_first_name.getText()).toString(), (m_last_name.getText()).toString(), (m_email.getText()).toString() , (m_address.getText()).toString(), (m_password.getText()).toString(), (m_confirm_password.getText()).toString());
             // Log in
@@ -103,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         else{
             // Display a short toast to give feedback to the user that they didn't fill in every textfield.
-            Toast.makeText(this, "Vul eerst alle velden in", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Vul eerst alle velden in.", Toast.LENGTH_SHORT).show();
             return false;
         }
     }
