@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Foodistic</string>
+    <string name="firstNavItem">Winkel</string>
+    <string name="secondNavItem">Punten</string>
+    <string name="thirdNavItem">Lijstjes</string>
+    <string name="fourthNavItem">Profiel</string>
+
 </resources>
