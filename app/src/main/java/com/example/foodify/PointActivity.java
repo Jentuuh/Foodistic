@@ -2,16 +2,17 @@ package com.example.foodify;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * Activity which handles the store points
@@ -27,9 +28,12 @@ public class PointActivity extends AppCompatActivity {
     private Button m_viewButton;
     private Button m_redeemButton;
     private Button m_submitButton;
+    private Button m_sendButton;
 
     private LinearLayout m_viewContent;
     private ConstraintLayout m_submitContent;
+
+    private EditText m_codeText;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -37,42 +41,46 @@ public class PointActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_point);
 
-        // Get Buttons
+        // Setup TabButtons
         m_viewButton = (Button)findViewById(R.id.button_view);
         m_redeemButton = (Button)findViewById(R.id.button_redeem);
         m_submitButton = (Button)findViewById(R.id.button_submit);
 
-        // Get TabsViews
+        m_viewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setTab(Tab.VIEW);
+            }
+        });
+        m_redeemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setTab(Tab.REDEEM);
+            }
+        });
+        m_submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setTab(Tab.SUBMIT);
+            }
+        });
+
+        // Get TabsContents
         m_viewContent = (LinearLayout)findViewById(R.id.linearLayout_view);
         m_submitContent = (ConstraintLayout)findViewById(R.id.constraintLayout_submit);
 
-        // Add Button Listeners
-        m_viewButton.setOnTouchListener(new View.OnTouchListener() {
+
+        // Setup SendButton
+        m_sendButton = (Button)findViewById(R.id.button_send);
+        m_sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                Log.i("viewButton", "Touched!");
-                setTab(Tab.VIEW);
-                return false;
+            public void onClick(View v) {
+                onCodeSend();
             }
         });
 
-        m_redeemButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                Log.i("redeemButton", "Touched!");
-                setTab(Tab.REDEEM);
-                return false;
-            }
-        });
-
-        m_submitButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                Log.i("submitButton", "Touched!");
-                setTab(Tab.SUBMIT);
-                return false;
-            }
-        });
+        // Get CodeText
+        m_codeText = (EditText)findViewById(R.id.editText_code);
 
         // Set default tab
         setTab(Tab.VIEW);
@@ -83,6 +91,25 @@ public class PointActivity extends AppCompatActivity {
         super.onStart();
     }
 
+
+    /**
+     * Callback functions which handles what needs to happen when send button is clicked
+     */
+    private void onCodeSend() {
+        String code = m_codeText.getText().toString();
+
+        if (!code.isEmpty()) {
+            String toastText = "Je kreeg 100 punten met code: " + code;
+            Toast toast = Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT);
+            toast.show();
+            m_codeText.setText("");
+        }
+    }
+
+    /**
+     * Set tab to given tab
+     * @param tab
+     */
     private void setTab(Tab tab) {
         // Update Activity
         resetTabs();
@@ -104,6 +131,9 @@ public class PointActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Reset tabs (show none)
+     */
     private void resetTabs() {
         m_viewButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#1CCADB")));
         m_redeemButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#1CCADB")));

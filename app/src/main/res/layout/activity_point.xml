@@ -15,18 +15,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button5"
+        <ImageButton
+            android:id="@+id/ImageButton.back"
             android:layout_width="50dp"
             android:layout_height="55dp"
             android:layout_weight="0"
+            android:backgroundTint="#00FFFFFF"
             android:stateListAnimator="@null"
-            android:text="ESC"
-            android:textColor="#000000"
-            app:backgroundTint="#00FFFFFF"
-            app:cornerRadius="0dp"
-            app:strokeColor="#000000"
-            app:strokeWidth="2dp" />
+            android:tint="#000000"
+            app:srcCompat="@android:drawable/ic_menu_revert" />
 
         <TextView
             android:id="@+id/textView"
@@ -37,6 +34,7 @@
             android:text="PUNTEN"
             android:textColor="#000000"
             android:textSize="20sp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -49,12 +47,12 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_view"
+            android:id="@+id/button.view"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_weight="1"
             android:background="#1CCADB"
-            android:text="BEKIJK"
+            android:text="BEKIJKEN"
             app:backgroundTint="#1CCADB"
             app:cornerRadius="0dp"
             app:rippleColor="#CD680000"
@@ -67,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_weight="1"
-            android:text="WISSEL IN"
+            android:text="INWISSELEN"
             app:backgroundTint="#1CCADB"
             app:cornerRadius="0dp"
             app:rippleColor="#CD680000"
@@ -80,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_weight="1"
-            android:text="DIEN IN"
+            android:text="INDIENEN"
             app:backgroundTint="#17AAB9"
             app:cornerRadius="0dp"
             app:rippleColor="#CD680000"
@@ -90,7 +88,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout_view"
+        android:id="@+id/linearLayout.view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -171,7 +169,7 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout_submit"
+        android:id="@+id/constraintLayout.submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#17AAB9"
@@ -183,7 +181,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/editText.code"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:background="#FFFFFF"
@@ -192,36 +190,37 @@
             android:hint="Typ je code"
             android:inputType="number"
             android:padding="10dp"
+            android:textCursorDrawable="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textView.code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
             android:text="Code "
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/editText"
+            app:layout_constraintBottom_toTopOf="@+id/editText.code"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button"
+            android:id="@+id/button.qr"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="QR"
             app:backgroundTint="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editText"
+            app:layout_constraintStart_toEndOf="@+id/editText.code"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button8"
+            android:id="@+id/button.send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -229,7 +228,7 @@
             app:backgroundTint="#52DFDF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
+            app:layout_constraintTop_toBottomOf="@+id/editText.code" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
