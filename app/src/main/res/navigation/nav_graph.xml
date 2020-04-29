@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/winkelActivity">
+    app:startDestination="@id/shopFragment">
 
     <activity
         android:id="@+id/loginActivity"
@@ -15,31 +15,26 @@
         android:name="com.example.foodify.RegisterActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
-    <activity
-        android:id="@+id/winkelActivity"
-        android:name="com.example.foodify.WinkelActivity"
-        android:label="activity_winkel"
-        tools:layout="@layout/activity_winkel">
-        <action
-            android:id="@+id/action_winkelActivity_to_test12"
-            app:destination="@id/test1" />
-        <action
-            android:id="@+id/action_winkelActivity_to_test13"
-            app:destination="@id/test1" />
-        <action
-            android:id="@+id/action_winkelActivity_to_test22"
-            app:destination="@id/test2" />
-    </activity>
-    <activity
-        android:id="@+id/test1"
-        android:name="com.example.foodify.Test1"
-        android:label="activity_test1"
-        tools:layout="@layout/activity_test1" />
-    <activity
-        android:id="@+id/test2"
-        android:name="com.example.foodify.Test2"
-        android:label="activity_test2"
-        tools:layout="@layout/activity_test2" />
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="com.example.foodify.ShopFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_shop" />
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.example.foodify.ListFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list" />
+    <fragment
+        android:id="@+id/pointFragment"
+        android:name="com.example.foodify.PointFragment"
+        android:label="fragment_point"
+        tools:layout="@layout/fragment_point" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.foodify.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 
 
 </navigation>

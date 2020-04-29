@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    /*android:id="@+id/shopNavItem" , android:id="@+id/pointsNavItem"*/
+    
 
     <item
-        android:id="@+id/loginActivity"
+        android:id="@+id/shopFragment"
         android:title="@string/firstNavItem"
         android:icon="@drawable/test"
         android:orderInCategory="1"
         />
 
     <item
-        android:id="@+id/registerActivity"
+        android:id="@+id/pointFragment"
         android:title="@string/secondNavItem"
         android:icon="@drawable/test"
         android:orderInCategory="2"
@@ -20,7 +20,7 @@
 
 
     <item
-        android:id="@+id/test1"
+        android:id="@+id/listFragment"
         android:title="@string/thirdNavItem"
         android:icon="@drawable/test"
         android:orderInCategory="3"
@@ -28,7 +28,7 @@
         />
 
     <item
-        android:id="@+id/test2"
+        android:id="@+id/profileFragment"
         android:title="@string/fourthNavItem"
         android:icon="@drawable/test"
         android:orderInCategory="4"
