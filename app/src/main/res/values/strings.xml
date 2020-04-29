@@ -2,6 +2,11 @@
     <string name="app_name">Foodistic</string>
     <string name="fa_icon_qrcode">&#xf029;</string>
     <string name="fa_icon_backarrow">&#xf30a;</string>
+    <string name="fa_icon_coins">&#xf51e;</string>
+    <string name="fa_icon_home">&#xf015;</string>
+    <string name="fa_icon_list">&#xf46d;</string>
+    <string name="fa_icon_profile">&#xf2c2;</string>
+
     <string name="firstNavItem">Winkel</string>
     <string name="secondNavItem">Punten</string>
     <string name="thirdNavItem">Lijstjes</string>
