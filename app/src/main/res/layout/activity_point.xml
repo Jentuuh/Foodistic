@@ -26,14 +26,14 @@
             android:tint="#000000" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView.title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:text="PUNTEN"
             android:textColor="#000000"
-            android:textSize="20sp" />
+            android:textSize="22sp" />
 
     </LinearLayout>
 
@@ -49,10 +49,11 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button.view"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:background="#1CCADB"
             android:text="BEKIJKEN"
+            android:textSize="16sp"
             app:backgroundTint="#1CCADB"
             app:cornerRadius="0dp"
             app:rippleColor="#CD680000"
@@ -63,9 +64,10 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button.redeem"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:text="INWISSELEN"
+            android:textSize="16sp"
             app:backgroundTint="#1CCADB"
             app:cornerRadius="0dp"
             app:rippleColor="#CD680000"
@@ -76,9 +78,10 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button.submit"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:text="INDIENEN"
+            android:textSize="16sp"
             app:backgroundTint="#17AAB9"
             app:cornerRadius="0dp"
             app:rippleColor="#CD680000"
@@ -91,6 +94,7 @@
         android:id="@+id/linearLayout.view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:orientation="vertical"
         android:visibility="gone"
@@ -109,10 +113,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_weight="0"
                 android:gravity="center"
                 android:text="10/20"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -120,10 +124,11 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button6"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginEnd="20dp"
                 android:layout_weight="1"
                 android:text="COLRUYT"
+                android:textSize="14sp"
                 app:backgroundTint="#6CD5E4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView2"
@@ -142,10 +147,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_weight="0"
                 android:gravity="center"
                 android:text="10/20"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -153,11 +158,12 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button7"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
                 android:text="CARREFOUR"
+                android:textSize="14sp"
                 app:backgroundTint="#6CD5E4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView3"
@@ -173,7 +179,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#17AAB9"
-        android:padding="10dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -198,35 +203,42 @@
 
         <TextView
             android:id="@+id/textView.code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:text="Code "
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="#13808D"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="CODE"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/editText.code"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button.qr"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_width="55dp"
+            android:layout_height="65dp"
             android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
             android:text="@string/fa_icon_qrcode"
             android:textSize="24sp"
             app:backgroundTint="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/editText.code"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button.send"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:text="ZEND"
+            android:textSize="16sp"
             app:backgroundTint="#52DFDF"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editText.code" />

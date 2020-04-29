@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.graphics.Typeface;
 import android.graphics.fonts.Font;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import android.annotation.SuppressLint;
@@ -27,7 +28,7 @@ public class PointActivity extends AppCompatActivity {
         SUBMIT
     }
 
-    private Button m_backButton;
+    private ImageButton m_backButton;
 
     private Button m_viewButton;
     private Button m_redeemButton;
@@ -49,6 +50,15 @@ public class PointActivity extends AppCompatActivity {
 
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
 
+
+        // Setup BackButton
+        m_backButton = (ImageButton)findViewById(R.id.button_back);
+        m_backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPress();
+            }
+        });
 
         // Setup TabButtons
         m_viewButton = (Button)findViewById(R.id.button_view);
@@ -104,6 +114,14 @@ public class PointActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    /**
+     * Callback functions which handles what needs to happen when back button is clicked
+     */
+    private void onBackPress() {
+        String toastText = "Gaat een Activity terug...";
+        Toast toast = Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT);
+        toast.show();
+    }
 
     /**
      * Callback functions which handles what needs to happen when send button is clicked
