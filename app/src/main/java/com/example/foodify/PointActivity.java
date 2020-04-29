@@ -3,6 +3,8 @@ package com.example.foodify;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.graphics.Typeface;
+import android.graphics.fonts.Font;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -25,10 +27,14 @@ public class PointActivity extends AppCompatActivity {
         SUBMIT
     }
 
+    private Button m_backButton;
+
     private Button m_viewButton;
     private Button m_redeemButton;
     private Button m_submitButton;
+
     private Button m_sendButton;
+    private Button m_qrButton;
 
     private LinearLayout m_viewContent;
     private ConstraintLayout m_submitContent;
@@ -40,6 +46,9 @@ public class PointActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_point);
+
+        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
+
 
         // Setup TabButtons
         m_viewButton = (Button)findViewById(R.id.button_view);
@@ -78,6 +87,10 @@ public class PointActivity extends AppCompatActivity {
                 onCodeSend();
             }
         });
+
+        // Setup QRButton
+        m_qrButton = findViewById(R.id.button_qr);
+        m_qrButton.setTypeface(iconFont);
 
         // Get CodeText
         m_codeText = (EditText)findViewById(R.id.editText_code);

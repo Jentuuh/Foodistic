@@ -16,14 +16,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/ImageButton.back"
+            android:id="@+id/button.back"
             android:layout_width="50dp"
             android:layout_height="55dp"
             android:layout_weight="0"
             android:backgroundTint="#00FFFFFF"
-            android:stateListAnimator="@null"
-            android:tint="#000000"
-            app:srcCompat="@android:drawable/ic_menu_revert" />
+            android:src="?attr/actionModeCloseDrawable"
+            android:textColor="#000000"
+            android:tint="#000000" />
 
         <TextView
             android:id="@+id/textView"
@@ -213,7 +213,8 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="QR"
+            android:text="@string/fa_icon_qrcode"
+            android:textSize="24sp"
             app:backgroundTint="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/editText.code"
