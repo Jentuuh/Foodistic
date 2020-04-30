@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShoppingList.NameShoppingList">
+
+    <ImageView
+        android:id="@+id/shoppinglistImage"
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_marginTop="350px"
+        android:src="@drawable/shopping_list" />
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="200px"
+        android:layout_marginTop="50px"
+        android:textAlignment="center"
+        android:text="Geef uw nieuwe lijstje een naam"
+        android:textColor="#5BC438"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/nameField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="200px"
+        android:layout_marginTop="100px"
+        android:ems="10"
+        android:hint="Geef uw lijst een naam"
+        android:inputType="textPersonName"
+        android:text="Nieuwe boodschappenlijst"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="200px"
+        android:layout_marginTop="450px"
+        android:text="Bevestigen"
+        android:textColorLink="#00FFFFFF" />
+
+</LinearLayout>
