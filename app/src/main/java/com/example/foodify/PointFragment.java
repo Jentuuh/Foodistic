@@ -24,7 +24,8 @@ import android.widget.Toast;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment which handles the store points
+ * @author Joris Bertram
  */
 public class PointFragment extends Fragment {
 

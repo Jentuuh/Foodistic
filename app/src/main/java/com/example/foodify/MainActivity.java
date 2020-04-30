@@ -1,7 +1,9 @@
 package com.example.foodify;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -22,6 +24,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  * @author Tim-Lukas Blom
  */
 public class MainActivity extends AppCompatActivity {
+    private DrawerLayout mDrawerLayout;
+    private Toolbar mToolbar;
+    private BottomNavigationView mBottomNav;
+    private NavController mNavController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,34 +35,46 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // setting up navigation controller
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
-        NavigationUI.setupWithNavController(bottomNav, navController);
+        mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
+        //Navigation bar setup
+        mBottomNav = findViewById(R.id.bottom_nav);
+        NavigationUI.setupWithNavController(mBottomNav, mNavController);
 
         //App bar setup
 
         //AppBarConfiguration appBarConfiguration =
           //      new AppBarConfiguration.Builder(navController.getGraph()).build();
-
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         AppBarConfiguration appBarConfiguration =
-                new AppBarConfiguration.Builder(R.id.shopFragment, R.id.pointFragment, R.id.listFragment, R.id.profileFragment).build();
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.inflateMenu(R.menu.toolbarmenuitems);
-        setSupportActionBar(toolbar);
+                new AppBarConfiguration.Builder(R.id.shopFragment, R.id.pointFragment, R.id.listFragment, R.id.profileFragment).setDrawerLayout(drawerLayout).build();
+
+        mToolbar = findViewById(R.id.toolbar);
+        
+        mToolbar.inflateMenu(R.menu.toolbarmenuitems);
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+
         NavigationUI.setupWithNavController(
-                toolbar, navController, appBarConfiguration);
-
-
-
+                mToolbar, mNavController, appBarConfiguration);
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Add the shopping basket to the actionbar
         getMenuInflater().inflate(R.menu.toolbarmenuitems, menu);
-        setCount(this, "10", menu);
+        setCount(this, "10", menu); //TODO automate basket count
         return true;
     }
 
+
+    /**
+     * method that gets called when an item in the actionbar is pressed
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -76,6 +94,13 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+    /**
+     * Set the count on top of the shopping basket
+     * @param context
+     * @param count count to be set
+     * @param menu menu in which the count gets changed
+     */
     public void setCount(Context context, String count, Menu menu) {
 
         MenuItem menuItem = menu.findItem(R.id.shoppingBasket);
