@@ -25,6 +25,12 @@
         android:name="com.example.foodify.ProfileFragment"
         android:label="Profiel"
         tools:layout="@layout/fragment_profile" />
+    <activity
+        android:id="@+id/registerActivity"
+        android:name="com.example.foodify.RegisterActivity"
+        android:label="RegisterActivity"
+        tools:layout="@layout/activity_register"
+        />
     <fragment
         android:id="@+id/listCollectionFragment"
         android:name="com.example.foodify.ShoppingList.ListCollectionFragment"

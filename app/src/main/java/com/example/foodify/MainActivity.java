@@ -1,7 +1,10 @@
 package com.example.foodify;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -11,6 +14,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -22,6 +26,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  * @author Tim-Lukas Blom
  */
 public class MainActivity extends AppCompatActivity {
+    private DrawerLayout mDrawerLayout;
+    private Toolbar mToolbar;
+    private BottomNavigationView mBottomNav;
+    private NavController mNavController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,34 +37,47 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // setting up navigation controller
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
-        NavigationUI.setupWithNavController(bottomNav, navController);
+        mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
+        //Navigation bar setup
+        mBottomNav = findViewById(R.id.bottom_nav);
+        NavigationUI.setupWithNavController(mBottomNav, mNavController);
 
         //App bar setup
 
         //AppBarConfiguration appBarConfiguration =
           //      new AppBarConfiguration.Builder(navController.getGraph()).build();
 
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+
         AppBarConfiguration appBarConfiguration =
                 new AppBarConfiguration.Builder(R.id.shopFragment, R.id.pointFragment, R.id.listCollectionFragment, R.id.profileFragment).build();
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.inflateMenu(R.menu.toolbarmenuitems);
-        setSupportActionBar(toolbar);
+
+
+        mToolbar = findViewById(R.id.toolbar);
+        mToolbar.inflateMenu(R.menu.toolbarmenuitems);
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
         NavigationUI.setupWithNavController(
-                toolbar, navController, appBarConfiguration);
-
-
-
+                mToolbar, mNavController, appBarConfiguration);
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Add the shopping basket to the actionbar
         getMenuInflater().inflate(R.menu.toolbarmenuitems, menu);
-        setCount(this, "10", menu);
+        setCount(this, "10", menu); //TODO automate basket count
         return true;
     }
 
+
+    /**
+     * method that gets called when an item in the actionbar is pressed
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -66,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 String toastText = "Open Shopping basket";
                 Toast toast = Toast.makeText(this, toastText, Toast.LENGTH_SHORT);
                 toast.show();
+                mDrawerLayout.openDrawer(GravityCompat.END);
                 return true;
 
 
@@ -76,6 +98,13 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+    /**
+     * Set the count on top of the shopping basket
+     * @param context
+     * @param count count to be set
+     * @param menu menu in which the count gets changed
+     */
     public void setCount(Context context, String count, Menu menu) {
 
         MenuItem menuItem = menu.findItem(R.id.shoppingBasket);

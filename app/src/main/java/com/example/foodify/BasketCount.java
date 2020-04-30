@@ -14,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+/**
+ * Class to create the counter on top of the shoppingbasket
+ */
 public class BasketCount extends Drawable {
 
     private Paint mBadgePaint;
@@ -26,9 +29,9 @@ public class BasketCount extends Drawable {
 
 
     public BasketCount(Context context){
-        float mTextSize = 25.5f;
+        float mTextSize = 30f;
         mBadgePaint = new Paint();
-        mBadgePaint.setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.colorPrimary));
+        mBadgePaint.setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.colorAccent));
         mBadgePaint.setAntiAlias(true);
         mBadgePaint.setStyle(Paint.Style.FILL);
 
@@ -56,7 +59,7 @@ public class BasketCount extends Drawable {
         /*Using Math.max rather than Math.min */
 
         float radius = ((Math.max(width, height) / 2)) / 2;
-        float centerX = (width - radius - 1) +10;
+        float centerX = (width - radius - 1) + 10;
         float centerY = radius -5;
         if(mCount.length() <= 2){
             // Draw badge circle.

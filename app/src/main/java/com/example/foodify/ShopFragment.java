@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment of the shop
+ * @author Tim-Lukas Blom
  */
 public class ShopFragment extends Fragment {
 
