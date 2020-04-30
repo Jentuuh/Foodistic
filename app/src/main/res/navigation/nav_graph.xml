@@ -28,8 +28,8 @@
     <fragment
         android:id="@+id/listCollectionFragment"
         android:name="com.example.foodify.ShoppingList.ListCollectionFragment"
-        android:label="ListCollectionFragment"
-        tools:layout="@layout/fragment_list_collection"/>
+        android:label="Mijn Lijstjes"
+        tools:layout="@layout/fragment_list_collection" />
 
 
 </navigation>

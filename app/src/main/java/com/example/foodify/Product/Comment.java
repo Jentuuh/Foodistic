@@ -9,4 +9,12 @@ import com.example.foodify.User.User;
 public class Comment {
     private User m_author;      // The user who wrote this comment
     private String m_text;      // The actual comment
+
+    /**
+     * CONSTRUCTOR
+     */
+    Comment(User author, String text){
+        m_author = author;
+        m_text = text;
+    }
 }
