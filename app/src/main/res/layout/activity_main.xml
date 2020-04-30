@@ -8,11 +8,15 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     >
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
+
 
 
     <androidx.appcompat.widget.Toolbar
@@ -29,7 +33,9 @@
          >
 
 
+
     </androidx.appcompat.widget.Toolbar>
+
 
 
 
@@ -67,4 +73,8 @@
         app:menu="@menu/navbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <include layout="@layout/fragment_drawer"/>
+
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -3,6 +3,7 @@ package com.example.foodify;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -13,6 +14,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -45,22 +47,18 @@ public class MainActivity extends AppCompatActivity {
 
         //AppBarConfiguration appBarConfiguration =
           //      new AppBarConfiguration.Builder(navController.getGraph()).build();
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+
         AppBarConfiguration appBarConfiguration =
-                new AppBarConfiguration.Builder(R.id.shopFragment, R.id.pointFragment, R.id.listCollectionFragment, R.id.profileFragment).setDrawerLayout(drawerLayout).build();
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.inflateMenu(R.menu.toolbarmenuitems);
-        setSupportActionBar(toolbar);
-        NavigationUI.setupWithNavController(
-                toolbar, mNavController, appBarConfiguration);
+                new AppBarConfiguration.Builder(R.id.shopFragment, R.id.pointFragment, R.id.listCollectionFragment, R.id.profileFragment).build();
+
 
         mToolbar = findViewById(R.id.toolbar);
-        
         mToolbar.inflateMenu(R.menu.toolbarmenuitems);
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
-
-
+        actionBar.setDisplayShowHomeEnabled(false);
         NavigationUI.setupWithNavController(
                 mToolbar, mNavController, appBarConfiguration);
     }
@@ -89,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 String toastText = "Open Shopping basket";
                 Toast toast = Toast.makeText(this, toastText, Toast.LENGTH_SHORT);
                 toast.show();
+                mDrawerLayout.openDrawer(GravityCompat.END);
                 return true;
 
 

@@ -29,9 +29,9 @@ public class BasketCount extends Drawable {
 
 
     public BasketCount(Context context){
-        float mTextSize = 25.5f;
+        float mTextSize = 30f;
         mBadgePaint = new Paint();
-        mBadgePaint.setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.colorPrimary));
+        mBadgePaint.setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.colorAccent));
         mBadgePaint.setAntiAlias(true);
         mBadgePaint.setStyle(Paint.Style.FILL);
 
