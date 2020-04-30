@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.foodify.ShoppingList.ListCollectionFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         // setting up navigation controller
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -61,6 +65,33 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(false);
         NavigationUI.setupWithNavController(
                 mToolbar, mNavController, appBarConfiguration);
+
+        Intent i = getIntent();
+        int start_tab = i.getIntExtra("TabToStart", 1);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        switch (start_tab){
+            case 1:
+                fragmentTransaction.replace(R.id.nav_host_fragment, new ShopFragment());
+                fragmentTransaction.commitNow();
+                mBottomNav.setSelectedItemId(R.id.shopFragment);
+                break;
+            case 2:
+                fragmentTransaction.replace(R.id.nav_host_fragment, new PointFragment());
+                fragmentTransaction.commitNow();
+                mBottomNav.setSelectedItemId(R.id.pointFragment);
+                break;
+            case 3:
+                fragmentTransaction.replace(R.id.nav_host_fragment, new ListCollectionFragment());
+                fragmentTransaction.commitNow();
+                mBottomNav.setSelectedItemId(R.id.listCollectionFragment);
+                break;
+            case 4:
+                fragmentTransaction.replace(R.id.nav_host_fragment, new ProfileFragment());
+                fragmentTransaction.commitNow();
+                mBottomNav.setSelectedItemId(R.id.profileFragment);
+                break;
+        }
     }
 
 

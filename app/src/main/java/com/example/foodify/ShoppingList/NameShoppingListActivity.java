@@ -1,6 +1,8 @@
 package com.example.foodify.ShoppingList;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,22 +11,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
+
+
+import android.view.LayoutInflater;
+
+import android.view.ViewGroup;
+
+import com.example.foodify.LoginActivity;
+import com.example.foodify.MainActivity;
 import com.example.foodify.R;
 
-
+import java.util.List;
 
 
 /**
  * @author jentevandersanden
- * This class represents the activity in which the use can name a shopping list before creating it.
+ * This Fragment class represents the fragment in which the use can name a shopping list before creating it.
  */
-public class NameShoppingList extends AppCompatActivity {
+public class NameShoppingListActivity extends AppCompatActivity {
     public static final String EXTRA_LIST_NAME = "com.example.myfirstapp.LISTNAME";
     private Button m_confirm_button;
     private EditText m_name_field;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name_shopping_list);
 
@@ -38,6 +49,7 @@ public class NameShoppingList extends AppCompatActivity {
             }
         });
     }
+
 
     /**
      * This callback method handles what needs to happen when the user clicks "confirm". This will
@@ -78,8 +90,19 @@ public class NameShoppingList extends AppCompatActivity {
     /**
      * This method switches to the shopping list activity after a shopping list was succesfully made.
      */
-    private void showShoppingListActivity(String name){
-        //TODO
+    private void showShoppingListActivity(String name) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("TabToStart", 3);
+        // Update database with the created shoppinglist
+//        ListCollectionFragment listcollection = new ListCollectionFragment();
+//        ShoppingList to_add = new ShoppingList(name);
+//        listcollection.addShoppingList(to_add);
+
+        // Go back to the MainActivity
+        startActivity(intent);
+
+
     }
 
 }
+

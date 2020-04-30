@@ -6,8 +6,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.foodify.R;
 
@@ -40,7 +38,7 @@ public class CreateShoppingList extends AppCompatActivity {
      * This will open a new activity in which the user will be asked to name the new shopping list.
      */
     private void onCreateClick(){
-        Intent intent = new Intent(this, NameShoppingList.class);
+        Intent intent = new Intent(this, NameShoppingListActivity.class);
         startActivity(intent);
     }
 }

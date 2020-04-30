@@ -1,6 +1,7 @@
 package com.example.foodify.ShoppingList;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.foodify.Product.ProductItem;
 import com.example.foodify.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,7 @@ public class ListCollectionFragment extends Fragment {
     private ListView listcontainer;                     // ListView that contains all the shopping lists to be displayed
     private ArrayList<ShoppingList> lists_to_display;   // Shopping lists that needs to be displayed
     private ArrayAdapter<String> shop_list_adapter;     // ArrayAdapter that will get the names from the shopping lists and parse them into TextViews for the ListView.
+    private FloatingActionButton add_button;            // FAB
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +60,15 @@ public class ListCollectionFragment extends Fragment {
         shop_list_adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, list_names);
 
         listcontainer.setAdapter(shop_list_adapter);
+
+        add_button = (FloatingActionButton) getView().findViewById(R.id.addButton);
+
+        add_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNameListActivity();
+            }
+        });
     }
 
 
@@ -87,6 +98,10 @@ public class ListCollectionFragment extends Fragment {
         // TODO: retrieve shopping lists from database
     }
 
+    public void showNameListActivity(){
+        Intent intent = new Intent(getActivity(), NameShoppingListActivity.class);
+        startActivity(intent);
+    }
 
 
     /**
