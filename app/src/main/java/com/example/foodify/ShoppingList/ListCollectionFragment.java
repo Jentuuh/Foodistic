@@ -2,6 +2,7 @@ package com.example.foodify.ShoppingList;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -99,8 +100,11 @@ public class ListCollectionFragment extends Fragment {
     }
 
     public void showNameListActivity(){
-        Intent intent = new Intent(getActivity(), NameShoppingListActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(getActivity(), NameShoppingListActivity.class);
+        //startActivity(intent);
+
+        NavHostFragment.findNavController(this).navigate(R.id.action_listCollectionFragment_to_profileFragment);
+
     }
 
 

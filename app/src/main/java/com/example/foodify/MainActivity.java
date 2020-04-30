@@ -1,5 +1,7 @@
 package com.example.foodify;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,6 +9,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -19,6 +22,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.foodify.ShoppingList.ListCollectionFragment;
@@ -43,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         // setting up navigation controller
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
+
+
         //Navigation bar setup
         mBottomNav = findViewById(R.id.bottom_nav);
         NavigationUI.setupWithNavController(mBottomNav, mNavController);
@@ -61,10 +67,29 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = findViewById(R.id.toolbar);
         mToolbar.inflateMenu(R.menu.toolbarmenuitems);
         setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
-        NavigationUI.setupWithNavController(
-                mToolbar, mNavController, appBarConfiguration);
+       // ActionBar actionBar = getSupportActionBar();
+        //actionBar.setDisplayShowHomeEnabled(false);
+        //NavigationUI.setupWithNavController(
+         //       mToolbar, mNavController, appBarConfiguration);
+
+
+
+        // Add destination listener
+        mNavController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                if(destination.getId() == R.id.profileFragment){
+                    mToolbar.setVisibility(View.GONE);
+                    mBottomNav.setVisibility(View.GONE);
+
+                }
+                else{
+                    mToolbar.setVisibility(View.VISIBLE);
+                    mBottomNav.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
 
         Intent i = getIntent();
         int start_tab = i.getIntExtra("TabToStart", 1);
