@@ -34,8 +34,20 @@
     <fragment
         android:id="@+id/listCollectionFragment"
         android:name="com.example.foodify.ShoppingList.ListCollectionFragment"
-        android:label="ListCollectionFragment"
-        tools:layout="@layout/fragment_list_collection"/>
+        android:label="Mijn Lijstjes"
+        tools:layout="@layout/fragment_list_collection" >
+        <action
+            android:id="@+id/action_listCollectionFragment_to_nameShoppingListActivity"
+            app:destination="@id/nameShoppingListActivity" />
+        <action
+            android:id="@+id/action_listCollectionFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/nameShoppingListActivity"
+        android:name="com.example.foodify.ShoppingList.NameShoppingListActivity"
+        android:label="activity_name_shopping_list"
+        tools:layout="@layout/activity_name_shopping_list" />
 
 
 </navigation>

@@ -22,7 +22,7 @@
 
 
     <item
-        android:id="@+id/listFragment"
+        android:id="@+id/listCollectionFragment"
         android:title="@string/thirdNavItem"
         android:icon="@drawable/ic_clipboard_list_solid"
         android:orderInCategory="3"
