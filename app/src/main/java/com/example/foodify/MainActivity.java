@@ -47,7 +47,12 @@ public class MainActivity extends AppCompatActivity {
           //      new AppBarConfiguration.Builder(navController.getGraph()).build();
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         AppBarConfiguration appBarConfiguration =
-                new AppBarConfiguration.Builder(R.id.shopFragment, R.id.pointFragment, R.id.listFragment, R.id.profileFragment).setDrawerLayout(drawerLayout).build();
+                new AppBarConfiguration.Builder(R.id.shopFragment, R.id.pointFragment, R.id.listCollectionFragment, R.id.profileFragment).setDrawerLayout(drawerLayout).build();
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.toolbarmenuitems);
+        setSupportActionBar(toolbar);
+        NavigationUI.setupWithNavController(
+                toolbar, mNavController, appBarConfiguration);
 
         mToolbar = findViewById(R.id.toolbar);
         
