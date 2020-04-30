@@ -65,12 +65,13 @@ public class NameShoppingList extends AppCompatActivity {
      */
     private boolean nameDoesntAlreadyExist(){
         //TODO: ask database if this name already exists
-        if(){
+        if(true){ //TODO
             return true;
         }
         else {
             // Give the user feedback that this name already exists.
             Toast.makeText(this, "You already have a shopping list with this name. Choose another name.", Toast.LENGTH_SHORT);
+            return false;
         }
     }
 
