@@ -19,25 +19,36 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.os.Debug;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
+
+import com.example.foodify.Product.Comment;
+import com.example.foodify.Product.ProductItem;
 import com.example.foodify.ShoppingList.ListCollectionFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Main activity in which the fragment will be replaced for each scene
  * @author Tim-Lukas Blom
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Observer {
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private BottomNavigationView mBottomNav;
     private NavController mNavController;
-
+    private ShoppingCart mShoppingCart;
+    private Menu mMenu;
+    private ListAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         //actionBar.setDisplayShowHomeEnabled(false);
         //NavigationUI.setupWithNavController(
          //       mToolbar, mNavController, appBarConfiguration);
+        setupBasket();
 
 
 
@@ -90,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        //TODO Put this in a different method
         Intent i = getIntent();
         int start_tab = i.getIntExtra("TabToStart", 1);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -120,12 +132,49 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void setupBasket(){
+        mShoppingCart = new ShoppingCart();
+        mShoppingCart.addObserver(this);
+
+        ListView listview = (ListView) findViewById(R.id.basketitemlist);
+        mAdapter = new ListAdapter(this, R.layout.basket_item, mShoppingCart.getItems());
+        listview.setAdapter(mAdapter);
+
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Add the shopping basket to the actionbar
+        mMenu = menu;
         getMenuInflater().inflate(R.menu.toolbarmenuitems, menu);
-        setCount(this, "10", menu); //TODO automate basket count
+        createBasketTests();
         return true;
+    }
+
+
+    public void createBasketTests(){
+        Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+
+
     }
 
 
@@ -137,12 +186,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            //Open drawer when shopping basket is tapper
             case R.id.shoppingBasket:
-                // User chose the "Settings" item, show the app settings UI...
-                //TODO open shoppingbasket when tapped
-                String toastText = "Open Shopping basket";
-                Toast toast = Toast.makeText(this, toastText, Toast.LENGTH_SHORT);
-                toast.show();
                 mDrawerLayout.openDrawer(GravityCompat.END);
                 return true;
 
@@ -159,11 +204,10 @@ public class MainActivity extends AppCompatActivity {
      * Set the count on top of the shopping basket
      * @param context
      * @param count count to be set
-     * @param menu menu in which the count gets changed
      */
-    public void setCount(Context context, String count, Menu menu) {
+    public void setCount(Context context, String count) {
 
-        MenuItem menuItem = menu.findItem(R.id.shoppingBasket);
+        MenuItem menuItem = mMenu.findItem(R.id.shoppingBasket);
         LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
 
         BasketCount badge;
@@ -181,4 +225,14 @@ public class MainActivity extends AppCompatActivity {
         icon.setDrawableByLayerId(R.id.ic_item_count, badge);
     }
 
+    /**
+     * Update count when item is added to shoppingbasket
+     * @param o
+     * @param arg
+     */
+    @Override
+    public void update(Observable o, Object arg) {
+        setCount(this, String.valueOf(mShoppingCart.getCount()));
+        mAdapter.notifyDataSetChanged();
+    }
 }

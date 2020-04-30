@@ -26,5 +26,65 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/basketdrawer"
             tools:layout_editor_absoluteX="7dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:padding="10dp"
+            android:background="@color/colorPrimaryDark"
+
+            >
+
+            <TextView
+                android:id="@+id/total_view_pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total: "
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.507"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/total_view_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:text="10.0 €"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/checkout_button"
+                app:layout_constraintLeft_toRightOf="@+id/total_view_pre"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.507"
+                android:textStyle="bold"
+                />
+
+            <Button
+                android:id="@+id/checkout_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:drawableLeft="@drawable/ic_credit_card_regular"
+                android:drawableTint="#FFFFFF"
+                android:padding="5dp"
+                android:text="Betalen"
+                android:textSize="10dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.navigation.NavigationView>

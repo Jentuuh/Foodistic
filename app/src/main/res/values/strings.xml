@@ -11,6 +11,7 @@
     <string name="secondNavItem">Punten</string>
     <string name="thirdNavItem">Lijstjes</string>
     <string name="fourthNavItem">Profiel</string>
+    <string name="currency">€</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
