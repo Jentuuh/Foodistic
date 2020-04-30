@@ -79,10 +79,7 @@ public class NameShoppingList extends AppCompatActivity {
      * This method switches to the shopping list activity after a shopping list was succesfully made.
      */
     private void showShoppingListActivity(String name){
-        Intent intent = new Intent(this, ShoppingList.class);
-        // Pass the name of the list just made as an extra
-        intent.putExtra(EXTRA_LIST_NAME, name);
-        startActivity(intent);
+        //TODO
     }
 
 }

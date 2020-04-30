@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
           //      new AppBarConfiguration.Builder(navController.getGraph()).build();
 
         AppBarConfiguration appBarConfiguration =
-                new AppBarConfiguration.Builder(R.id.shopFragment, R.id.pointFragment, R.id.listFragment, R.id.profileFragment).build();
+                new AppBarConfiguration.Builder(R.id.shopFragment, R.id.pointFragment, R.id.listCollectionFragment, R.id.profileFragment).build();
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.toolbarmenuitems);
         setSupportActionBar(toolbar);

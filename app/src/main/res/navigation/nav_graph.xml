@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_shop" />
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.example.foodify.ListFragment"
+        android:name="com.example.foodify.ShoppingList.ListFragment"
         android:label="Lijstjes"
         tools:layout="@layout/fragment_list" />
     <fragment
@@ -25,6 +25,11 @@
         android:name="com.example.foodify.ProfileFragment"
         android:label="Profiel"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/listCollectionFragment"
+        android:name="com.example.foodify.ShoppingList.ListCollectionFragment"
+        android:label="ListCollectionFragment"
+        tools:layout="@layout/fragment_list_collection"/>
 
 
 </navigation>
