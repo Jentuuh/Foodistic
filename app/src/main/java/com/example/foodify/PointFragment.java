@@ -5,8 +5,13 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,8 +62,11 @@ public class PointFragment extends Fragment {
     }
 
 
+
+
     public void onActivityCreated(Bundle savedInstanceState) {
 
+        super.onActivityCreated(savedInstanceState);
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_point);
 
@@ -66,7 +74,7 @@ public class PointFragment extends Fragment {
 
 
         // Setup BackButton
-        m_backButton = (ImageButton)getView().findViewById(R.id.button_back);
+        m_backButton = (ImageButton) getView().findViewById(R.id.button_back);
         m_backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,36 +83,36 @@ public class PointFragment extends Fragment {
         });
 
         // Setup TabButtons
-        m_viewButton = (Button)getView().findViewById(R.id.button_view);
-        m_redeemButton = (Button)getView().findViewById(R.id.button_redeem);
-        m_submitButton = (Button)getView().findViewById(R.id.button_submit);
+        m_viewButton = (Button) getView().findViewById(R.id.button_view);
+        m_redeemButton = (Button) getView().findViewById(R.id.button_redeem);
+        m_submitButton = (Button) getView().findViewById(R.id.button_submit);
 
         m_viewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setTab(PointFragment.Tab.VIEW);
+                setTab(Tab.VIEW);
             }
         });
         m_redeemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setTab(PointFragment.Tab.REDEEM);
+                setTab(Tab.REDEEM);
             }
         });
         m_submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setTab(PointFragment.Tab.SUBMIT);
+                setTab(Tab.SUBMIT);
             }
         });
 
         // Get TabsContents
-        m_viewContent = (LinearLayout)getView().findViewById(R.id.linearLayout_view);
-        m_submitContent = (ConstraintLayout)getView().findViewById(R.id.constraintLayout_submit);
+        m_viewContent = (LinearLayout) getView().findViewById(R.id.linearLayout_view);
+        m_submitContent = (ConstraintLayout) getView().findViewById(R.id.constraintLayout_submit);
 
 
         // Setup SendButton
-        m_sendButton = (Button)getView().findViewById(R.id.button_send);
+        m_sendButton = (Button) getView().findViewById(R.id.button_send);
         m_sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,10 +125,10 @@ public class PointFragment extends Fragment {
         m_qrButton.setTypeface(iconFont);
 
         // Get CodeText
-        m_codeText = (EditText)getView().findViewById(R.id.editText_code);
+        m_codeText = (EditText) getView().findViewById(R.id.editText_code);
 
         // Set default tab
-        setTab(PointFragment.Tab.VIEW);
+        setTab(Tab.VIEW);
 
     }
 

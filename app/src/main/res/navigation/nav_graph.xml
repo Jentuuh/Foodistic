@@ -8,22 +8,22 @@
     <fragment
         android:id="@+id/shopFragment"
         android:name="com.example.foodify.ShopFragment"
-        android:label="fragment_main"
+        android:label="Winkel"
         tools:layout="@layout/fragment_shop" />
     <fragment
         android:id="@+id/listFragment"
         android:name="com.example.foodify.ListFragment"
-        android:label="fragment_list"
+        android:label="Lijstjes"
         tools:layout="@layout/fragment_list" />
     <fragment
         android:id="@+id/pointFragment"
         android:name="com.example.foodify.PointFragment"
-        android:label="fragment_point"
+        android:label="Punten"
         tools:layout="@layout/fragment_point" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.foodify.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="Profiel"
         tools:layout="@layout/fragment_profile" />
 
 
