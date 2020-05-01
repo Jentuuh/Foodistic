@@ -41,7 +41,7 @@
                 android:id="@+id/total_view_pre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total: "
+                android:text="Totaal: "
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -57,17 +57,16 @@
                 android:id="@+id/total_view_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="16dp"
                 android:text="10.0 €"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/checkout_button"
                 app:layout_constraintLeft_toRightOf="@+id/total_view_pre"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.507"
-                android:textStyle="bold"
-                />
+                app:layout_constraintVertical_bias="0.507" />
 
             <Button
                 android:id="@+id/checkout_button"

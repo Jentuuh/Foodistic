@@ -20,12 +20,14 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.os.Debug;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -93,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
                 if(destination.getId() == R.id.profileFragment){
                     mToolbar.setVisibility(View.GONE);
                     mBottomNav.setVisibility(View.GONE);
-
                 }
                 else{
                     mToolbar.setVisibility(View.VISIBLE);
@@ -117,6 +118,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
                 fragmentTransaction.replace(R.id.nav_host_fragment, new PointFragment());
                 fragmentTransaction.commitNow();
                 mBottomNav.setSelectedItemId(R.id.pointFragment);
+
+
                 break;
             case 3:
                 fragmentTransaction.replace(R.id.nav_host_fragment, new ListCollectionFragment());
@@ -137,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         mShoppingCart.addObserver(this);
 
         ListView listview = (ListView) findViewById(R.id.basketitemlist);
-        mAdapter = new ListAdapter(this, R.layout.basket_item, mShoppingCart.getItems());
+        mAdapter = new ListAdapter(this, R.layout.basket_item, mShoppingCart);
         listview.setAdapter(mAdapter);
 
 
@@ -225,6 +228,11 @@ public class MainActivity extends AppCompatActivity implements Observer {
         icon.setDrawableByLayerId(R.id.ic_item_count, badge);
     }
 
+
+    private void updateTotalBasket(){
+        TextView total = (TextView) findViewById(R.id.total_view_value);
+        total.setText(String.valueOf(mShoppingCart.getTotal()));
+    }
     /**
      * Update count when item is added to shoppingbasket
      * @param o
@@ -233,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         setCount(this, String.valueOf(mShoppingCart.getCount()));
+        updateTotalBasket();
         mAdapter.notifyDataSetChanged();
     }
 }

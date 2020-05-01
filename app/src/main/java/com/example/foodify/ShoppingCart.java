@@ -13,6 +13,13 @@ public class ShoppingCart extends Observable {
 
     ShoppingCart(){
     mItems = new ArrayList<ProductItem>();
+
+    }
+
+    public void removeByPos(int pos){
+        mItems.remove(pos);
+        setChanged();
+        notifyObservers();
     }
 
     public void addItem(ProductItem item){

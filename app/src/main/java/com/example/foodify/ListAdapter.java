@@ -2,6 +2,8 @@ package com.example.foodify;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.os.Debug;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +20,13 @@ import java.util.List;
 public class ListAdapter extends ArrayAdapter<ProductItem> {
     private int resourceLayout;
     private Context mContext;
-    private List<ProductItem> mListItems;
+    private ShoppingCart mCart;
 
-    public ListAdapter(@NonNull Context context, int resource, List<ProductItem> items) {
-        super(context, resource, items);
+    public ListAdapter(@NonNull Context context, int resource, ShoppingCart cart) {
+        super(context, resource, cart.getItems());
         resourceLayout = resource;
         mContext = context;
-        mListItems = items;
+        mCart = cart;
     }
 
     public View getView(final int position, View convertView, ViewGroup parent){
@@ -50,11 +52,11 @@ public class ListAdapter extends ArrayAdapter<ProductItem> {
             if (prodPrice != null)
                 prodPrice.setText(String.valueOf(item.getPrice()) + " €");
 
+            //add listener to delete a row when delete button is pressed
             view.findViewById(R.id.delete_button).setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View v) {
-                    mListItems.remove(position) ;
+                    mCart.removeByPos(position) ;
                     //TODO ask for confirmation
                     notifyDataSetChanged() ;
                 }
