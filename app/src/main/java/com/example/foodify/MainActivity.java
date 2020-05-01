@@ -146,16 +146,23 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
     }
 
+    /**
+     * When menu is created
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Add the shopping basket to the actionbar
         mMenu = menu;
+        // Add toolbar
         getMenuInflater().inflate(R.menu.toolbarmenuitems, menu);
         createBasketTests();
         return true;
     }
 
-
+    /**
+     * adds 18 carrots to shopping cart
+     */
     public void createBasketTests(){
         Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
         mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
@@ -228,7 +235,9 @@ public class MainActivity extends AppCompatActivity implements Observer {
         icon.setDrawableByLayerId(R.id.ic_item_count, badge);
     }
 
-
+    /**
+     * Update the total amount at the bottom of the shoppingcart
+     */
     private void updateTotalBasket(){
         TextView total = (TextView) findViewById(R.id.total_view_value);
         total.setText(String.valueOf(mShoppingCart.getTotal()));
