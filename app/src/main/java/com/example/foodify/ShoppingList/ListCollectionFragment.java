@@ -102,7 +102,7 @@ public class ListCollectionFragment extends Fragment {
     public void showNameListActivity(){
         //Intent intent = new Intent(getActivity(), NameShoppingListActivity.class);
         //startActivity(intent);
-        //TODO kies welke van de twee ge wilt gebruiken, ge kunt ook omvormen naar fragment en dan da zo replace en in MainActivity navbar en toolbar hiden
+        //TODO Eventueel NameListActivity veranderen naar een FRAGMENT
         NavHostFragment.findNavController(this).navigate(R.id.action_listCollectionFragment_to_nameShoppingListActivity);
 
     }

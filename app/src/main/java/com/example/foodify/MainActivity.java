@@ -110,25 +110,15 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
         switch (start_tab){
             case 1:
-                fragmentTransaction.replace(R.id.nav_host_fragment, new ShopFragment());
-                fragmentTransaction.commitNow();
                 mBottomNav.setSelectedItemId(R.id.shopFragment);
                 break;
             case 2:
-                fragmentTransaction.replace(R.id.nav_host_fragment, new PointFragment());
-                fragmentTransaction.commitNow();
                 mBottomNav.setSelectedItemId(R.id.pointFragment);
-
-
                 break;
             case 3:
-                fragmentTransaction.replace(R.id.nav_host_fragment, new ListCollectionFragment());
-                fragmentTransaction.commitNow();
                 mBottomNav.setSelectedItemId(R.id.listCollectionFragment);
                 break;
             case 4:
-                fragmentTransaction.replace(R.id.nav_host_fragment, new ProfileFragment());
-                fragmentTransaction.commitNow();
                 mBottomNav.setSelectedItemId(R.id.profileFragment);
                 break;
         }

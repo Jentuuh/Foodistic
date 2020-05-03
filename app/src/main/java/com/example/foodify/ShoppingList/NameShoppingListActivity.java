@@ -1,6 +1,7 @@
 package com.example.foodify.ShoppingList;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -46,6 +47,22 @@ public class NameShoppingListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onConfirmClick();
+            }
+        });
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.putExtra("TabToStart", 3);
+                startActivity(intent);
             }
         });
     }
