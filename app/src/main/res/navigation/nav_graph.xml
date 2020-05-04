@@ -14,7 +14,12 @@
         android:id="@+id/listFragment"
         android:name="com.example.foodify.ShoppingList.ListFragment"
         android:label="Lijstjes"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list" >
+        <argument
+            android:name="list_name"
+            app:argType="string"
+            android:defaultValue='"Testlijst"' />
+    </fragment>
     <fragment
         android:id="@+id/pointFragment"
         android:name="com.example.foodify.PointFragment"
@@ -39,6 +44,9 @@
         <action
             android:id="@+id/action_listCollectionFragment_to_nameShoppingListActivity"
             app:destination="@id/nameShoppingListActivity" />
+        <action
+            android:id="@+id/listCollection_to_listFragment"
+            app:destination="@id/listFragment" />
     </fragment>
     <activity
         android:id="@+id/nameShoppingListActivity"

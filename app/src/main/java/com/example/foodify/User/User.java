@@ -16,7 +16,7 @@ public class User {
     /**
      * CONSTRUCTOR
      */
-    User(String name, Date birthday, FoodStyle eating_habits){
+    public User(String name, Date birthday, FoodStyle eating_habits){
         m_name = name;
         m_birthday = birthday;
         m_eating_habits = eating_habits;

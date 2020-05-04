@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,9 +12,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.foodify.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,6 +32,7 @@ public class ListCollectionFragment extends Fragment {
 
     private ListView listcontainer;                     // ListView that contains all the shopping lists to be displayed
     private ArrayList<ShoppingList> lists_to_display;   // Shopping lists that needs to be displayed
+    private ArrayList<String>   m_list_names;           // Names of the shopping lists that need to be displayed
     private ArrayAdapter<String> shop_list_adapter;     // ArrayAdapter that will get the names from the shopping lists and parse them into TextViews for the ListView.
     private FloatingActionButton add_button;            // FAB
 
@@ -49,19 +54,29 @@ public class ListCollectionFragment extends Fragment {
 
         // Load the shopping lists from the database
         lists_to_display = new ArrayList<ShoppingList>();
-        getShoppingLists();
 
         // Put the names of the lists in a new arraylist, for the arrayadapter
-        ArrayList<String> list_names = new ArrayList<String>();
+        m_list_names = new ArrayList<String>();
         for (ShoppingList list:lists_to_display) {
-            list_names.add(list.getName());
+            m_list_names.add(list.getName());
         }
 
-        // Create the arrayadapter and set it for the listcontainer
-        shop_list_adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, list_names);
 
+        // Create the arrayadapter and set it for the listcontainer
+        shop_list_adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, m_list_names);
+
+
+        // Set on click listener for every item in the listview
         listcontainer.setAdapter(shop_list_adapter);
 
+        listcontainer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                openList(view);
+            }
+        });
+
+        // Set on click listener for the FAB
         add_button = (FloatingActionButton) getView().findViewById(R.id.addButton);
 
         add_button.setOnClickListener(new View.OnClickListener() {
@@ -70,33 +85,25 @@ public class ListCollectionFragment extends Fragment {
                 showNameListActivity();
             }
         });
+
+        // Retrieve the shopping lists from database
+        getShoppingLists();
     }
 
 
     @Override
     public void onStart() {
         super.onStart();
-        // Retrieve the shopping lists again (updates might have occured)
         getShoppingLists();
-
-        /**
-         * Redo the adapter stuff
-         */
-        // Put the names of the lists in a new arraylist, for the arrayadapter
-        ArrayList<String> list_names = new ArrayList<String>();
-        for (ShoppingList list:lists_to_display) {
-            list_names.add(list.getName());
-        }
-
-        // Create the arrayadapter and set it for the listcontainer
-        shop_list_adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, list_names);
-
-        listcontainer.setAdapter(shop_list_adapter);
     }
 
 
     private void getShoppingLists(){
         // TODO: retrieve shopping lists from database
+        // TEST
+        lists_to_display.add(new ShoppingList("Testlijst"));
+        m_list_names.add("Testlijst");
+        shop_list_adapter.notifyDataSetChanged();
     }
 
     public void showNameListActivity(){
@@ -120,7 +127,20 @@ public class ListCollectionFragment extends Fragment {
         String listname = ((TextView) selected).getText().toString();
 
         //TODO: Switch fragment to ListFragment
+        loadListFragment(listname);
     }
+
+
+    /**
+     * Changes the displayed fragment to the corresponding list fragment
+     * @param list_name : The name of the shopping list that we want to display a fragment for.
+     */
+    private void loadListFragment(String list_name){
+        Bundle bundle = new Bundle();
+        bundle.putString("listname", list_name);
+        NavHostFragment.findNavController(this).navigate(R.id.listCollection_to_listFragment, bundle);
+    }
+
 
 
     /**
@@ -131,29 +151,14 @@ public class ListCollectionFragment extends Fragment {
 
 
     /**
-     * Adds a shopping list to the listcontainer
-     * @param list_to_add   : The newly created shopping list
-     */
-    public void addShoppingList(ShoppingList list_to_add){
-        lists_to_display.add(list_to_add);
-        addShoppingListDB(list_to_add);
-    }
-
-    /**
-     * Method that updates the database when a new Shopping list was created.
-     * @param list_to_add   : The newly created shopping list
-     */
-    private void addShoppingListDB(ShoppingList list_to_add){
-        // TODO: implement with DB
-    }
-
-    /**
      * Removes a shopping list from the container
      * @param list_to_remove    : The List to be removed
      */
     public void removeShoppingList(ShoppingList list_to_remove){
         lists_to_display.remove(list_to_remove);
-
+        m_list_names.remove(list_to_remove.getName());
+        removeShoppingListDB(list_to_remove);
+        shop_list_adapter.notifyDataSetChanged();
     }
 
     /**

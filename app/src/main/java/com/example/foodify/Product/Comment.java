@@ -13,7 +13,7 @@ public class Comment {
     /**
      * CONSTRUCTOR
      */
-    Comment(User author, String text){
+    public Comment(User author, String text){
         m_author = author;
         m_text = text;
     }
