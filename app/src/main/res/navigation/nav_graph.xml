@@ -45,6 +45,11 @@
         android:name="com.example.foodify.ShoppingList.NameShoppingListActivity"
         android:label="activity_name_shopping_list"
         tools:layout="@layout/activity_name_shopping_list" />
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.foodify.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
 
 
 </navigation>

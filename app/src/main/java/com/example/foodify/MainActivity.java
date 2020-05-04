@@ -151,7 +151,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
     }
 
     /**
-     * adds 18 carrots to shopping cart
+     * temporary method that adds 18 carrots to shopping cart
+     *
      */
     public void createBasketTests(){
         Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
@@ -230,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
      */
     private void updateTotalBasket(){
         TextView total = (TextView) findViewById(R.id.total_view_value);
-        total.setText(String.valueOf(mShoppingCart.getTotal()));
+        total.setText("€ " + String.valueOf(mShoppingCart.getTotal()));
     }
     /**
      * Update count when item is added to shoppingbasket

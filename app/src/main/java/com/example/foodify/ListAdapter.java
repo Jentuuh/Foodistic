@@ -8,10 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.NavHost;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.foodify.Product.ProductItem;
 
@@ -42,7 +48,9 @@ public class ListAdapter extends ArrayAdapter<ProductItem> {
 
             ImageView imgview = (ImageView) view.findViewById(R.id.item_img_view);
             TextView prodName = (TextView) view.findViewById(R.id.item_name_view);
-            TextView prodPrice= (TextView) view.findViewById(R.id.item_price_view);
+            TextView prodPrice = (TextView) view.findViewById(R.id.item_price_view);
+            ImageButton deleteButton = (ImageButton) view.findViewById(R.id.delete_button);
+            ConstraintLayout basketItemContainer = (ConstraintLayout) view.findViewById(R.id.basket_item_container);
 
 
             if (imgview != null)
@@ -50,15 +58,25 @@ public class ListAdapter extends ArrayAdapter<ProductItem> {
             if (prodName !=null)
                 prodName.setText(item.getName());
             if (prodPrice != null)
-                prodPrice.setText(String.valueOf(item.getPrice()) + " €");
+                prodPrice.setText("€ " + String.valueOf(item.getPrice()));
 
+
+            //add listener to container of item in shopping cart to open the item fragment
+            basketItemContainer.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    //TODO Open item fragment once item is pressed
+                    Log.v("ListAdapter", "Open the item page here");
+
+                }
+            });
             //add listener to delete a row when delete button is pressed
-            view.findViewById(R.id.delete_button).setOnClickListener(new View.OnClickListener() {
+            deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mCart.removeByPos(position) ;
                     //TODO ask for confirmation
-                    notifyDataSetChanged() ;
+                    notifyDataSetChanged();
                 }
             });
         }
