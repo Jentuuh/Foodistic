@@ -5,7 +5,7 @@ import androidx.room.*;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.foodify.Database.UserEntity;
+import com.example.foodify.Database.Entities.UserEntity;
 
 
 /**
