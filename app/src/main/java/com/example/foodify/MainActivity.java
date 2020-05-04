@@ -80,10 +80,12 @@ public class MainActivity extends AppCompatActivity implements Observer {
         mToolbar = findViewById(R.id.toolbar);
         mToolbar.inflateMenu(R.menu.toolbarmenuitems);
         setSupportActionBar(mToolbar);
-       // ActionBar actionBar = getSupportActionBar();
+
+
+        //ActionBar actionBar = getSupportActionBar();
         //actionBar.setDisplayShowHomeEnabled(false);
-        //NavigationUI.setupWithNavController(
-         //       mToolbar, mNavController, appBarConfiguration);
+        NavigationUI.setupWithNavController(
+                mToolbar, mNavController, appBarConfiguration);
         setupBasket();
 
 
@@ -93,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 if(destination.getId() == R.id.profileFragment){
-                    mToolbar.setVisibility(View.GONE);
+                    //mToolbar.setVisibility(View.GONE);
                     mBottomNav.setVisibility(View.GONE);
                 }
                 else{
@@ -174,7 +176,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
         mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
         mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
         mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-
 
     }
 

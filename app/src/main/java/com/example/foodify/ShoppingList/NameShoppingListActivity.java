@@ -79,6 +79,14 @@ public class NameShoppingListActivity extends AppCompatActivity {
         }
     }
 
+
+    /**
+     * ////////////////
+     * DATABASE METHODS
+     * ////////////////
+     */
+
+
     /**
      * Method that creates a new shopping list and inserts it into the database.
      * @param name : The name of the shopping list
