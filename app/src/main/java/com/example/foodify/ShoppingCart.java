@@ -4,6 +4,7 @@ import com.example.foodify.Product.ProductItem;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import androidx.navigation.Navigation;
 
 /**
  * Class to represent the shopping cart
