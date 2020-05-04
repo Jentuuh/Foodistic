@@ -1,10 +1,13 @@
 package com.example.foodify.Database;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import androidx.room.*;
 
-@Entity
+
+/**
+ * @author jentevandersanden
+ * Class that represents the row ReminderEntity in the table Reminders */
+@Entity(tableName = "Users")
 public class UserEntity {
     @PrimaryKey @NonNull
     public String primKey;
