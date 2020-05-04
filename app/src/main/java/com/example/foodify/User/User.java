@@ -19,7 +19,7 @@ public class User {
     /**
      * CONSTRUCTOR
      */
-    User(String firstname, String name, Date birthday, FoodStyle eating_habits, String address){
+    public User(String firstname, String name, Date birthday, FoodStyle eating_habits, String address){
         mFirstName = firstname;
         mName = name;
         mBirthday = birthday;

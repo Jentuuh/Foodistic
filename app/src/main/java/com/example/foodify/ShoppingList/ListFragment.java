@@ -100,7 +100,7 @@ public class ListFragment extends Fragment {
         // TODO: retrieve data from DB
         m_list_to_display = new ShoppingList(m_list_name);
         ArrayList<Comment> comments = new ArrayList<>();
-        comments.add(new Comment(new User("testuser", new Date(11052019), FoodStyle.OMNIVORE ),"This is a tescomment"));
+        comments.add(new Comment(new User("testuser", "test", new Date(11052019), FoodStyle.OMNIVORE, "test"),"This is a tescomment"));
         Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
         m_list_to_display.addItem(new ProductItem("Jonagold Apples", 2.5f, "These are the best premium apples you can get.", 50.4f, comments, img ));
     }
