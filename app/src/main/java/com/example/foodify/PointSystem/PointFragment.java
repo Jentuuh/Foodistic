@@ -123,7 +123,6 @@ public class PointFragment extends Fragment {
         openPromotionIntent.putExtra("SHOP_NAME", shopPoint.getName());
         openPromotionIntent.putExtra("SHOP_POINTS", shopPoint.getPoints());
         startActivity(openPromotionIntent);
-
     }
 
     private int getRandomInt(int min, int max) {

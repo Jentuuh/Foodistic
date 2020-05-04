@@ -24,11 +24,13 @@ public class UserEntity {
     @ColumnInfo(name = "lastname")
     private String lastname;
 
-    @ColumnInfo(name = "birthday")
-    private Date birthday;
+    // TODO: type converter
+    // @ColumnInfo(name = "birthday")
+    // private Date birthday;
 
-    @ColumnInfo(name = "foodstyle")
-    private FoodStyle foodstyle;
+    // TODO: type converter
+    // @ColumnInfo(name = "foodstyle")
+    // private FoodStyle foodstyle;
 
     @ColumnInfo(name = "address")
     private String address;
@@ -61,7 +63,7 @@ public class UserEntity {
         this.lastname = lastname;
     }
 
-    public Date getBirthday() {
+    /*public Date getBirthday() {
         return birthday;
     }
 
@@ -75,7 +77,7 @@ public class UserEntity {
 
     public void setFoodstyle(FoodStyle foodstyle) {
         this.foodstyle = foodstyle;
-    }
+    }*/
 
     public String getAddress() {
         return address;

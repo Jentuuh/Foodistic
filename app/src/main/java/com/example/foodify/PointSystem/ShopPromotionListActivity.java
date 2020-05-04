@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -64,6 +65,10 @@ public class ShopPromotionListActivity extends AppCompatActivity {
 
         shopPromotionView = (ListView) findViewById(R.id.listView_shop_promotion_list);
         shopPromotionView.setAdapter(adapter);
+        shopPromotionView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View v, int position, long id) { onPromotionPress(position); }
+        });
     }
     @SuppressLint("SetTextI18n")
     private void handleIntent() {
@@ -84,6 +89,9 @@ public class ShopPromotionListActivity extends AppCompatActivity {
      * Callback functions which handles what needs to happen when promotion button is clicked
      */
     private void onPromotionPress(int position) {
-
+        ShopPromotion shopPromotion = shopPromotionList.get(position);
+        Intent openBarcodeIntent = new Intent(this, BarcodeActivity.class);
+        openBarcodeIntent.putExtra("PROMOTION_NAME", shopPromotion.getName());
+        startActivity(openBarcodeIntent);
     }
 }
