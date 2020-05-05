@@ -10,10 +10,10 @@ import androidx.navigation.Navigation;
  * Class to represent the shopping cart
  */
 public class ShoppingCart extends Observable {
-    private ArrayList<ProductItem> mItems;
+    private ArrayList<ShoppingCartItem> mItems;
 
     ShoppingCart(){
-    mItems = new ArrayList<ProductItem>();
+    mItems = new ArrayList<ShoppingCartItem>();
 
     }
 
@@ -22,9 +22,20 @@ public class ShoppingCart extends Observable {
      * @param pos
      */
     public void removeByPos(int pos){
-        mItems.remove(pos);
+        ShoppingCartItem item = mItems.get(pos);
+        if (item.getQuantity() > 1){
+            item.removeOne();
+        }
+        else{   // if theres only one left
+            mItems.remove(pos); //TODO maybe ask for confirmation
+        }
         setChanged();
         notifyObservers();
+    }
+
+    public void addByPos(int pos){
+        if(mItems.get(pos) != null)
+            mItems.get(pos).addOne();
     }
 
     /**
@@ -32,7 +43,17 @@ public class ShoppingCart extends Observable {
      * @param item
      */
     public void addItem(ProductItem item){
-        mItems.add(item);
+        for(ShoppingCartItem i : mItems){
+            if (i.getItem().getName().equals(item.getName())){ // if there's an item in the cart with the same name
+                i.addOne(); // quantity += 1
+                setChanged();
+                notifyObservers();
+                return;
+            }
+        }
+        //if item is not in the cart
+        ShoppingCartItem cartItem = new ShoppingCartItem(item);
+        mItems.add(cartItem);
         setChanged();
         notifyObservers();
     }
@@ -43,8 +64,8 @@ public class ShoppingCart extends Observable {
      */
     public float getTotal(){
         float total = 0;
-        for( ProductItem i : mItems){
-            total += i.getPrice();
+        for( ShoppingCartItem i : mItems){
+            total += (i.getItem().getPrice() * i.getQuantity());
         }
         return total;
     }
@@ -61,7 +82,7 @@ public class ShoppingCart extends Observable {
      * get items in shoppingcart
      * @return
      */
-    public ArrayList<ProductItem> getItems(){
+    public ArrayList<ShoppingCartItem> getItems(){
         return mItems;
     }
 }

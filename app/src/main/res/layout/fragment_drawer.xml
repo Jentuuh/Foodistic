@@ -53,35 +53,58 @@
                 android:textStyle="bold"
                 />
 
+
             <TextView
                 android:id="@+id/total_view_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="40dp"
                 android:text="10.0 €"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/checkout_button"
+                app:layout_constraintEnd_toStartOf="@+id/pay_container"
                 app:layout_constraintLeft_toRightOf="@+id/total_view_pre"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.507" />
+                app:layout_constraintVertical_bias="0.533" />
 
-            <Button
-                android:id="@+id/checkout_button"
+            <LinearLayout
+                android:id="@+id/pay_container"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimary"
-                android:drawableLeft="@drawable/ic_credit_card_regular"
-                android:drawableTint="#FFFFFF"
-                android:padding="5dp"
-                android:text="Betalen"
-                android:textSize="10dp"
-                android:textStyle="bold"
+                android:layout_height="37dp"
+                android:gravity="center"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/colorAccent"
+
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Betalen"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="5dp"
+                    >
+
+                </TextView>
+
+                <ImageView
+                    android:id="@+id/checkout_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_credit_card_regular"
+                    android:tint="#FFFFFF"
+
+
+                    />
+            </LinearLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

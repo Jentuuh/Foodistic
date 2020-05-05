@@ -22,9 +22,13 @@
     </fragment>
     <fragment
         android:id="@+id/pointFragment"
-        android:name="com.example.foodify.PointFragment"
+        android:name="com.example.foodify.PointSystem.PointFragment"
         android:label="Punten"
-        tools:layout="@layout/fragment_point" />
+        tools:layout="@layout/fragment_point" >
+        <action
+            android:id="@+id/action_pointFragment_to_shopPromotionActivity4"
+            app:destination="@id/shopPromotionActivity" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.foodify.ProfileFragment"
@@ -58,6 +62,11 @@
         android:name="com.example.foodify.LoginActivity"
         android:label="activity_login"
         tools:layout="@layout/activity_login" />
+    <activity
+        android:id="@+id/shopPromotionActivity"
+        android:name="com.example.foodify.PointSystem.ShopPromotionListActivity"
+        android:label="Shop Promoties"
+        tools:layout="@layout/activity_shop_promotion_list" />
 
 
 </navigation>
