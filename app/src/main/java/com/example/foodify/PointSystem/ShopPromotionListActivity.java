@@ -2,22 +2,29 @@ package com.example.foodify.PointSystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.foodify.MainActivity;
 import com.example.foodify.R;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 
 public class ShopPromotionListActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
     private TextView shopName;
     private TextView shopPoints;
 
@@ -34,12 +41,40 @@ public class ShopPromotionListActivity extends AppCompatActivity {
         // Toolbar
         setupToolbar();
         setupPromotionList();
-        handleIntent();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.pointbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        final MenuItem pointItem = menu.findItem(R.id.points_icon);
+        ConstraintLayout rootView = (ConstraintLayout) pointItem.getActionView();
+        shopPoints = (TextView) rootView.getChildAt(0);
+
+        // Set shop points by intent
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        // If data was send
+        if (extras != null)
+            shopPoints.setText(String.valueOf(extras.getInt("SHOP_POINTS")));
+
+        return super.onPrepareOptionsMenu(menu);
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Set shop name by intent
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        // If data was send
+        if (extras != null)
+            getSupportActionBar().setTitle(extras.getString("SHOP_NAME"));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -69,20 +104,6 @@ public class ShopPromotionListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) { onPromotionPress(position); }
         });
-    }
-    @SuppressLint("SetTextI18n")
-    private void handleIntent() {
-        Intent intent = getIntent();
-        shopName = (TextView)findViewById(R.id.textView_shop_name);
-        shopPoints = (TextView)findViewById(R.id.textView_shop_points);
-
-        Bundle extras = intent.getExtras();
-        // If data was send
-        if (extras != null) {
-            // Set layout
-            shopName.setText(extras.getString("SHOP_NAME"));
-            shopPoints.setText(Integer.toString(extras.getInt("SHOP_POINTS")));
-        }
     }
 
     /**

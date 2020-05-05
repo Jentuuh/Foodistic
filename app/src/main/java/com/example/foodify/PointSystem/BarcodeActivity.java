@@ -12,7 +12,7 @@ import com.example.foodify.R;
 
 public class BarcodeActivity extends AppCompatActivity {
 
-    private TextView barcodeName;
+    private Toolbar  toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +20,18 @@ public class BarcodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_barcode);
 
         setupToolbar();
-        setupPromotionName();
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+
+        // Set promotion name via intent
+        Bundle extras = intent.getExtras();
+        if (extras != null)
+            getSupportActionBar().setTitle(extras.getString("PROMOTION_NAME"));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -34,18 +40,5 @@ public class BarcodeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) { finish(); }
         });
-    }
-
-    private void setupPromotionName() {
-        Intent intent = getIntent();
-
-        barcodeName = (TextView)findViewById(R.id.textView_barcode_name);
-
-        Bundle extras = intent.getExtras();
-        // If data was send
-        if (extras != null) {
-            // Set layout
-            barcodeName.setText(extras.getString("PROMOTION_NAME"));
-        }
     }
 }
