@@ -35,8 +35,7 @@ public class ListFragment extends Fragment {
     private String m_list_name;
     private ListView m_productcontainer;
     private ShoppingList m_list_to_display;
-    private ArrayList<String> m_product_names;
-    private ListAdapter adapter;
+    private ShopListAdapter adapter;
 
 
     @Override
@@ -69,7 +68,7 @@ public class ListFragment extends Fragment {
         // Retrieve list container from layout
         m_productcontainer = (ListView) getView().findViewById(R.id.ListItemView);
 
-        adapter = new ListAdapter(getActivity(), R.layout.basket_item, m_list_to_display);
+        adapter = new ShopListAdapter(getActivity(), R.layout.basket_item, m_list_to_display);
 
         // Set the adapter for the listcontainer
         m_productcontainer.setAdapter(adapter);

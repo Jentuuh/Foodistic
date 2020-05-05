@@ -19,10 +19,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.foodify.Database.AppDatabase;
+import com.example.foodify.Database.Entities.ShoppingListEntity;
 import com.example.foodify.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author jentevandersanden
@@ -93,17 +96,10 @@ public class ListCollectionFragment extends Fragment {
     public void onStart() {
         super.onStart();
         getShoppingLists();
-    }
-
-
-    private void getShoppingLists(){
-        // TODO: retrieve shopping lists from database
-        // TODO : DON'T FORGET TO SETOBSERVER FOR SHOPPINGLIST
-        // TEST
-        lists_to_display.add(new ShoppingList("Testlijst"));
-        m_list_names.add("Testlijst");
         shop_list_adapter.notifyDataSetChanged();
     }
+
+
 
     public void showNameListActivity(){
         //Intent intent = new Intent(getActivity(), NameShoppingListActivity.class);
@@ -149,6 +145,34 @@ public class ListCollectionFragment extends Fragment {
      */
 
 
+
+    private void getShoppingLists(){
+        // TODO : DON'T FORGET TO SETOBSERVER FOR SHOPPINGLIST
+
+        // Retrieve the shopping lists from the database
+        AppDatabase db = AppDatabase.getDatabase(getActivity());
+        List<ShoppingListEntity>  lists_from_db = db.m_foodisticDAO().getAllShoppingLists();
+        // Parse the database data to actual objects that we can use in our code
+        parseFromDBToObjects(lists_from_db);
+
+
+        // TEST DATA
+        lists_to_display.add(new ShoppingList("Testlijst"));
+        m_list_names.add("Testlijst");
+        shop_list_adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Method that parses a list of ShoppingListEntity objects retrieved from a db into actual ShoppingList objects.
+     * @param db_lists : the list retrieved from the db
+     */
+    private void parseFromDBToObjects(List<ShoppingListEntity> db_lists){
+        for(ShoppingListEntity list : db_lists){
+            lists_to_display.add(new ShoppingList(list.getName()));
+            m_list_names.add(list.getName());
+        }
+    }
+
     /**
      * Removes a shopping list from the container
      * @param list_to_remove    : The List to be removed
@@ -165,7 +189,8 @@ public class ListCollectionFragment extends Fragment {
      * @param list_to_remove    : The List to be removed
      */
     private void removeShoppingListDB(ShoppingList list_to_remove){
-        // TODO: implement with DB
+        AppDatabase db = AppDatabase.getDatabase(getActivity());
+        db.m_foodisticDAO().deleteShoppingList(list_to_remove.getName());
     }
 
 

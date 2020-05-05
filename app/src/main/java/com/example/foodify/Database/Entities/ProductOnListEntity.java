@@ -10,8 +10,8 @@ import androidx.room.PrimaryKey;
 /**
  * @author jentevandersanden
  * Class that represents the row ProductOnListEntity in the table ProductsOnList*/
-@Entity(tableName = "ProductsOnList", foreignKeys = { @ForeignKey(entity = ProductEntity.class, parentColumns = "productname" , childColumns = "name", onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.CASCADE)
-                                                    , @ForeignKey(entity = ShoppingListEntity.class, parentColumns = "listname", childColumns = "name", onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.CASCADE)})
+@Entity(tableName = "ProductsOnList", foreignKeys = { @ForeignKey(entity = ProductEntity.class, parentColumns = "ID" , childColumns = "productid", onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.CASCADE)
+                                                    , @ForeignKey(entity = ShoppingListEntity.class, parentColumns = "ID", childColumns = "listID", onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.CASCADE)})
 public class ProductOnListEntity {
 
     /** Columns */
@@ -19,11 +19,14 @@ public class ProductOnListEntity {
     @NonNull
     private String ID;
 
-    @ColumnInfo(name = "productname")
-    private String productname;
+    @ColumnInfo(name = "productid")
+    private String productid;
 
-    @ColumnInfo(name = "listname")
-    private String listname;
+    @ColumnInfo(name = "quantity")
+    private int quantity;
+
+    @ColumnInfo(name = "listID")
+    private String listID;
 
     /**
      * GETTERS AND SETTERS
@@ -38,19 +41,29 @@ public class ProductOnListEntity {
         this.ID = ID;
     }
 
-    public String getProductname() {
-        return productname;
+
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setProductname(String productname) {
-        this.productname = productname;
+    public String getProductid() {
+        return productid;
     }
 
-    public String getListname() {
-        return listname;
+    public void setProductid(String productid) {
+        this.productid = productid;
     }
 
-    public void setListname(String listname) {
-        this.listname = listname;
+    public String getListID() {
+        return listID;
     }
+
+    public void setListID(String listID) {
+        this.listID = listID;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
 }

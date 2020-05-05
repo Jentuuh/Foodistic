@@ -5,6 +5,9 @@ import androidx.room.*;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.foodify.Database.Entities.ProductEntity;
+import com.example.foodify.Database.Entities.ProductOnListEntity;
+import com.example.foodify.Database.Entities.ShoppingListEntity;
 import com.example.foodify.Database.Entities.UserEntity;
 
 
@@ -12,14 +15,14 @@ import com.example.foodify.Database.Entities.UserEntity;
  * @author jentevandersanden
  * Abstract class that represents the database holder for the database
  */
-@Database(entities = {UserEntity.class}, version = 2)
+@Database(entities = {UserEntity.class, ShoppingListEntity.class, ProductOnListEntity.class, ProductEntity.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
 
     // Singleton instance of the database
     private static AppDatabase INSTANCE;
     public abstract foodisticDAO m_foodisticDAO();
 
-    public static AppDatabase getReminderDatabase(Context context){
+    public static AppDatabase getDatabase(Context context){
         if (INSTANCE == null) {
             INSTANCE =
                     Room.databaseBuilder(context.getApplicationContext(),

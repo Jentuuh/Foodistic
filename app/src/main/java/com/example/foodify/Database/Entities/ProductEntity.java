@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.example.foodify.Enums.FoodStyle;
@@ -32,11 +33,11 @@ public class ProductEntity {
     @ColumnInfo(name = "description")
     private String description;
 
-    @ColumnInfo(name = "likability")
-    private FoodStyle likability;
-
-    @ColumnInfo(name = "img")
-    private Drawable img;
+//    @ColumnInfo(name = "likability")
+//    private FoodStyle likability;
+//
+//    @ColumnInfo(name = "img")
+//    private Drawable img;
 
 
     /**
@@ -76,19 +77,19 @@ public class ProductEntity {
         this.description = description;
     }
 
-    public FoodStyle getLikability() {
-        return likability;
-    }
-
-    public void setLikability(FoodStyle likability) {
-        this.likability = likability;
-    }
-
-    public Drawable getImg() {
-        return img;
-    }
-
-    public void setImg(Drawable img) {
-        this.img = img;
-    }
+//    public FoodStyle getLikability() {
+//        return likability;
+//    }
+//
+//    public void setLikability(FoodStyle likability) {
+//        this.likability = likability;
+//    }
+//
+//    public Drawable getImg() {
+//        return img;
+//    }
+//
+//    public void setImg(Drawable img) {
+//        this.img = img;
+//    }
 }
