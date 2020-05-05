@@ -19,6 +19,9 @@ import android.view.LayoutInflater;
 
 import android.view.ViewGroup;
 
+import com.example.foodify.Database.AppDatabase;
+import com.example.foodify.Database.Entities.ShoppingListEntity;
+import com.example.foodify.Database.RNG;
 import com.example.foodify.LoginActivity;
 import com.example.foodify.MainActivity;
 import com.example.foodify.R;
@@ -92,8 +95,16 @@ public class NameShoppingListActivity extends AppCompatActivity {
      * @param name : The name of the shopping list
      */
     private void createShoppingList(String name){
-        // TODO: implement with database that a new shopping list with a certain name is created
+        // Retrieve db instance
+        AppDatabase db = AppDatabase.getDatabase(this);
+        ShoppingListEntity to_add = new ShoppingListEntity();
 
+        // Set name and ID
+        to_add.setID(Integer.toString(RNG.generateID()));
+        to_add.setName(name);
+
+        // Add entity to db
+        db.m_foodisticDAO().createShoppingList(to_add);
     }
 
     /**

@@ -36,6 +36,7 @@ public class ListAdapter extends ArrayAdapter<ShoppingCartItem> {
         mCart = cart;
     }
 
+
     public View getView(final int position, View convertView, ViewGroup parent){
         View view = convertView;
         if(view == null){
@@ -101,9 +102,16 @@ public class ListAdapter extends ArrayAdapter<ShoppingCartItem> {
          /*   deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mCart.removeByPos(position) ;
-                    //TODO ask for confirmation
-                    notifyDataSetChanged();
+                    if(mList == null){
+                        mCart.removeByPos(position);
+                        //TODO ask for confirmation
+                        notifyDataSetChanged();
+                    }
+                    else{
+                        mList.removeByPosition(position);
+                        // TODO ask for confirmation
+                        notifyDataSetChanged();
+                    }
                 }
             });
 

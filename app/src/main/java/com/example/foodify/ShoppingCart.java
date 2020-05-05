@@ -36,6 +36,8 @@ public class ShoppingCart extends Observable {
     public void addByPos(int pos){
         if(mItems.get(pos) != null)
             mItems.get(pos).addOne();
+        setChanged();
+        notifyObservers();
     }
 
     /**
