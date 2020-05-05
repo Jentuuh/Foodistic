@@ -47,7 +47,6 @@ public class ListFragment extends Fragment {
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
-
         super.onActivityCreated(savedInstanceState);
         super.onCreate(savedInstanceState);
 
