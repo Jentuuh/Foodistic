@@ -66,10 +66,10 @@ public class MainActivity extends AppCompatActivity implements Observer {
         mBottomNav = findViewById(R.id.bottom_nav);
         NavigationUI.setupWithNavController(mBottomNav, mNavController);
 
-        //App bar setup
-
-        //AppBarConfiguration appBarConfiguration =
-          //      new AppBarConfiguration.Builder(navController.getGraph()).build();
+//        //App bar setup
+//
+//        AppBarConfiguration appBarConfiguration1 =
+//                new AppBarConfiguration.Builder(mNavController.getGraph()).build();
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 

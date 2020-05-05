@@ -86,8 +86,6 @@ public class ListCollectionFragment extends Fragment {
             }
         });
 
-        // Retrieve the shopping lists from database
-        getShoppingLists();
     }
 
 
@@ -100,6 +98,7 @@ public class ListCollectionFragment extends Fragment {
 
     private void getShoppingLists(){
         // TODO: retrieve shopping lists from database
+        // TODO : DON'T FORGET TO SETOBSERVER FOR SHOPPINGLIST
         // TEST
         lists_to_display.add(new ShoppingList("Testlijst"));
         m_list_names.add("Testlijst");

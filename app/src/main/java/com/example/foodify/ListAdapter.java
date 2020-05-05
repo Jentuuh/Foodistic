@@ -20,6 +20,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.foodify.Product.ProductItem;
+import com.example.foodify.ShoppingList.ShoppingList;
 
 import java.util.List;
 
@@ -27,12 +28,22 @@ public class ListAdapter extends ArrayAdapter<ProductItem> {
     private int resourceLayout;
     private Context mContext;
     private ShoppingCart mCart;
+    private ShoppingList mList;
 
     public ListAdapter(@NonNull Context context, int resource, ShoppingCart cart) {
         super(context, resource, cart.getItems());
         resourceLayout = resource;
         mContext = context;
         mCart = cart;
+        mList = null;
+    }
+
+    public ListAdapter(@NonNull Context context, int resource, ShoppingList mList) {
+        super(context, resource);
+        this.resourceLayout = resource;
+        this.mContext = context;
+        this.mList = mList;
+        mCart = null;
     }
 
     public View getView(final int position, View convertView, ViewGroup parent){
@@ -74,9 +85,16 @@ public class ListAdapter extends ArrayAdapter<ProductItem> {
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mCart.removeByPos(position) ;
-                    //TODO ask for confirmation
-                    notifyDataSetChanged();
+                    if(mList == null){
+                        mCart.removeByPos(position);
+                        //TODO ask for confirmation
+                        notifyDataSetChanged();
+                    }
+                    else{
+                        mList.removeByPosition(position);
+                        // TODO ask for confirmation
+                        notifyDataSetChanged();
+                    }
                 }
             });
         }
