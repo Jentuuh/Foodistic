@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.foodify.Product.ProductItem;
@@ -53,7 +54,7 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
                 TextView prodQuantity = (TextView) view.findViewById(R.id.prod_quantity);
                 ImageView plus = (ImageView) view.findViewById(R.id.imgPlus);
                 ImageView minus = (ImageView) view.findViewById(R.id.imgMinus);
-                ConstraintLayout basketItemContainer = (ConstraintLayout) view.findViewById(R.id.basket_item_container);
+                CardView basketItemContainer = (CardView) view.findViewById(R.id.basket_item_container);
 
 
                 if (imgview != null)

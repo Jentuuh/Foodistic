@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,9 +35,8 @@ import java.util.List;
 public class ListCollectionFragment extends Fragment {
 
     private ListView listcontainer;                     // ListView that contains all the shopping lists to be displayed
-    private ArrayList<ShoppingList> lists_to_display;   // Shopping lists that needs to be displayed
-    private ArrayList<String>   m_list_names;           // Names of the shopping lists that need to be displayed
-    private ArrayAdapter<String> shop_list_adapter;     // ArrayAdapter that will get the names from the shopping lists and parse them into TextViews for the ListView.
+    private List<ShoppingList> lists_to_display;   // Shopping lists that needs to be displayed
+    private ListCollectionAdapter shop_list_adapter;    // ArrayAdapter that will get the names from the shopping lists and parse them into TextViews for the ListView.
     private FloatingActionButton add_button;            // FAB
 
     @Override
@@ -52,32 +52,19 @@ public class ListCollectionFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         super.onCreate(savedInstanceState);
 
-        // Retrieve list container from layout
         listcontainer = (ListView) getView().findViewById(R.id.ShoppingListView);
 
         // Load the shopping lists from the database
         lists_to_display = new ArrayList<ShoppingList>();
 
-        // Put the names of the lists in a new arraylist, for the arrayadapter
-        m_list_names = new ArrayList<String>();
-        for (ShoppingList list:lists_to_display) {
-            m_list_names.add(list.getName());
-        }
-
-
+        getShoppingLists();
         // Create the arrayadapter and set it for the listcontainer
-        shop_list_adapter = new ArrayAdapter<String>(getActivity(), R.layout.listitem, m_list_names);
+        shop_list_adapter = new ListCollectionAdapter(getActivity(), R.layout.listitem, lists_to_display);
 
 
-        // Set on click listener for every item in the listview
+        // Set adapter for the listview
         listcontainer.setAdapter(shop_list_adapter);
 
-        listcontainer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                openList(view);
-            }
-        });
 
         // Set on click listener for the FAB
         add_button = (FloatingActionButton) getView().findViewById(R.id.addButton);
@@ -93,10 +80,11 @@ public class ListCollectionFragment extends Fragment {
 
 
     @Override
-    public void onStart() {
+    public void onStart() {        // Retrieve list container from layout
         super.onStart();
         getShoppingLists();
         shop_list_adapter.notifyDataSetChanged();
+        Log.v ("Test", "Listcollectionfragment started");
     }
 
 
@@ -155,11 +143,8 @@ public class ListCollectionFragment extends Fragment {
         // Parse the database data to actual objects that we can use in our code
         parseFromDBToObjects(lists_from_db);
 
-
         // TEST DATA
         lists_to_display.add(new ShoppingList("Testlijst"));
-        m_list_names.add("Testlijst");
-        shop_list_adapter.notifyDataSetChanged();
     }
 
     /**
@@ -169,7 +154,6 @@ public class ListCollectionFragment extends Fragment {
     private void parseFromDBToObjects(List<ShoppingListEntity> db_lists){
         for(ShoppingListEntity list : db_lists){
             lists_to_display.add(new ShoppingList(list.getName()));
-            m_list_names.add(list.getName());
         }
     }
 
@@ -179,7 +163,6 @@ public class ListCollectionFragment extends Fragment {
      */
     public void removeShoppingList(ShoppingList list_to_remove){
         lists_to_display.remove(list_to_remove);
-        m_list_names.remove(list_to_remove.getName());
         removeShoppingListDB(list_to_remove);
         shop_list_adapter.notifyDataSetChanged();
     }
