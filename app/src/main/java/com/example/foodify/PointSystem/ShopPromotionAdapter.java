@@ -23,7 +23,9 @@ public class ShopPromotionAdapter extends ArrayAdapter<ShopPromotion> {
 
     private ImageView image;
     private TextView name;
+
     private TextView points;
+    private ImageView coins;
 
     public ShopPromotionAdapter(@NonNull Context context, ArrayList<ShopPromotion> list) {
         super(context, 0, list);
@@ -45,12 +47,16 @@ public class ShopPromotionAdapter extends ArrayAdapter<ShopPromotion> {
         // Get layout
         image = (ImageView) shopPromotionItem.findViewById(R.id.imageView_promotion_image);
         name = (TextView) shopPromotionItem.findViewById(R.id.textView_promotion_name);
+
         points = (TextView) shopPromotionItem.findViewById(R.id.textView_promotion_points);
+        coins = (ImageView) shopPromotionItem.findViewById(R.id.imageView_coins2);
 
         // Set layout
         image.setImageResource(currentShopPromotion.getImage());
         name.setText(currentShopPromotion.getName());
+
         points.setText(Integer.toString(currentShopPromotion.getPoints()));
+        coins.setImageResource(R.drawable.ic_coins_solid);
 
         return shopPromotionItem;
     }

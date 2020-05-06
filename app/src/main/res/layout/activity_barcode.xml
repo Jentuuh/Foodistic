@@ -18,22 +18,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="#FFFFFF" />
 
-    <TextView
-        android:id="@+id/textView.barcode_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/buttonBlueActive"
-        android:gravity="center_horizontal|center_vertical"
-        android:padding="10dp"
-        android:text="name"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:ignore="HardcodedText" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"

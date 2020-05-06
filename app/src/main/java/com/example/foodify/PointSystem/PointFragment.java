@@ -157,10 +157,10 @@ public class PointFragment extends Fragment {
     private void setupViewTab() {
         shopPointList = new ArrayList<ShopPoint>();
         //TODO: get from DB
-        shopPointList.add(new ShopPoint("Colruyt", 20));
-        shopPointList.add(new ShopPoint("Carrefour", 0));
-        shopPointList.add(new ShopPoint("Okay", 10));
-        shopPointList.add(new ShopPoint("Delhaize", 120));
+        shopPointList.add(new ShopPoint(R.drawable.colruyt, "Colruyt", 20));
+        shopPointList.add(new ShopPoint(R.drawable.carrefour,"Carrefour", 0));
+        shopPointList.add(new ShopPoint(R.drawable.okay,"Okay", 15));
+        shopPointList.add(new ShopPoint(R.drawable.delhaize,"Delhaize", 40));
 
         adapter = new ShopPointAdapter(this.requireContext(), shopPointList);
 

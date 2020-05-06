@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ public class ShopPointAdapter extends ArrayAdapter<ShopPoint> {
     private Context context;
     private List<ShopPoint> shopPointList;
 
+    private ImageView logo;
     private TextView shopName;
     private TextView points;
 
@@ -39,12 +41,14 @@ public class ShopPointAdapter extends ArrayAdapter<ShopPoint> {
         final ShopPoint currentShopPoint = shopPointList.get(position);
 
         // Get layout
+        logo = (ImageView) shopPointItem.findViewById(R.id.imageView_shop_icon);
         shopName = (TextView) shopPointItem.findViewById(R.id.textView_shop_list_name);
         points = (TextView) shopPointItem.findViewById(R.id.textView_points);
 
         // Set layout
+        logo.setImageResource(currentShopPoint.getLogo());
         shopName.setText(currentShopPoint.getName().toUpperCase());
-        points.setText(currentShopPoint.getPoints() + "/10");
+        points.setText(Integer.toString(currentShopPoint.getPoints()));
 
         return shopPointItem;
     }
