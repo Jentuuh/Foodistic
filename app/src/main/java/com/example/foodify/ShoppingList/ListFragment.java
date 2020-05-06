@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.foodify.Database.AppDatabase;
+import com.example.foodify.Database.Entities.ProductEntity;
+import com.example.foodify.Database.Entities.ProductOnListEntity;
 import com.example.foodify.Enums.FoodStyle;
 import com.example.foodify.Product.Comment;
 import com.example.foodify.Product.ProductItem;
@@ -19,6 +22,7 @@ import com.example.foodify.User.User;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -57,7 +61,7 @@ public class ListFragment extends Fragment {
         // Set the list title in the view
         ((TextView) getActivity().findViewById(R.id.listTitle)).setText(m_list_name);
 
-        m_list_to_display = new ShoppingList(m_list_name);
+        m_list_to_display = new ShoppingList(m_list_name,getArguments().getInt("listID"));
 
         // Retrieve list container from layout
         m_productcontainer = (ListView) getView().findViewById(R.id.ListItemView);
@@ -77,11 +81,35 @@ public class ListFragment extends Fragment {
      */
     private void getListData(){
         // TODO: retrieve data from DB
+        // Reset
+        m_list_to_display.getProducts().clear();
+
+        // Get data from db
+        AppDatabase db = AppDatabase.getDatabase(getContext());
+        List<ProductOnListEntity> results = db.m_foodisticDAO().getItemsOnList(m_list_to_display.getM_id());
+        // Parse it into usable objects
+        parseIntoListItems(results);
+
+        // TEST PRODUCT
         ArrayList<Comment> comments = new ArrayList<>();
         comments.add(new Comment(new User("testuser", "test", new Date(11052019), FoodStyle.OMNIVORE, "test"),"This is a tescomment"));
         Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
         m_list_to_display.addItem(new ProductItem("Jonagold Apples", 2.5f, "These are the best premium apples you can get.", 50.4f, comments, img ));
         adapter.notifyDataSetChanged();
+    }
+
+
+    /**
+     * Parses db data into usable ProductItem objects.
+     * @param db_data
+     */
+    public void parseIntoListItems(List<ProductOnListEntity> db_data){
+        AppDatabase db = AppDatabase.getDatabase(getContext());
+
+        for(ProductOnListEntity product_on_list:db_data){
+            ProductEntity product_to_add = db.m_foodisticDAO().getProduct(product_on_list.getProductid());
+            m_list_to_display.addItem(new ProductItem(product_to_add.getName(), product_to_add.getPrice(), product_to_add.getDescription(), product_to_add.getLikability(), null, product_to_add.getDiscount(), null));
+        }
     }
 
 }

@@ -20,13 +20,18 @@ public class ProductOnListEntity {
     private int ID;
 
     @ColumnInfo(name = "productid")
-    private String productid;
+    private int productid;
+
+    @ColumnInfo(name = "productname")
+    private String productname;
 
     @ColumnInfo(name = "quantity")
     private int quantity;
 
     @ColumnInfo(name = "listID")
-    private String listID;
+    private int listID;
+
+
 
     /**
      * GETTERS AND SETTERS
@@ -46,19 +51,27 @@ public class ProductOnListEntity {
         return quantity;
     }
 
-    public String getProductid() {
+    public int getProductid() {
         return productid;
     }
 
-    public void setProductid(String productid) {
+    public void setProductid(int productid) {
         this.productid = productid;
     }
 
-    public String getListID() {
+    public String getProductname() {
+        return productname;
+    }
+
+    public void setProductname(String productname) {
+        this.productname = productname;
+    }
+
+    public int getListID() {
         return listID;
     }
 
-    public void setListID(String listID) {
+    public void setListID(int listID) {
         this.listID = listID;
     }
 

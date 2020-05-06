@@ -5,6 +5,8 @@ import android.graphics.Point;
 import androidx.room.*;
 
 import com.example.foodify.Database.Entities.PointEntity;
+import com.example.foodify.Database.Entities.ProductEntity;
+import com.example.foodify.Database.Entities.ProductOnListEntity;
 import com.example.foodify.Database.Entities.ShoppingListEntity;
 import com.example.foodify.Database.Entities.UserEntity;
 import com.example.foodify.ShoppingList.ShoppingList;
@@ -44,6 +46,20 @@ public interface foodisticDAO {
 
 
     /**
+     * //////////////
+     * PRODUCT QUERYS
+     * //////////////
+     */
+    /**
+     * Gets information about a product with a certain ID
+     * @param p_ID
+     */
+    @Query("SELECT * FROM Products WHERE ID LIKE :p_ID")
+    ProductEntity getProduct(int p_ID);
+
+
+
+    /**
      * ////////////////////
      * SHOPPING LIST QUERYS
      * ////////////////////
@@ -69,6 +85,27 @@ public interface foodisticDAO {
      */
     @Query("DELETE FROM ShoppingLists WHERE name LIKE :to_delete")
     void deleteShoppingList (String to_delete);
+
+
+    /**
+     * //////////////////////////////
+     * ITEMS ON SHOPPING LIST QUERYS
+     * /////////////////////////////
+     */
+
+    @Query("SELECT * FROM ProductsOnList WHERE listID LIKE :list_ID")
+    List<ProductOnListEntity> getItemsOnList(int list_ID);
+
+    @Query("UPDATE ProductsOnList SET quantity = :new_quantity WHERE listID LIKE :list_ID AND productid LIKE :product_ID")
+    void updateProductQuantity(int list_ID, int product_ID, int new_quantity);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void addProductToList(ProductOnListEntity new_product_on_list);
+
+    @Query("DELETE FROM ProductsOnList WHERE listID LIKE :list_ID AND productid LIKE :product_ID ")
+    void removeProductFromList(int product_ID, int list_ID);
+
+
 
 
     /**

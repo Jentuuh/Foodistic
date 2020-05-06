@@ -1,8 +1,10 @@
 package com.example.foodify.ShoppingList;
 
+import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.R;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +16,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
+import java.io.NotActiveException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +33,13 @@ public class ListCollectionAdapter extends ArrayAdapter<ShoppingList> {
     private int resourceLayout;
     private Context mContext;
     private List<ShoppingList> lists_to_display;
+    private Fragment mFragment;
 
-    public ListCollectionAdapter(@NonNull Context context, List<ShoppingList> lists_to_display) {
+    public ListCollectionAdapter(@NonNull Context context, List<ShoppingList> lists_to_display, Fragment fragment) {
         super(context, 0, lists_to_display);
         this.mContext = context;
         this.lists_to_display = lists_to_display;
+        mFragment = fragment;
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -42,7 +49,7 @@ public class ListCollectionAdapter extends ArrayAdapter<ShoppingList> {
             view = inflater.inflate(R.layout.listitem, parent, false);
 
         }
-        ShoppingList list_item = lists_to_display.get(position);
+        final ShoppingList list_item = lists_to_display.get(position);
 
 
         if(list_item != null){
@@ -58,8 +65,8 @@ public class ListCollectionAdapter extends ArrayAdapter<ShoppingList> {
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // TODO : Delete ShoppingList from DB
                         // TODO : ask for confirmation
+                        removeShoppingList(list_item);
                     }
                 });
             }
@@ -67,7 +74,10 @@ public class ListCollectionAdapter extends ArrayAdapter<ShoppingList> {
                 listNameContainer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // TODO : open corresponding list
+                        Bundle bundle = new Bundle();
+                        bundle.putString("listname", list_item.getName());
+                        bundle.putInt("listID", list_item.getM_id());
+                        NavHostFragment.findNavController(mFragment).navigate(R.id.listCollection_to_listFragment, bundle);
                     }
                 });
             }
@@ -75,4 +85,25 @@ public class ListCollectionAdapter extends ArrayAdapter<ShoppingList> {
 
         return view;
     }
+
+
+
+    /**
+     * Removes a shopping list from the container
+     * @param list_to_remove    : The List to be removed
+     */
+    public void removeShoppingList(ShoppingList list_to_remove){
+        removeShoppingListDB(list_to_remove);
+        this.notifyDataSetChanged();
+    }
+
+    /**
+     * Method that updates the database when a new Shopping list was removed.
+     * @param list_to_remove    : The List to be removed
+     */
+    private void removeShoppingListDB(ShoppingList list_to_remove){
+        AppDatabase db = AppDatabase.getDatabase(getContext());
+        db.m_foodisticDAO().deleteShoppingList(list_to_remove.getName());
+    }
 }
+

@@ -136,9 +136,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
         mAdapter = new ShoppingCartAdapter(this, R.layout.basket_item, mShoppingCart);
         listview.setAdapter(mAdapter);
 
-
-
-
     }
 
 

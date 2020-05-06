@@ -33,6 +33,12 @@ public class ProductEntity {
     @ColumnInfo(name = "description")
     private String description;
 
+    @ColumnInfo(name = "likability")
+    private float likability;
+
+    @ColumnInfo(name = "discount")
+    private float discount;
+
 //    @ColumnInfo(name = "likability")
 //    private FoodStyle likability;
 //
@@ -80,7 +86,23 @@ public class ProductEntity {
         this.description = description;
     }
 
-//    public FoodStyle getLikability() {
+    public float getLikability() {
+        return likability;
+    }
+
+    public void setLikability(float likability) {
+        this.likability = likability;
+    }
+
+    public float getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(float discount) {
+        this.discount = discount;
+    }
+
+    //    public FoodStyle getLikability() {
 //        return likability;
 //    }
 //

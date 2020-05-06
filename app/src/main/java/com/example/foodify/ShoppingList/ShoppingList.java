@@ -13,10 +13,12 @@ import java.util.Observable;
  */
 public class ShoppingList extends Observable {
     private String m_name;
+    private int m_id;
     private ArrayList<ShoppingCartItem> m_products_on_list;
 
-    ShoppingList(String name){
+    ShoppingList(String name, int ID){
         m_name = name;
+        m_id = ID;
         m_products_on_list = new ArrayList<>();
         loadProductsFromDatabase(name);
     }
@@ -154,7 +156,7 @@ public class ShoppingList extends Observable {
 
 
     /**
-     * GETTERS AND SETTERS
+     * GETTERS
      */
 
     public String getName(){
@@ -165,4 +167,7 @@ public class ShoppingList extends Observable {
         return m_products_on_list;
     }
 
+    public int getM_id() {
+        return m_id;
+    }
 }
