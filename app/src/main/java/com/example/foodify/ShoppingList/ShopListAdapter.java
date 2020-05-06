@@ -14,7 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.foodify.Product.ProductItem;
 import com.example.foodify.R;
-import com.example.foodify.ShoppingCartItem;
+import com.example.foodify.ShoppingCart.ShoppingCartItem;
 
 /**
  * @author jentevandersanden

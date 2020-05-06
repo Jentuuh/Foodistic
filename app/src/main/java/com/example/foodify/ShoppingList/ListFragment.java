@@ -1,23 +1,17 @@
 package com.example.foodify.ShoppingList;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.foodify.Enums.FoodStyle;
-import com.example.foodify.ListAdapter;
-import com.example.foodify.MainActivity;
 import com.example.foodify.Product.Comment;
 import com.example.foodify.Product.ProductItem;
 import com.example.foodify.R;

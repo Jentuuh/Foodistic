@@ -17,5 +17,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="shoppingbasket">ShoppingBasket</string>
     <string name="action_settings" />
+    <string name="gedetaileerd_fragment_van_een_specifiek_productitem">Gedetaileerd fragment van een specifiek productitem</string>
 
 </resources>

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ShopFragment">
+    tools:context=".Shop.ShopFragment">
 
     <TextView
     android:id="@+id/promotions_title"
@@ -30,13 +30,21 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/discount_title"
+        android:text="Individual Discounts"
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/promotion_list" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/item_list"
+        android:id="@+id/discount_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="#000000"
-        app:layout_constraintTop_toBottomOf="@id/promotion_list"
+        android:background="#0000"
+        app:layout_constraintTop_toBottomOf="@id/discount_title"
         tools:layout_editor_absoluteX="0dp">
 
     </androidx.recyclerview.widget.RecyclerView>

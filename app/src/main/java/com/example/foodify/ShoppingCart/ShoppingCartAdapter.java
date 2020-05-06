@@ -1,35 +1,33 @@
-package com.example.foodify;
+package com.example.foodify.ShoppingCart;
 
-import android.content.ClipData;
+import android.app.Activity;
 import android.content.Context;
-import android.os.Debug;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.navigation.NavHost;
+import androidx.cardview.widget.CardView;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.foodify.MainActivity;
 import com.example.foodify.Product.ProductItem;
-import com.example.foodify.ShoppingList.ShoppingList;
+import com.example.foodify.R;
 
-import java.util.List;
+import java.text.DecimalFormat;
 
-public class ListAdapter extends ArrayAdapter<ShoppingCartItem> {
+public class ShoppingCartAdapter extends ArrayAdapter<ShoppingCartItem> {
     private int resourceLayout;
     private Context mContext;
     private ShoppingCart mCart;
 
-    public ListAdapter(@NonNull Context context, int resource, ShoppingCart cart) {
+
+    public ShoppingCartAdapter(@NonNull Context context, int resource, ShoppingCart cart) {
         super(context, resource, cart.getItems());
         resourceLayout = resource;
         mContext = context;
@@ -56,7 +54,7 @@ public class ListAdapter extends ArrayAdapter<ShoppingCartItem> {
             TextView prodQuantity = (TextView) view.findViewById(R.id.prod_quantity);
             ImageView plus = (ImageView) view.findViewById(R.id.imgPlus);
             ImageView minus = (ImageView) view.findViewById(R.id.imgMinus);
-            ConstraintLayout basketItemContainer = (ConstraintLayout) view.findViewById(R.id.basket_item_container);
+            CardView basketItemContainer = (CardView) view.findViewById(R.id.basket_item_container);
 
 
             if (imgview != null)
@@ -64,7 +62,7 @@ public class ListAdapter extends ArrayAdapter<ShoppingCartItem> {
             if (prodName !=null)
                 prodName.setText(item.getName());
             if (prodPrice != null)
-                prodPrice.setText("€ " + String.valueOf(item.getPrice()));
+                prodPrice.setText("€ " + new DecimalFormat("###.##").format(item.calculatePrice()));
             if (prodQuantity != null)
                 prodQuantity.setText(String.valueOf(cartItem.getQuantity()));
 
@@ -75,6 +73,8 @@ public class ListAdapter extends ArrayAdapter<ShoppingCartItem> {
                     @Override
                     public void onClick(View v) {
                         //TODO Open item fragment once item is pressed
+                        ((MainActivity)mContext).navigateTo(R.id.shopFilterFragment);
+
                         Log.v("ListAdapter", "Open the item page here");
 
                     }
@@ -119,6 +119,10 @@ public class ListAdapter extends ArrayAdapter<ShoppingCartItem> {
         }
 
         return view;
+    }
+    private String calculatePrice(float originalPrice, float discount){
+
+        return "€ " + new DecimalFormat("###.##").format(originalPrice - (originalPrice * discount));
     }
 
 }

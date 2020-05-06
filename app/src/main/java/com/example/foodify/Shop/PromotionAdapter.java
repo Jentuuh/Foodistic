@@ -1,4 +1,4 @@
-package com.example.foodify;
+package com.example.foodify.Shop;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodify.Product.Promotion;
+import com.example.foodify.R;
 
 import java.util.ArrayList;
 
 public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.MyViewHolder> {
-    ArrayList<Promotion> mPromotionList;
+    private ArrayList<Promotion> mPromotionList;
 
 
     public PromotionAdapter(ArrayList<Promotion> promotionlist){

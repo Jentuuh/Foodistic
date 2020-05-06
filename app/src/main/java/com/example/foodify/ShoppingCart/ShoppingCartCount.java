@@ -1,4 +1,4 @@
-package com.example.foodify;
+package com.example.foodify.ShoppingCart;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -14,10 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.example.foodify.R;
+
 /**
  * Class to create the counter on top of the shoppingbasket
  */
-public class BasketCount extends Drawable {
+public class ShoppingCartCount extends Drawable {
 
     private Paint mBadgePaint;
     private Paint mTextPaint;
@@ -28,7 +30,7 @@ public class BasketCount extends Drawable {
 
 
 
-    public BasketCount(Context context){
+    public ShoppingCartCount(Context context){
         float mTextSize = 30f;
         mBadgePaint = new Paint();
         mBadgePaint.setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.colorAccent));
