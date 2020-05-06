@@ -20,7 +20,7 @@ import java.util.Date;
 public class ProductEntity {
 
     /** Columns */
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     private String ID;
 

@@ -17,7 +17,7 @@ import com.example.foodify.Enums.FoodStyle;
 public class ShoppingListEntity {
 
     /** Columns */
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     private String ID;
 

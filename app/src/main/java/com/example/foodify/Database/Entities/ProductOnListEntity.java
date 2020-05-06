@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey;
 public class ProductOnListEntity {
 
     /** Columns */
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     private String ID;
 
