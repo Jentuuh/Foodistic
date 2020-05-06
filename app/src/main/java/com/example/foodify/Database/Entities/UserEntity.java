@@ -15,7 +15,8 @@ import java.util.Date;
 public class UserEntity {
 
     /** Columns */
-    @PrimaryKey @NonNull
+    @PrimaryKey (autoGenerate = true)
+    @NonNull
     private String ID;
 
     @ColumnInfo(name = "firstname")
