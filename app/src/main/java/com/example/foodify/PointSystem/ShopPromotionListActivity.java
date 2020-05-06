@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +16,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.foodify.Database.AppDatabase;
-import com.example.foodify.Database.Entities.PointEntity;
 import com.example.foodify.MainActivity;
 import com.example.foodify.R;
 
@@ -23,8 +24,7 @@ import java.util.ArrayList;
 public class ShopPromotionListActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private TextView shopNameView;
-    private TextView shopPointsView;
+    private Menu menu;
 
     private ArrayList<ShopPromotion> shopPromotionList;
     private ShopPromotionAdapter adapter;
@@ -54,10 +54,9 @@ public class ShopPromotionListActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        final MenuItem pointItem = menu.findItem(R.id.points_icon);
-        ConstraintLayout rootView = (ConstraintLayout) pointItem.getActionView();
-        shopPointsView = (TextView) rootView.getChildAt(0);
-        shopPointsView.setText(String.valueOf(shopPoints));
+        this.menu = menu;
+        updateToolbar();
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -67,7 +66,7 @@ public class ShopPromotionListActivity extends AppCompatActivity {
         Bundle extras = intent.getExtras();
         if (extras != null) {
             shopName = extras.getString("SHOP_NAME");
-            shopPoints = extras.getInt("SHOP_POINT");
+            shopPoints = extras.getInt("SHOP_POINTS");
         }
     }
 
@@ -75,7 +74,7 @@ public class ShopPromotionListActivity extends AppCompatActivity {
      * SETUPS
      */
     private void setupToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar_promotion_list);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle(shopName);
@@ -113,10 +112,50 @@ public class ShopPromotionListActivity extends AppCompatActivity {
      * Callback functions which handles what needs to happen when promotion button is clicked
      */
     private void onPromotionPress(int position) {
-        ShopPromotion shopPromotion = shopPromotionList.get(position);
-        Intent openBarcodeIntent = new Intent(this, BarcodeActivity.class);
-        openBarcodeIntent.putExtra("PROMOTION_NAME", shopPromotion.getName());
-        startActivity(openBarcodeIntent);
+        openPurchaseDialog(position);
+    }
+
+    /**
+     * Opens up purchase dialog for item on given position
+     * @param position
+     */
+    private void openPurchaseDialog(int position) {
+        final ShopPromotion shopPromotion = shopPromotionList.get(position);
+
+        new AlertDialog.Builder(getApplicationContext())
+                .setTitle("Accepteer aankoop" )
+                .setMessage("Ben je zeker dat je deze aankoop wil bevestigen?\nJe totaal aantal punten voor " + shopName + " zal dalen naar " + String.valueOf(shopPoints - shopPromotion.getPoints()))
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Update shop points
+                        shopPoints -= shopPromotion.getPoints();
+                        updateToolbar();
+                        updatePointsByName(shopName, shopPoints);
+
+                        // Open up Barcode
+                        //Intent openBarcodeIntent = new Intent(getApplication(), BarcodeActivity.class);
+                        //openBarcodeIntent.putExtra("PROMOTION_NAME", shopPromotion.getName());
+                        //startActivity(openBarcodeIntent);
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    /**
+     * Updates toolbar when points changed
+     */
+    private void updateToolbar() {
+        final MenuItem pointItem = menu.findItem(R.id.points_icon);
+        ConstraintLayout rootView = (ConstraintLayout) pointItem.getActionView();
+        TextView shopPointsIconText = (TextView) rootView.getChildAt(0);
+        shopPointsIconText.setText(String.valueOf(shopPoints));
     }
 
     /**

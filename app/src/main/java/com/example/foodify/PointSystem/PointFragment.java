@@ -95,6 +95,15 @@ public class PointFragment extends Fragment {
         super.onStart();
     }
 
+    @Override
+    public void onResume() {
+        // Update View tab with possibly new DB data
+        shopPointList.clear();
+        getShopPoints();
+        setupViewTab();
+
+        super.onResume();
+    }
 
     /**
      * Callback functions which handles what needs to happen when send button is clicked
