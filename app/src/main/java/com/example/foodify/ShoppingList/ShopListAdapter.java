@@ -46,7 +46,6 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
             ProductItem item = cartItem.getItem();
 
             if (item != null){
-
                 ImageView imgview = (ImageView) view.findViewById(R.id.item_img_view);
                 TextView prodName = (TextView) view.findViewById(R.id.item_name_view);
                 TextView prodPrice = (TextView) view.findViewById(R.id.item_price_view);

@@ -1,5 +1,7 @@
 package com.example.foodify.Database;
 
+import android.graphics.Point;
+
 import androidx.room.*;
 
 import com.example.foodify.Database.Entities.PointEntity;
@@ -76,12 +78,11 @@ public interface foodisticDAO {
      */
 
     /**
-     * Gets all shops with a certain name from the database
-     * @param f_shop: the name of the shop we're looking for
+     * Gets all shops from the database
      * @return
      */
-    @Query("SELECT * FROM Points WHERE shop LIKE :f_shop")
-    List<UserEntity> getShopByName(String f_shop);
+    @Query("SELECT * FROM Points")
+    List<PointEntity> getAllShopPoints();
 
     /**
      * Inserts a new shop point into the database.

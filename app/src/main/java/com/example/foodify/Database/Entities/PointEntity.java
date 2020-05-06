@@ -16,6 +16,9 @@ public class PointEntity {
     @NonNull
     private int ID;
 
+    @ColumnInfo(name = "logo")
+    private int logo;
+
     @ColumnInfo(name = "shop")
     private String shop;
 
@@ -35,6 +38,10 @@ public class PointEntity {
     public void setID(@NonNull int ID) {
         this.ID = ID;
     }
+
+    public int getLogo() { return logo; }
+
+    public void setLogo(int logo) { this.logo = logo; }
 
     public String getShop() {
         return shop;

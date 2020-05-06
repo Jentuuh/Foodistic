@@ -4,39 +4,42 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.foodify.Database.AppDatabase;
+import com.example.foodify.Database.Entities.PointEntity;
 import com.example.foodify.MainActivity;
 import com.example.foodify.R;
-import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 
 public class ShopPromotionListActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private TextView shopName;
-    private TextView shopPoints;
+    private TextView shopNameView;
+    private TextView shopPointsView;
 
     private ArrayList<ShopPromotion> shopPromotionList;
     private ShopPromotionAdapter adapter;
     private ListView shopPromotionView;
 
+    private String shopName;
+    private int shopPoints;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_promotion_list);
+
+        // Load intent data
+        handleIntent();
 
         // Toolbar
         setupToolbar();
@@ -53,29 +56,29 @@ public class ShopPromotionListActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         final MenuItem pointItem = menu.findItem(R.id.points_icon);
         ConstraintLayout rootView = (ConstraintLayout) pointItem.getActionView();
-        shopPoints = (TextView) rootView.getChildAt(0);
-
-        // Set shop points by intent
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        // If data was send
-        if (extras != null)
-            shopPoints.setText(String.valueOf(extras.getInt("SHOP_POINTS")));
-
+        shopPointsView = (TextView) rootView.getChildAt(0);
+        shopPointsView.setText(String.valueOf(shopPoints));
         return super.onPrepareOptionsMenu(menu);
     }
 
+    private void handleIntent() {
+        Intent intent = getIntent();
+
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            shopName = extras.getString("SHOP_NAME");
+            shopPoints = extras.getInt("SHOP_POINT");
+        }
+    }
+
+    /**
+     * SETUPS
+     */
     private void setupToolbar() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Set shop name by intent
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        // If data was send
-        if (extras != null)
-            getSupportActionBar().setTitle(extras.getString("SHOP_NAME"));
-
+        getSupportActionBar().setTitle(shopName);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -114,5 +117,19 @@ public class ShopPromotionListActivity extends AppCompatActivity {
         Intent openBarcodeIntent = new Intent(this, BarcodeActivity.class);
         openBarcodeIntent.putExtra("PROMOTION_NAME", shopPromotion.getName());
         startActivity(openBarcodeIntent);
+    }
+
+    /**
+     * ///////////////////////
+     * DATA + DATABASE METHODS
+     * ///////////////////////
+     */
+
+    /**
+     * Update points for given shop
+     */
+    private void updatePointsByName(String name, int points) {
+        AppDatabase db = AppDatabase.getDatabase(getApplication());
+        db.m_foodisticDAO().setPointsByShop(name, points);
     }
 }

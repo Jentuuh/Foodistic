@@ -2,6 +2,7 @@ package com.example.foodify.PointSystem;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -17,10 +18,15 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.foodify.Database.AppDatabase;
+import com.example.foodify.Database.Entities.PointEntity;
+import com.example.foodify.Database.Entities.ShoppingListEntity;
 import com.example.foodify.FontManager;
 import com.example.foodify.R;
+import com.example.foodify.ShoppingList.ShoppingList;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -70,6 +76,10 @@ public class PointFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         iconFont = FontManager.getTypeface(getActivity(), FontManager.FONTAWESOME);
+        shopPointList = new ArrayList<ShopPoint>();
+
+        // Load data
+        getShopPoints();
 
         setupTabSystem();
         setupViewTab();
@@ -155,13 +165,6 @@ public class PointFragment extends Fragment {
         m_submitContent = (ConstraintLayout) getView().findViewById(R.id.constraintLayout_submit);
     }
     private void setupViewTab() {
-        shopPointList = new ArrayList<ShopPoint>();
-        //TODO: get from DB
-        shopPointList.add(new ShopPoint(R.drawable.colruyt, "Colruyt", 20));
-        shopPointList.add(new ShopPoint(R.drawable.carrefour,"Carrefour", 0));
-        shopPointList.add(new ShopPoint(R.drawable.okay,"Okay", 15));
-        shopPointList.add(new ShopPoint(R.drawable.delhaize,"Delhaize", 40));
-
         adapter = new ShopPointAdapter(this.requireContext(), shopPointList);
 
         shopPointView = (ListView) getView().findViewById(R.id.listView_shop_point_list);
@@ -222,5 +225,59 @@ public class PointFragment extends Fragment {
 
         m_redeemContent.setVisibility(View.GONE);
         m_submitContent.setVisibility(View.GONE);
+    }
+
+
+    /**
+     * ///////////////////////
+     * DATA + DATABASE METHODS
+     * ///////////////////////
+     */
+
+    /**
+     * Creates test data to fill up DB
+     */
+    private void createTestData() {
+        AppDatabase db = AppDatabase.getDatabase(getActivity());
+
+        shopPointList.add(new ShopPoint(R.drawable.colruyt, "Colruyt", 20));
+        shopPointList.add(new ShopPoint(R.drawable.delhaize, "Delhaize", 10));
+        shopPointList.add(new ShopPoint(R.drawable.okay, "Okay", 0));
+        shopPointList.add(new ShopPoint(R.drawable.carrefour, "Carrefour", 45));
+
+        for (ShopPoint shopPoint : shopPointList) {
+            PointEntity entity = new PointEntity();
+            entity.setLogo(shopPoint.getLogo());
+            entity.setShop(shopPoint.getName());
+            entity.setPoints(shopPoint.getPoints());
+
+            db.m_foodisticDAO().createShopPoint(entity);
+        }
+    }
+
+    /**
+     * Retrieves all shopPoints from DB
+     */
+    private void getShopPoints(){
+        // Retrieve the shop points from the database
+        AppDatabase db = AppDatabase.getDatabase(getActivity());
+        List<PointEntity>  lists_from_db = db.m_foodisticDAO().getAllShopPoints();
+
+        // Parse the database data to actual objects that we can use in our code
+        parseFromDBToObjects(lists_from_db);
+
+        // TEST DATA
+        //shopPointList.add(new ShopPoint(R.drawable.colruyt, "Test Shop", 20));
+    }
+
+
+    /**
+     * Method that parses a list of PointEntity objects retrieved from a db into actual ShopPoint objects.
+     * @param db_lists : the list retrieved from the db
+     */
+    private void parseFromDBToObjects(List<PointEntity> db_lists){
+        for(PointEntity entity : db_lists){
+            shopPointList.add(new ShopPoint(entity.getLogo(), entity.getShop(), entity.getPoints()));
+        }
     }
 }

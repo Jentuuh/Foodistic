@@ -16,7 +16,7 @@ import com.example.foodify.Database.Entities.UserEntity;
  * @author jentevandersanden
  * Abstract class that represents the database holder for the database
  */
-@Database(entities = {UserEntity.class, ShoppingListEntity.class, ProductOnListEntity.class, ProductEntity.class, PointEntity.class}, version = 2)
+@Database(entities = {UserEntity.class, ShoppingListEntity.class, ProductOnListEntity.class, ProductEntity.class, PointEntity.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
 
     // Singleton instance of the database
@@ -28,7 +28,7 @@ public abstract class AppDatabase extends RoomDatabase {
             INSTANCE =
                     Room.databaseBuilder(context.getApplicationContext(),
                             AppDatabase.class, "Foodistic-Database").allowMainThreadQueries()
-                            .addMigrations(MIGRATION_1_2).build();
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3).build();
         }
         return INSTANCE;
     }
@@ -37,6 +37,13 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE reminder ADD COLUMN radius FLOAT NOT NULL DEFAULT 200");
+        }
+    };
+
+    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE Points ADD COLUMN logo INT NOT NULL DEFAULT 17301567 "); // Default ic_menu_gallery
         }
     };
 
