@@ -100,7 +100,6 @@ public class NameShoppingListActivity extends AppCompatActivity {
         ShoppingListEntity to_add = new ShoppingListEntity();
 
         // Set name and ID
-        to_add.setID(Integer.toString(RNG.generateID()));
         to_add.setName(name);
 
         // Add entity to db

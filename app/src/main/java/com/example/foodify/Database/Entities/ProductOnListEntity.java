@@ -17,7 +17,7 @@ public class ProductOnListEntity {
     /** Columns */
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    private String ID;
+    private int ID;
 
     @ColumnInfo(name = "productid")
     private String productid;
@@ -33,11 +33,11 @@ public class ProductOnListEntity {
      */
 
     @NonNull
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
-    public void setID(@NonNull String ID) {
+    public void setID(@NonNull int ID) {
         this.ID = ID;
     }
 

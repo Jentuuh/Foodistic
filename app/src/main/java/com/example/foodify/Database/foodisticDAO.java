@@ -2,6 +2,7 @@ package com.example.foodify.Database;
 
 import androidx.room.*;
 
+import com.example.foodify.Database.Entities.PointEntity;
 import com.example.foodify.Database.Entities.ShoppingListEntity;
 import com.example.foodify.Database.Entities.UserEntity;
 import com.example.foodify.ShoppingList.ShoppingList;
@@ -67,4 +68,34 @@ public interface foodisticDAO {
     @Query("DELETE FROM ShoppingLists WHERE name LIKE :to_delete")
     void deleteShoppingList (String to_delete);
 
+
+    /**
+     * ////////////////////
+     * SHOP POINT QUERYS
+     * ////////////////////
+     */
+
+    /**
+     * Gets all shops with a certain name from the database
+     * @param f_shop: the name of the shop we're looking for
+     * @return
+     */
+    @Query("SELECT * FROM Points WHERE shop LIKE :f_shop")
+    List<UserEntity> getShopByName(String f_shop);
+
+    /**
+     * Inserts a new shop point into the database.
+     * @param new_shop_point
+     */
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void createShopPoint(PointEntity new_shop_point);
+
+    /**
+     * Update points of shops with a certain name from the database
+     * @param f_shop: the name of the shop we're looking for
+     * @param f_points: the new points of the shop
+     * @return
+     */
+    @Query("UPDATE Points SET points = :f_points WHERE shop = :f_shop ")
+    void setPointsByShop(String f_shop, int f_points);
 }

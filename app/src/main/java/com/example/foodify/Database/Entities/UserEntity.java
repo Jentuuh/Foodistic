@@ -17,7 +17,7 @@ public class UserEntity {
     /** Columns */
     @PrimaryKey (autoGenerate = true)
     @NonNull
-    private String ID;
+    private int ID;
 
     @ColumnInfo(name = "firstname")
     private String firstname;
@@ -38,11 +38,11 @@ public class UserEntity {
      * GETTERS AND SETTERS
      */
     @NonNull
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
-    public void setID(@NonNull String ID) {
+    public void setID(@NonNull int ID) {
         this.ID = ID;
     }
 

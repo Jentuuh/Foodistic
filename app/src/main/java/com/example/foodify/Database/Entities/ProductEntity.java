@@ -22,7 +22,7 @@ public class ProductEntity {
     /** Columns */
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    private String ID;
+    private int ID;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -48,11 +48,11 @@ public class ProductEntity {
      */
 
     @NonNull
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
-    public void setID(@NonNull String ID) {
+    public void setID(@NonNull int ID) {
         this.ID = ID;
     }
 

@@ -14,7 +14,7 @@ public class PointEntity {
     /** Columns */
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    private String ID;
+    private int ID;
 
     @ColumnInfo(name = "shop")
     private String shop;
@@ -28,11 +28,11 @@ public class PointEntity {
      */
 
     @NonNull
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
-    public void setID(@NonNull String ID) {
+    public void setID(@NonNull int ID) {
         this.ID = ID;
     }
 

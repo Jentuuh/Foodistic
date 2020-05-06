@@ -59,7 +59,7 @@ public class ListCollectionFragment extends Fragment {
 
         getShoppingLists();
         // Create the arrayadapter and set it for the listcontainer
-        shop_list_adapter = new ListCollectionAdapter(getActivity(), R.layout.listitem, lists_to_display);
+        shop_list_adapter = new ListCollectionAdapter(this.requireContext(), lists_to_display);
 
 
         // Set adapter for the listview

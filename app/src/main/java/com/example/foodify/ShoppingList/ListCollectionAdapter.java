@@ -29,9 +29,8 @@ public class ListCollectionAdapter extends ArrayAdapter<ShoppingList> {
     private Context mContext;
     private List<ShoppingList> lists_to_display;
 
-    public ListCollectionAdapter(@NonNull Context context, int resource, List<ShoppingList> lists_to_display) {
-        super(context, resource);
-        this.resourceLayout = resource;
+    public ListCollectionAdapter(@NonNull Context context, List<ShoppingList> lists_to_display) {
+        super(context, 0, lists_to_display);
         this.mContext = context;
         this.lists_to_display = lists_to_display;
     }
@@ -40,7 +39,7 @@ public class ListCollectionAdapter extends ArrayAdapter<ShoppingList> {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
-            view = inflater.inflate(resourceLayout, null);
+            view = inflater.inflate(R.layout.listitem, parent, false);
 
         }
         ShoppingList list_item = lists_to_display.get(position);
@@ -75,6 +74,5 @@ public class ListCollectionAdapter extends ArrayAdapter<ShoppingList> {
         }
 
         return view;
-
     }
 }
