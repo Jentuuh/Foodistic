@@ -19,12 +19,20 @@ public class ProductItem {
     private String m_description;               // Description of the product
     private float m_likability;                 // The percentage of likes on this product
     private ArrayList<Comment> m_comments;      // Comments on this product
-    Drawable m_image;
+    private float m_discount;
+    private Drawable m_image;
 
     /**
-     * CONSTRUCTOR
+     * CONSTRUCTORS
      */
     public ProductItem(String name, float price, String description, float likability, ArrayList<Comment> comments, Drawable img){
+        this(name,price,description,likability,comments,0,img);
+
+
+    }
+
+    public ProductItem(String name, float price, String description, float likability, ArrayList<Comment> comments, float discount,Drawable img){
+        m_discount = discount;
         m_name = name;
         m_price = price;
         m_description = description;
@@ -39,12 +47,25 @@ public class ProductItem {
             m_image = null;
     }
 
+    /**
+     *  GETTERS
+     */
     public String getName(){return m_name;}
     public float getPrice(){return m_price;}
     public String getDescription(){return m_description;}
     public float getLikability(){return m_likability;}
     public ArrayList<Comment> getComments(){return m_comments;}
     public Drawable getImage(){return m_image;};
-    public void setImage(Drawable img){m_image = img;}
+    public float getDiscount(){return m_discount;}
 
+    /**
+     * Setters
+     */
+    public void setImage(Drawable img){m_image = img;}
+    public void setDiscount(float discount){m_discount = discount;}
+
+
+    public float calculatePrice(){
+        return m_price - (m_price * m_discount);
+    }
 }

@@ -2,7 +2,6 @@ package com.example.foodify;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -11,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -19,23 +19,21 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.os.Debug;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
-import com.example.foodify.Product.Comment;
 import com.example.foodify.Product.ProductItem;
-import com.example.foodify.ShoppingList.ListCollectionFragment;
+import com.example.foodify.ShoppingCart.ShoppingCart;
+import com.example.foodify.ShoppingCart.ShoppingCartAdapter;
+import com.example.foodify.ShoppingCart.ShoppingCartCount;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.DecimalFormat;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -50,62 +48,43 @@ public class MainActivity extends AppCompatActivity implements Observer {
     private NavController mNavController;
     private ShoppingCart mShoppingCart;
     private Menu mMenu;
-    private ListAdapter mAdapter;
+    private ShoppingCartAdapter mAdapter;
+    private AppBarConfiguration mAppBarConfig;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupBottomNav();
+        mAppBarConfig = new AppBarConfiguration.Builder(R.id.shopFragment, R.id.pointFragment, R.id.listCollectionFragment, R.id.profileFragment).build();
+        setupToolbar();
+        setupBasket();
+        NavigationUI.setupWithNavController(mToolbar, mNavController, mAppBarConfig);
+        setupDestinationListeners();
+    }
 
-
-        // setting up navigation controller
-        mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
-
-
-
-        //Navigation bar setup
-        mBottomNav = findViewById(R.id.bottom_nav);
-        NavigationUI.setupWithNavController(mBottomNav, mNavController);
-
-//        //App bar setup
-//
-//        AppBarConfiguration appBarConfiguration1 =
-//                new AppBarConfiguration.Builder(mNavController.getGraph()).build();
-
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-
-        AppBarConfiguration appBarConfiguration =
-                new AppBarConfiguration.Builder(R.id.shopFragment, R.id.pointFragment, R.id.listCollectionFragment, R.id.profileFragment).build();
-
+    /**
+     * Creates Toolbar
+     */
+    private void setupToolbar(){
 
         mToolbar = findViewById(R.id.toolbar);
         mToolbar.inflateMenu(R.menu.toolbarmenuitems);
         setSupportActionBar(mToolbar);
+        // Setup Shopping cart drawer
+        mDrawerLayout = findViewById(R.id.drawer_layout);
 
+    }
 
-        //ActionBar actionBar = getSupportActionBar();
-        //actionBar.setDisplayShowHomeEnabled(false);
-        NavigationUI.setupWithNavController(
-                mToolbar, mNavController, appBarConfiguration);
-        setupBasket();
+    /**
+     * Creates bottom navigation bar
+     */
+    private void setupBottomNav(){
+        // setting up navigation controller
+        mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        // Navigation bar setup
+        mBottomNav = findViewById(R.id.bottom_nav);
+        NavigationUI.setupWithNavController(mBottomNav, mNavController);
 
-
-
-        // Add destination listener
-        mNavController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                if(destination.getId() == R.id.profileFragment){
-                    //mToolbar.setVisibility(View.GONE);
-                    mBottomNav.setVisibility(View.GONE);
-                }
-                else{
-                    mToolbar.setVisibility(View.VISIBLE);
-                    mBottomNav.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-        //TODO Put this in a different method
         Intent i = getIntent();
         int start_tab = i.getIntExtra("TabToStart", 1);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -124,17 +103,50 @@ public class MainActivity extends AppCompatActivity implements Observer {
                 mBottomNav.setSelectedItemId(R.id.profileFragment);
                 break;
         }
+
+
     }
 
+    private void setupDestinationListeners(){
+
+        //TODO see if we wanna use this
+
+        // Add destination listener
+        mNavController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                if(destination.getId() == R.id.profileFragment){
+
+                    //mToolbar.setVisibility(View.GONE);
+                    mBottomNav.setVisibility(View.GONE);
+                }
+                else{
+                    mToolbar.setVisibility(View.VISIBLE);
+                    mBottomNav.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
 
     public void setupBasket(){
         mShoppingCart = new ShoppingCart();
         mShoppingCart.addObserver(this);
 
         ListView listview = (ListView) findViewById(R.id.basketitemlist);
-        mAdapter = new ListAdapter(this, R.layout.basket_item, mShoppingCart);
+        mAdapter = new ShoppingCartAdapter(this, R.layout.basket_item, mShoppingCart);
         listview.setAdapter(mAdapter);
 
+
+
+
+    }
+
+
+    public void navigateTo(int actionId){
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.END)){ // If you tap on an item but the shopping cart is open, close it
+            mDrawerLayout.closeDrawer(GravityCompat.END);
+        }
+        mNavController.navigate(actionId);
 
     }
 
@@ -157,10 +169,11 @@ public class MainActivity extends AppCompatActivity implements Observer {
      *
      */
     public void createBasketTests(){
+        //TODO remove this when everything works
         Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null,0.3f, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null,0.3f, img));
+        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null,0.3f ,img));
         mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
         mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
         mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
@@ -212,14 +225,14 @@ public class MainActivity extends AppCompatActivity implements Observer {
         MenuItem menuItem = mMenu.findItem(R.id.shoppingBasket);
         LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
 
-        BasketCount badge;
+        ShoppingCartCount badge;
 
         // Reuse drawable if possible
         Drawable reuse = icon.findDrawableByLayerId(R.id.ic_item_count);
-        if (reuse != null && reuse instanceof BasketCount) {
-            badge = (BasketCount) reuse;
+        if (reuse != null && reuse instanceof ShoppingCartCount) {
+            badge = (ShoppingCartCount) reuse;
         } else {
-            badge = new BasketCount(context);
+            badge = new ShoppingCartCount(context);
         }
 
         badge.setCount(count);
@@ -232,8 +245,10 @@ public class MainActivity extends AppCompatActivity implements Observer {
      */
     private void updateTotalBasket(){
         TextView total = (TextView) findViewById(R.id.total_view_value);
-        total.setText("€ " + String.valueOf(mShoppingCart.getTotal()));
+        total.setText("€ " + new DecimalFormat("###.##").format(mShoppingCart.getTotal()));
     }
+
+
     /**
      * Update count when item is added to shoppingbasket
      * @param o

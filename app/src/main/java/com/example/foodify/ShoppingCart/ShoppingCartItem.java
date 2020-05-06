@@ -1,4 +1,4 @@
-package com.example.foodify;
+package com.example.foodify.ShoppingCart;
 
 import com.example.foodify.Product.ProductItem;
 

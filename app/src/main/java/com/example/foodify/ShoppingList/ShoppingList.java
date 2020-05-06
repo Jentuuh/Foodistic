@@ -2,7 +2,7 @@ package com.example.foodify.ShoppingList;
 
 import com.example.foodify.Enums.CartItemModification;
 import com.example.foodify.Product.ProductItem;
-import com.example.foodify.ShoppingCartItem;
+import com.example.foodify.ShoppingCart.ShoppingCartItem;
 
 import java.util.ArrayList;
 import java.util.Observable;

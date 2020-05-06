@@ -1,10 +1,9 @@
-package com.example.foodify;
+package com.example.foodify.ShoppingCart;
 
 import com.example.foodify.Product.ProductItem;
 
 import java.util.ArrayList;
 import java.util.Observable;
-import androidx.navigation.Navigation;
 
 /**
  * Class to represent the shopping cart
@@ -12,7 +11,7 @@ import androidx.navigation.Navigation;
 public class ShoppingCart extends Observable {
     private ArrayList<ShoppingCartItem> mItems;
 
-    ShoppingCart(){
+    public ShoppingCart(){
     mItems = new ArrayList<ShoppingCartItem>();
 
     }
@@ -67,7 +66,7 @@ public class ShoppingCart extends Observable {
     public float getTotal(){
         float total = 0;
         for( ShoppingCartItem i : mItems){
-            total += (i.getItem().getPrice() * i.getQuantity());
+            total += (i.getItem().calculatePrice() * i.getQuantity());
         }
         return total;
     }

@@ -36,6 +36,9 @@ public class ProductEntity {
 //    @ColumnInfo(name = "likability")
 //    private FoodStyle likability;
 //
+//    @ColumnInfo(name = "discount")
+//    private float discount;
+
 //    @ColumnInfo(name = "img")
 //    private Drawable img;
 
