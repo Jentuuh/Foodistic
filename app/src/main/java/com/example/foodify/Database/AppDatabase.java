@@ -8,15 +8,17 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.foodify.Database.Entities.PointEntity;
 import com.example.foodify.Database.Entities.ProductEntity;
 import com.example.foodify.Database.Entities.ProductOnListEntity;
+import com.example.foodify.Database.Entities.PromotionEntity;
 import com.example.foodify.Database.Entities.ShoppingListEntity;
 import com.example.foodify.Database.Entities.UserEntity;
+import com.example.foodify.Product.Promotion;
 
 
 /**
  * @author jentevandersanden
  * Abstract class that represents the database holder for the database
  */
-@Database(entities = {UserEntity.class, ShoppingListEntity.class, ProductOnListEntity.class, ProductEntity.class, PointEntity.class}, version = 3)
+@Database(entities = {UserEntity.class, ShoppingListEntity.class, ProductOnListEntity.class, ProductEntity.class, PointEntity.class, PromotionEntity.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
 
     // Singleton instance of the database

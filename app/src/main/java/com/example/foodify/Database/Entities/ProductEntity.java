@@ -40,7 +40,7 @@ public class ProductEntity {
 //    private float discount;
 
 //    @ColumnInfo(name = "img")
-//    private Drawable img;
+    //    private Drawable img;
 
 
     /**

@@ -5,6 +5,7 @@ import android.graphics.Point;
 import androidx.room.*;
 
 import com.example.foodify.Database.Entities.PointEntity;
+import com.example.foodify.Database.Entities.PromotionEntity;
 import com.example.foodify.Database.Entities.ShoppingListEntity;
 import com.example.foodify.Database.Entities.UserEntity;
 import com.example.foodify.ShoppingList.ShoppingList;
@@ -79,7 +80,7 @@ public interface foodisticDAO {
 
     /**
      * Gets all shops from the database
-     * @return
+     * @return list of ShopPoints
      */
     @Query("SELECT * FROM Points")
     List<PointEntity> getAllShopPoints();
@@ -99,4 +100,24 @@ public interface foodisticDAO {
      */
     @Query("UPDATE Points SET points = :f_points WHERE shop = :f_shop ")
     void setPointsByShop(String f_shop, int f_points);
+
+    /**
+     * ////////////////////
+     * POINT PROMOTION QUERYS
+     * ////////////////////
+     */
+
+    /**
+     * Gets all promotions of given shop from the database
+     * @return list of Promotions
+     */
+    @Query("SELECT * FROM Promotions WHERE shop LIKE :shop")
+    List<PromotionEntity> getPromotionsByShop(String shop);
+
+    /**
+     * Inserts a new shop point into the database.
+     * @param new_promotion
+     */
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void createPromotion(PromotionEntity new_promotion);
 }

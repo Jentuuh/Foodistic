@@ -78,6 +78,9 @@ public class PointFragment extends Fragment {
         iconFont = FontManager.getTypeface(getActivity(), FontManager.FONTAWESOME);
         shopPointList = new ArrayList<ShopPoint>();
 
+        // Fill DB if not already
+        createTestData();
+
         // Load data
         getShopPoints();
 
@@ -128,7 +131,10 @@ public class PointFragment extends Fragment {
 
             // Add points to list
             randomShop.addPoints(points);
+
+            // Update listView & DB
             adapter.notifyDataSetChanged();
+            updatePointsByName(randomShop.getName(), randomShop.getPoints());
         }
     }
 
@@ -262,6 +268,9 @@ public class PointFragment extends Fragment {
 
             db.m_foodisticDAO().createShopPoint(entity);
         }
+
+        // Clear list to let DB load right one
+        shopPointList.clear();
     }
 
     /**
@@ -285,8 +294,15 @@ public class PointFragment extends Fragment {
      * @param db_lists : the list retrieved from the db
      */
     private void parseFromDBToObjects(List<PointEntity> db_lists){
-        for(PointEntity entity : db_lists){
+        for(PointEntity entity : db_lists)
             shopPointList.add(new ShopPoint(entity.getLogo(), entity.getShop(), entity.getPoints()));
-        }
+    }
+
+    /**
+     * Update points for given shop
+     */
+    private void updatePointsByName(String name, int points) {
+        AppDatabase db = AppDatabase.getDatabase(getActivity());
+        db.m_foodisticDAO().setPointsByShop(name, points);
     }
 }

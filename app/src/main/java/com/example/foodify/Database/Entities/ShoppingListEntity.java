@@ -32,7 +32,7 @@ public class ShoppingListEntity {
     public int getID() {
         return ID;
     }
-
+    
     public void setID(@NonNull int ID) {
         this.ID = ID;
     }

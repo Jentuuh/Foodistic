@@ -7,15 +7,18 @@ import androidx.room.PrimaryKey;
 
 /**
  * @author jorisbertram
- * Class that represents the row PointEntity in the table points */
-@Entity(tableName = "Points")
-public class PointEntity {
+ * Class that represents the row PromotionEntity in the table Promotions */
+@Entity(tableName = "Promotions", primaryKeys = {"name", "shop"})
+public class PromotionEntity  {
 
     /** Columns */
-    @ColumnInfo(name = "logo")
-    private int logo;
+    @ColumnInfo(name = "image")
+    private int image;
 
-    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "name")
+    private String name;
+
     @NonNull
     @ColumnInfo(name = "shop")
     private String shop;
@@ -28,8 +31,19 @@ public class PointEntity {
      * GETTERS AND SETTERS
      */
 
-    public int getLogo() { return logo; }
-    public void setLogo(int logo) { this.logo = logo; }
+    public int getImage() {
+        return image;
+    }
+    public void setImage(int image) {
+        this.image = image;
+    }
+
+    public @NonNull String getName() {
+        return name;
+    }
+    public void setName(@NonNull String name) {
+        this.name = name;
+    }
 
     public @NonNull String getShop() {
         return shop;
@@ -45,3 +59,4 @@ public class PointEntity {
         this.points = points;
     }
 }
+
