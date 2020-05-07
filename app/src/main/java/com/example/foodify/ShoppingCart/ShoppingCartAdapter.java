@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,7 +57,7 @@ public class ShoppingCartAdapter extends ArrayAdapter<ShoppingCartItem> {
             TextView prodName = (TextView) view.findViewById(R.id.item_name_view);
             TextView prodPrice = (TextView) view.findViewById(R.id.item_price_view);
            // ImageButton deleteButton = (ImageButton) view.findViewById(R.id.delete_button);
-            TextView prodQuantity = (TextView) view.findViewById(R.id.prod_quantity);
+            final EditText prodQuantity = (EditText) view.findViewById(R.id.prod_quantity);
             ImageView plus = (ImageView) view.findViewById(R.id.imgPlus);
             ImageView minus = (ImageView) view.findViewById(R.id.imgMinus);
             CardView basketItemContainer = (CardView) view.findViewById(R.id.basket_item_container);
@@ -91,6 +95,22 @@ public class ShoppingCartAdapter extends ArrayAdapter<ShoppingCartItem> {
                     }
                 });
             }
+
+            if (prodQuantity != null){
+                prodQuantity.setOnKeyListener(new View.OnKeyListener() {
+                    @Override
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+                        if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)){
+                            mCart.getProductAtIndex(position).setQuantity(Integer.parseInt(prodQuantity.getText().toString()));
+                            notifyDataSetChanged();
+                        }
+
+                        return false;
+                    }
+                });
+
+            }
+
             if (minus != null){
                 minus.setOnClickListener(new View.OnClickListener() {
                     @Override

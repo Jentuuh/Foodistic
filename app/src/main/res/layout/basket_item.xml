@@ -41,7 +41,10 @@
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
         android:text="DefaultText"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textStyle="bold"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/item_img_view"
         app:layout_constraintEnd_toStartOf="@+id/item_price_view"
@@ -83,15 +86,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <EditText
             android:id="@+id/prod_quantity"
             android:layout_width="25dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:inputType="number"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:cursorVisible="true"
+            android:ems="2"
             android:text="99"
             android:gravity="center_horizontal"
             android:textColor="@android:color/black"
+            android:padding="2dp"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="@id/imgMinus"
             app:layout_constraintStart_toEndOf="@+id/imgMinus"

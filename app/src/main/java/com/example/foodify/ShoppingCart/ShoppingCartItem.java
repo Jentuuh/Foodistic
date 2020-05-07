@@ -30,7 +30,11 @@ public class ShoppingCartItem {
         return mQuantity;
     }
 
-    public void setQuantity(int quantity){mQuantity = quantity;}
+    public void setQuantity(int quantity){
+            if(quantity > 99)
+                mQuantity = 99;
+            else
+                mQuantity = quantity;}
 
     public boolean isChecked() {
         return checked;
