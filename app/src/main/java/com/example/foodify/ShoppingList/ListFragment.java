@@ -68,7 +68,7 @@ public class ListFragment extends Fragment {
         // Retrieve list container from layout
         m_productcontainer = (ListView) getView().findViewById(R.id.ListItemView);
 
-        adapter = new ShopListAdapter(getContext(), R.layout.shoplistitem, m_list_to_display);
+        adapter = new ShopListAdapter(getActivity(), R.layout.shoplistitem, m_list_to_display);
 
         // Set the adapter for the listcontainer
         m_productcontainer.setAdapter(adapter);
@@ -88,26 +88,24 @@ public class ListFragment extends Fragment {
 
         // Get data from db
         AppDatabase db = AppDatabase.getDatabase(getContext());
-
-
-
-        // TEST PRODUCT "peren"
-        ProductEntity product = new ProductEntity();
-        product.setID(01);
-        product.setName("peren");
-        product.setPrice(2.33f);
-        product.setDescription("Nice pears");
-        product.setLikability(0.33f);
-        product.setDiscount(1.01f);
-        db.m_foodisticDAO().createProduct(product);
-
-        ProductOnListEntity test = new ProductOnListEntity();
-        test.setID(02);
-        test.setProductid(product.getID());
-        test.setListID(m_list_to_display.getM_id());
-        test.setProductname("peren");
-        test.setQuantity(1);
-        db.m_foodisticDAO().addProductToList(test);
+//
+//        // TEST PRODUCT "peren"
+//        ProductEntity product = new ProductEntity();
+//        product.setID(01);
+//        product.setName("peren");
+//        product.setPrice(2.33f);
+//        product.setDescription("Nice pears");
+//        product.setLikability(0.33f);
+//        product.setDiscount(1.01f);
+//        db.m_foodisticDAO().createProduct(product);
+//
+//        ProductOnListEntity test = new ProductOnListEntity();
+//        test.setID(02);
+//        test.setProductid(01);
+//        test.setListID(02);
+//        test.setProductname(product.getName());
+//        test.setQuantity(3);
+//        db.m_foodisticDAO().addProductToList(test);
 
 
         // Retrieve items on this list
@@ -116,12 +114,12 @@ public class ListFragment extends Fragment {
         // Parse it into usable objects
         parseIntoListItems(results);
 
-        // TEST PRODUCT
-        ArrayList<Comment> comments = new ArrayList<>();
-        comments.add(new Comment(new User("testuser", "test", new Date(11052019), FoodStyle.OMNIVORE, "test"),"This is a tescomment"));
-        Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
-        m_list_to_display.addItem(new ProductItem("Jonagold Apples", 2.5f, "These are the best premium apples you can get.", 50.4f, comments, img), getContext());
-        adapter.notifyDataSetChanged();
+//        // TEST PRODUCT
+//        ArrayList<Comment> comments = new ArrayList<>();
+//        comments.add(new Comment(new User("testuser", "test", new Date(11052019), FoodStyle.OMNIVORE, "test"),"This is a tescomment"));
+//        Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
+//        m_list_to_display.addItem(new ProductItem("Jonagold Apples", 2.5f, "These are the best premium apples you can get.", 50.4f, comments, img), getContext());
+//        adapter.notifyDataSetChanged();
     }
 
 
@@ -139,7 +137,8 @@ public class ListFragment extends Fragment {
                 ShoppingCartItem list_item = new ShoppingCartItem(to_add);
                 // Make sure the quantity is set to the quantity from the database
                 list_item.setQuantity(product_on_list.getQuantity());
-                m_list_to_display.addItem(new ShoppingCartItem(to_add), getContext());
+                Log.v("test", Integer.toString(list_item.getQuantity()));
+                m_list_to_display.addItem(list_item);
             }
         }
     }

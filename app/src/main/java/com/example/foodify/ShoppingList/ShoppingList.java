@@ -25,6 +25,8 @@ public class ShoppingList extends Observable {
         m_name = name;
         m_id = ID;
         m_products_on_list = new ArrayList<>();
+
+
         loadProductsFromDatabase(name);
     }
 
@@ -66,7 +68,7 @@ public class ShoppingList extends Observable {
         notifyObservers();
     }
 
-    public void addItem(ShoppingCartItem item_to_add, Context context ){
+    public void addItem(ShoppingCartItem item_to_add){
         m_products_on_list.add(item_to_add);
         setChanged();
         notifyObservers();
@@ -139,6 +141,8 @@ public class ShoppingList extends Observable {
     private void updateDataBase(ProductItem item, CartItemModification mod, Context context){
         AppDatabase db = AppDatabase.getDatabase(context);
         int current_quantity = db.m_foodisticDAO().getProductQuantity(item.getM_id(), m_id);
+
+        Log.v("CURRENTQUAN", Integer.toString(current_quantity));
 
         if(mod == CartItemModification.PLUS){
             db.m_foodisticDAO().updateProductQuantity(m_id, item.getM_id(), current_quantity + 1);
