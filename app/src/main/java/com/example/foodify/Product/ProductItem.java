@@ -3,6 +3,7 @@ package com.example.foodify.Product;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 
+import com.example.foodify.Enums.FoodStyle;
 import com.example.foodify.R;
 import com.google.android.material.animation.DrawableAlphaProperty;
 
@@ -17,6 +18,7 @@ public class ProductItem {
     private String m_name;                      // Name of the product
     private float m_price;                      // Price of the product
     private String m_description;               // Description of the product
+    private FoodStyle m_foodstyle;
     private float m_likability;                 // The percentage of likes on this product
     private ArrayList<Comment> m_comments;      // Comments on this product
     private float m_discount;
@@ -37,6 +39,7 @@ public class ProductItem {
         m_price = price;
         m_description = description;
         m_likability = likability;
+
         if (comments != null)
             m_comments = new ArrayList<>(comments);
         else
@@ -57,6 +60,7 @@ public class ProductItem {
     public ArrayList<Comment> getComments(){return m_comments;}
     public Drawable getImage(){return m_image;};
     public float getDiscount(){return m_discount;}
+    public FoodStyle getFoodstyle(){return m_foodstyle;}
 
     /**
      * Setters

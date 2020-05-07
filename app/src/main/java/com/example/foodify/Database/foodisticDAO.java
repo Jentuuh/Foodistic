@@ -136,4 +136,19 @@ public interface foodisticDAO {
      */
     @Query("UPDATE Points SET points = :f_points WHERE shop = :f_shop ")
     void setPointsByShop(String f_shop, int f_points);
+
+
+    /**
+     * ////////////////////
+     * SHOP POINT QUERYS
+     * ////////////////////
+     */
+
+    /**
+     * Gets all items from the database
+     * @return
+     */
+    @Query("SELECT * FROM Products")
+    List<ProductEntity> getAllProducts();
+
 }

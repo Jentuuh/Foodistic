@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.foodify.Enums.Size;
 import com.example.foodify.Product.ProductItem;
 import com.example.foodify.Product.Promotion;
 import com.example.foodify.R;
@@ -30,7 +31,7 @@ public class ShopFragment extends Fragment {
     private PromotionAdapter mPromotionAdapter;
 
     private ArrayList<ProductItem> mDiscountedItems;
-    private DiscountAdapter mDiscountAdapter;
+    private ProductAdapter mProductAdapter;
     private LinearLayoutManager mPromotionLayoutManager;
     private LinearLayoutManager mDiscountLayoutManager;
 
@@ -52,9 +53,10 @@ public class ShopFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         mPromotionList = new ArrayList<Promotion>();
         mDiscountedItems = new ArrayList<ProductItem>();
-        mDiscountAdapter = new DiscountAdapter(mDiscountedItems, this);
+        mProductAdapter = new ProductAdapter(mDiscountedItems, this, Size.SMALL);
         mPromotionAdapter = new PromotionAdapter(mPromotionList);
 
         testData();
@@ -74,7 +76,7 @@ public class ShopFragment extends Fragment {
 
     private void setupPromotions(){
         RecyclerView promotionRecyclerView = getView().findViewById(R.id.promotion_list);
-        LinearLayoutManager mPromotionLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        mPromotionLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         mPromotionLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         promotionRecyclerView.setLayoutManager(mPromotionLayoutManager);
         promotionRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -83,11 +85,11 @@ public class ShopFragment extends Fragment {
 
     private void setupDiscounts(){
         RecyclerView discountRecyclerView = getView().findViewById(R.id.discount_list);
-        LinearLayoutManager mDiscountLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        mDiscountLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         mDiscountLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         discountRecyclerView.setLayoutManager(mDiscountLayoutManager);
         discountRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        discountRecyclerView.setAdapter(mDiscountAdapter);
+        discountRecyclerView.setAdapter(mProductAdapter);
 
     }
 

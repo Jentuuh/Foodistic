@@ -50,6 +50,7 @@ public class ShoppingCartCount extends Drawable {
     public void draw(Canvas canvas) {
 
         if (!mWillDraw) {
+            this.setAlpha(0);
             return;
         }
         Rect bounds = getBounds();
@@ -58,7 +59,7 @@ public class ShoppingCartCount extends Drawable {
 
         // Position the badge in the top-right quadrant of the icon.
 
-        /*Using Math.max rather than Math.min */
+        /* Using Math.max rather than Math.min */
 
         float radius = ((Math.max(width, height) / 2)) / 2;
         float centerX = (width - radius - 1) + 10;
@@ -93,7 +94,6 @@ public class ShoppingCartCount extends Drawable {
 
     @Override
     public void setAlpha(int alpha) {
-        // do nothing
     }
 
     @Override

@@ -94,7 +94,7 @@ public class ListFragment extends Fragment {
         ArrayList<Comment> comments = new ArrayList<>();
         comments.add(new Comment(new User("testuser", "test", new Date(11052019), FoodStyle.OMNIVORE, "test"),"This is a tescomment"));
         Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
-        m_list_to_display.addItem(new ProductItem("Jonagold Apples", 2.5f, "These are the best premium apples you can get.", 50.4f, comments, img ));
+        m_list_to_display.addItem(new ProductItem("Jonagold Apples", 2.5f, "These are the best premium apples you can get.", 50.4f, comments, img));
         adapter.notifyDataSetChanged();
     }
 

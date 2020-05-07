@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -19,7 +18,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
     private NavController mNavController;
     private ShoppingCart mShoppingCart;
     private Menu mMenu;
-    private ShoppingCartAdapter mAdapter;
+    private ShoppingCartAdapter mShoppingCartAdapter;
     private AppBarConfiguration mAppBarConfig;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,11 +132,16 @@ public class MainActivity extends AppCompatActivity implements Observer {
         mShoppingCart.addObserver(this);
 
         ListView listview = (ListView) findViewById(R.id.basketitemlist);
-        mAdapter = new ShoppingCartAdapter(this, R.layout.basket_item, mShoppingCart);
-        listview.setAdapter(mAdapter);
+        mShoppingCartAdapter = new ShoppingCartAdapter(this, R.layout.basket_item, mShoppingCart);
+        listview.setAdapter(mShoppingCartAdapter);
 
     }
 
+    public void addToCart(ProductItem item){
+        mShoppingCart.addItem(item);
+        mShoppingCartAdapter.notifyDataSetChanged();
+
+    }
 
     public void navigateTo(int actionId){
         if (mDrawerLayout.isDrawerOpen(GravityCompat.END)){ // If you tap on an item but the shopping cart is open, close it
@@ -157,7 +161,11 @@ public class MainActivity extends AppCompatActivity implements Observer {
         mMenu = menu;
         // Add toolbar
         getMenuInflater().inflate(R.menu.toolbarmenuitems, menu);
-        createBasketTests();
+        menu.findItem(R.id.search_icon).setVisible(false);
+        //createBasketTests();
+       // updateTotalBasket();
+        setCount(this, mShoppingCart.getCount());
+
         return true;
     }
 
@@ -217,8 +225,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
      * @param context
      * @param count count to be set
      */
-    public void setCount(Context context, String count) {
-
+    public void setCount(Context context, int count) {
+        String strCount = String.valueOf(count);
         MenuItem menuItem = mMenu.findItem(R.id.shoppingBasket);
         LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
 
@@ -228,13 +236,15 @@ public class MainActivity extends AppCompatActivity implements Observer {
         Drawable reuse = icon.findDrawableByLayerId(R.id.ic_item_count);
         if (reuse != null && reuse instanceof ShoppingCartCount) {
             badge = (ShoppingCartCount) reuse;
-        } else {
+        }
+        else {
             badge = new ShoppingCartCount(context);
         }
 
-        badge.setCount(count);
+        badge.setCount(strCount);
         icon.mutate();
         icon.setDrawableByLayerId(R.id.ic_item_count, badge);
+
     }
 
     /**
@@ -253,8 +263,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
      */
     @Override
     public void update(Observable o, Object arg) {
-        setCount(this, String.valueOf(mShoppingCart.getCount()));
+        setCount(this, mShoppingCart.getCount());
         updateTotalBasket();
-        mAdapter.notifyDataSetChanged();
+        mShoppingCartAdapter.notifyDataSetChanged();
     }
 }
