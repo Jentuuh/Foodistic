@@ -45,9 +45,11 @@ public class ProductOnListEntity {
         this.ID = ID;
     }
 
-
     public int getQuantity() {
         return quantity;
+    }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public int getProductid() {
@@ -74,8 +76,5 @@ public class ProductOnListEntity {
         this.listID = listID;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
 }

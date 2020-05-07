@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Product.ProductItem;
 import com.example.foodify.R;
 import com.example.foodify.ShoppingCart.ShoppingCartItem;
@@ -42,7 +43,7 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
                 view = inflater.inflate(resourceLayout, null);
 
             }
-            ShoppingCartItem cartItem = getItem(position);
+            ShoppingCartItem cartItem = mList.getProducts().get(position);
             ProductItem item = cartItem.getItem();
 
             if (item != null){
@@ -55,6 +56,8 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
                 ImageView minus = (ImageView) view.findViewById(R.id.imgMinus);
                 CardView basketItemContainer = (CardView) view.findViewById(R.id.list_item_container);
 
+                Log.v("name" ,cartItem.getItem().getName());
+                Log.v("quant", Integer.toString(cartItem.getQuantity()));
 
                 if (imgview != null)
                     imgview.setImageDrawable(item.getImage());
@@ -63,7 +66,7 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
                 if (prodPrice != null)
                     prodPrice.setText("€ " + String.valueOf(item.getPrice()));
                 if (prodQuantity != null)
-                    prodQuantity.setText(String.valueOf(cartItem.getQuantity()));
+                    prodQuantity.setText(Integer.toString(cartItem.getQuantity()));
 
 
                 //add listener to container of item in shopping cart to open the item fragment
