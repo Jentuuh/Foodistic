@@ -28,6 +28,8 @@ public class ShoppingCartItem {
         return mQuantity;
     }
 
+    public void setQuantity(int quantity){mQuantity = quantity;}
+
     public ProductItem getItem() {
         return mItem;
     }

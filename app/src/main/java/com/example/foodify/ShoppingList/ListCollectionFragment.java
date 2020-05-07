@@ -59,11 +59,18 @@ public class ListCollectionFragment extends Fragment {
 
         getShoppingLists();
         // Create the arrayadapter and set it for the listcontainer
-        shop_list_adapter = new ListCollectionAdapter(this.requireContext(), lists_to_display);
+        shop_list_adapter = new ListCollectionAdapter(this.requireContext(), lists_to_display, this);
 
 
         // Set adapter for the listview
         listcontainer.setAdapter(shop_list_adapter);
+
+//        listcontainer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+////            @Override
+////            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+////                openList(view);
+////            }
+////        });
 
 
         // Set on click listener for the FAB
@@ -94,7 +101,6 @@ public class ListCollectionFragment extends Fragment {
         //startActivity(intent);
         //TODO Eventueel NameListActivity veranderen naar een FRAGMENT
         NavHostFragment.findNavController(this).navigate(R.id.action_listCollectionFragment_to_nameShoppingListActivity);
-
     }
 
 
@@ -108,6 +114,7 @@ public class ListCollectionFragment extends Fragment {
         View selected = getView().findViewById(view.getId());
         // Retrieve the textual content of this object
         String listname = ((TextView) selected).getText().toString();
+
 
         //TODO: Switch fragment to ListFragment
         loadListFragment(listname);
@@ -136,7 +143,7 @@ public class ListCollectionFragment extends Fragment {
 
     private void getShoppingLists(){
         // TODO : DON'T FORGET TO SETOBSERVER FOR SHOPPINGLIST
-
+        lists_to_display.clear();
         // Retrieve the shopping lists from the database
         AppDatabase db = AppDatabase.getDatabase(getActivity());
         List<ShoppingListEntity>  lists_from_db = db.m_foodisticDAO().getAllShoppingLists();
@@ -144,7 +151,7 @@ public class ListCollectionFragment extends Fragment {
         parseFromDBToObjects(lists_from_db);
 
         // TEST DATA
-        lists_to_display.add(new ShoppingList("Testlijst"));
+        lists_to_display.add(new ShoppingList("Testlijst", 01));
     }
 
     /**
@@ -153,30 +160,8 @@ public class ListCollectionFragment extends Fragment {
      */
     private void parseFromDBToObjects(List<ShoppingListEntity> db_lists){
         for(ShoppingListEntity list : db_lists){
-            lists_to_display.add(new ShoppingList(list.getName()));
+            lists_to_display.add(new ShoppingList(list.getName(), list.getID()));
         }
     }
-
-    /**
-     * Removes a shopping list from the container
-     * @param list_to_remove    : The List to be removed
-     */
-    public void removeShoppingList(ShoppingList list_to_remove){
-        lists_to_display.remove(list_to_remove);
-        removeShoppingListDB(list_to_remove);
-        shop_list_adapter.notifyDataSetChanged();
-    }
-
-    /**
-     * Method that updates the database when a new Shopping list was removed.
-     * @param list_to_remove    : The List to be removed
-     */
-    private void removeShoppingListDB(ShoppingList list_to_remove){
-        AppDatabase db = AppDatabase.getDatabase(getActivity());
-        db.m_foodisticDAO().deleteShoppingList(list_to_remove.getName());
-    }
-
-
-
 }
 

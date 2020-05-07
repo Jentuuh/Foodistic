@@ -2,8 +2,6 @@ package com.example.foodify.ShoppingList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,20 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-
-
-import android.view.LayoutInflater;
-
-import android.view.ViewGroup;
-
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.Entities.ShoppingListEntity;
-import com.example.foodify.Database.RNG;
-import com.example.foodify.LoginActivity;
 import com.example.foodify.MainActivity;
 import com.example.foodify.R;
-
-import java.util.List;
 
 
 /**

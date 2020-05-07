@@ -53,7 +53,7 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
                 TextView prodQuantity = (TextView) view.findViewById(R.id.prod_quantity);
                 ImageView plus = (ImageView) view.findViewById(R.id.imgPlus);
                 ImageView minus = (ImageView) view.findViewById(R.id.imgMinus);
-                CardView basketItemContainer = (CardView) view.findViewById(R.id.basket_item_container);
+                CardView basketItemContainer = (CardView) view.findViewById(R.id.list_item_container);
 
 
                 if (imgview != null)
@@ -81,7 +81,7 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
                     plus.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mList.addByPos(position);
+                            mList.addByPos(position, mContext);
                             notifyDataSetChanged();
                         }
                     });
@@ -90,7 +90,7 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
                     minus.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mList.removeByPos(position);
+                            mList.removeByPos(position, mContext);
                             notifyDataSetChanged();
                         }
                     });

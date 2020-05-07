@@ -10,8 +10,7 @@ import androidx.room.PrimaryKey;
 /**
  * @author jentevandersanden
  * Class that represents the row ProductOnListEntity in the table ProductsOnList*/
-@Entity(tableName = "ProductsOnList", foreignKeys = { @ForeignKey(entity = ProductEntity.class, parentColumns = "ID" , childColumns = "productid", onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.CASCADE)
-                                                    , @ForeignKey(entity = ShoppingListEntity.class, parentColumns = "ID", childColumns = "listID", onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.CASCADE)})
+@Entity(tableName = "ProductsOnList")
 public class ProductOnListEntity {
 
     /** Columns */
@@ -20,13 +19,18 @@ public class ProductOnListEntity {
     private int ID;
 
     @ColumnInfo(name = "productid")
-    private String productid;
+    private int productid;
+
+    @ColumnInfo(name = "productname")
+    private String productname;
 
     @ColumnInfo(name = "quantity")
     private int quantity;
 
     @ColumnInfo(name = "listID")
-    private String listID;
+    private int listID;
+
+
 
     /**
      * GETTERS AND SETTERS
@@ -46,19 +50,27 @@ public class ProductOnListEntity {
         return quantity;
     }
 
-    public String getProductid() {
+    public int getProductid() {
         return productid;
     }
 
-    public void setProductid(String productid) {
+    public void setProductid(int productid) {
         this.productid = productid;
     }
 
-    public String getListID() {
+    public String getProductname() {
+        return productname;
+    }
+
+    public void setProductname(String productname) {
+        this.productname = productname;
+    }
+
+    public int getListID() {
         return listID;
     }
 
-    public void setListID(String listID) {
+    public void setListID(int listID) {
         this.listID = listID;
     }
 
