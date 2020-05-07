@@ -1,7 +1,9 @@
 package com.example.foodify.ShoppingCart;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,7 +95,32 @@ public class ShoppingCartAdapter extends ArrayAdapter<ShoppingCartItem> {
                 minus.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mCart.removeByPos(position);
+                        //ask for confirmation if it is the last item
+                        if (mCart.getProductAtIndex(position).getQuantity() <= 1){
+                                new AlertDialog.Builder(getContext())
+                                        .setTitle("Verwijder product")
+                                        .setMessage("Weet je zeker dat je dit wilt doen?")
+
+                                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                                        // The dialog is automatically dismissed when a dialog button is clicked.
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // Continue with delete operation
+                                                mCart.removeByPos(position);
+                                            }
+                                        })
+
+                                        // A null listener allows the button to dismiss the dialog and take no further action.
+                                        .setNegativeButton(android.R.string.no, null)
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .show();
+
+
+                            }
+                        else{
+                            mCart.removeByPos(position);
+                        }
+
                         notifyDataSetChanged();
                     }
                 });

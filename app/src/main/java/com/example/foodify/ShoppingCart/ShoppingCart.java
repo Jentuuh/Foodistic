@@ -60,6 +60,13 @@ public class ShoppingCart extends Observable {
     }
 
     /**
+     * gets item at certain position
+     */
+    public ShoppingCartItem getProductAtIndex(int position){
+        return mItems.get(position);
+    }
+
+    /**
      * get the total amount of the shoppingcart
      * @return
      */
