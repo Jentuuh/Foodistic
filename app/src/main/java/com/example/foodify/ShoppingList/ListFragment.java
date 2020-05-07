@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.foodify.Enums.FoodStyle;
 import com.example.foodify.Product.Comment;
 import com.example.foodify.Product.ProductItem;
 import com.example.foodify.R;
+import com.example.foodify.ShoppingCart.ShoppingCartItem;
 import com.example.foodify.User.User;
 
 import java.util.ArrayList;
@@ -61,12 +63,12 @@ public class ListFragment extends Fragment {
         // Set the list title in the view
         ((TextView) getActivity().findViewById(R.id.listTitle)).setText(m_list_name);
 
-        m_list_to_display = new ShoppingList(m_list_name,getArguments().getInt("listID"));
+        m_list_to_display = new ShoppingList(m_list_name, getArguments().getInt("listID"));
 
         // Retrieve list container from layout
         m_productcontainer = (ListView) getView().findViewById(R.id.ListItemView);
 
-        adapter = new ShopListAdapter(getActivity(), R.layout.basket_item, m_list_to_display);
+        adapter = new ShopListAdapter(getContext(), R.layout.shoplistitem, m_list_to_display);
 
         // Set the adapter for the listcontainer
         m_productcontainer.setAdapter(adapter);
@@ -86,7 +88,31 @@ public class ListFragment extends Fragment {
 
         // Get data from db
         AppDatabase db = AppDatabase.getDatabase(getContext());
+
+
+
+        // TEST PRODUCT "peren"
+        ProductEntity product = new ProductEntity();
+        product.setID(01);
+        product.setName("peren");
+        product.setPrice(2.33f);
+        product.setDescription("Nice pears");
+        product.setLikability(0.33f);
+        product.setDiscount(1.01f);
+        db.m_foodisticDAO().createProduct(product);
+
+        ProductOnListEntity test = new ProductOnListEntity();
+        test.setID(02);
+        test.setProductid(product.getID());
+        test.setListID(m_list_to_display.getM_id());
+        test.setProductname("peren");
+        test.setQuantity(1);
+        db.m_foodisticDAO().addProductToList(test);
+
+
+        // Retrieve items on this list
         List<ProductOnListEntity> results = db.m_foodisticDAO().getItemsOnList(m_list_to_display.getM_id());
+
         // Parse it into usable objects
         parseIntoListItems(results);
 
@@ -94,7 +120,7 @@ public class ListFragment extends Fragment {
         ArrayList<Comment> comments = new ArrayList<>();
         comments.add(new Comment(new User("testuser", "test", new Date(11052019), FoodStyle.OMNIVORE, "test"),"This is a tescomment"));
         Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
-        m_list_to_display.addItem(new ProductItem("Jonagold Apples", 2.5f, "These are the best premium apples you can get.", 50.4f, comments, img));
+        m_list_to_display.addItem(new ProductItem("Jonagold Apples", 2.5f, "These are the best premium apples you can get.", 50.4f, comments, img), getContext());
         adapter.notifyDataSetChanged();
     }
 
@@ -103,12 +129,18 @@ public class ListFragment extends Fragment {
      * Parses db data into usable ProductItem objects.
      * @param db_data
      */
-    public void parseIntoListItems(List<ProductOnListEntity> db_data){
+    public void parseIntoListItems(List<ProductOnListEntity> db_data) {
         AppDatabase db = AppDatabase.getDatabase(getContext());
 
-        for(ProductOnListEntity product_on_list:db_data){
+        for (ProductOnListEntity product_on_list : db_data) {
             ProductEntity product_to_add = db.m_foodisticDAO().getProduct(product_on_list.getProductid());
-            m_list_to_display.addItem(new ProductItem(product_to_add.getName(), product_to_add.getPrice(), product_to_add.getDescription(), product_to_add.getLikability(), null, product_to_add.getDiscount(), null));
+            if (product_to_add != null) {
+                ProductItem to_add = new ProductItem(product_to_add.getName(), product_to_add.getPrice(), product_to_add.getDescription(), product_to_add.getLikability(), null, product_to_add.getDiscount(), null);
+                ShoppingCartItem list_item = new ShoppingCartItem(to_add);
+                // Make sure the quantity is set to the quantity from the database
+                list_item.setQuantity(product_on_list.getQuantity());
+                m_list_to_display.addItem(new ShoppingCartItem(to_add), getContext());
+            }
         }
     }
 

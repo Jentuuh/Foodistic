@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -93,7 +94,12 @@ public class ListCollectionAdapter extends ArrayAdapter<ShoppingList> {
      * @param list_to_remove    : The List to be removed
      */
     public void removeShoppingList(ShoppingList list_to_remove){
+        // Remove the list
+        lists_to_display.remove(list_to_remove);
         removeShoppingListDB(list_to_remove);
+
+        // Give the user feedback
+        Toast.makeText(mContext,"Lijst '" + list_to_remove.getName() + "' werd verwijderd.", Toast.LENGTH_SHORT).show();
         this.notifyDataSetChanged();
     }
 

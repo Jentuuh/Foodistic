@@ -1,5 +1,10 @@
 package com.example.foodify.ShoppingList;
 
+import android.content.Context;
+import android.util.Log;
+
+import com.example.foodify.Database.AppDatabase;
+import com.example.foodify.Database.Entities.ProductOnListEntity;
 import com.example.foodify.Enums.CartItemModification;
 import com.example.foodify.Product.ProductItem;
 import com.example.foodify.ShoppingCart.ShoppingCartItem;
@@ -44,10 +49,11 @@ public class ShoppingList extends Observable {
      * Adds a product to this list, if this list already contains the product,
      * the amount is increased
      */
-    public void addItem(ProductItem item_to_add){
+    public void addItem(ProductItem item_to_add, Context context){
         for(ShoppingCartItem i : m_products_on_list){
             if (i.getItem().getName().equals(item_to_add.getName())){ // if there's an item in the cart with the same name
                 i.addOne(); // quantity += 1
+                updateDataBase(i.getItem(), CartItemModification.PLUS, context);
                 setChanged();
                 notifyObservers();
                 return;
@@ -60,39 +66,30 @@ public class ShoppingList extends Observable {
         notifyObservers();
     }
 
+    public void addItem(ShoppingCartItem item_to_add, Context context ){
+        m_products_on_list.add(item_to_add);
+        setChanged();
+        notifyObservers();
+    }
+
     /**
      * Removes a product from this list
      */
-    public void removeItem(ShoppingCartItem item_to_remove){
-        removeProductFromListDB(item_to_remove.getItem());
+    public void removeItem(ShoppingCartItem item_to_remove, Context context){
+        removeProductFromListDB(item_to_remove.getItem(), context);
         m_products_on_list.remove(item_to_remove);
         setChanged();
         notifyObservers();
     }
 
     /**
-     * Removes a certain position in the list
-     * @param pos
-     */
-    public void removeByPosition(int pos){
-        ProductItem to_remove = m_products_on_list.get(pos).getItem();
-        // Remove from database
-        removeProductFromListDB(to_remove);
-        // Remove from current instance of the list
-        m_products_on_list.remove(pos);
-        setChanged();
-        notifyObservers();
-    }
-
-
-    /**
      * Makes sure the quantity goes up by one.
      * @param pos
      */
-    public void addByPos(int pos){
+    public void addByPos(int pos, Context context){
         if(m_products_on_list.get(pos) != null) {
             m_products_on_list.get(pos).addOne();
-            updateDataBase(m_products_on_list.get(pos).getItem(), CartItemModification.PLUS);
+            updateDataBase(m_products_on_list.get(pos).getItem(), CartItemModification.PLUS, context);
         }
         setChanged();
         notifyObservers();
@@ -103,14 +100,14 @@ public class ShoppingList extends Observable {
      * the product will be removed
      * @param pos
      */
-    public void removeByPos(int pos){
+    public void removeByPos(int pos, Context context){
         ShoppingCartItem item = m_products_on_list.get(pos);
         if (item.getQuantity() > 1){
             item.removeOne();
-            updateDataBase(item.getItem(), CartItemModification.MINUS);
+            updateDataBase(item.getItem(), CartItemModification.MINUS, context);
         }
         else{   // if theres only one left
-            removeItem(item); //TODO maybe ask for confirmation
+            removeItem(item,context); //TODO maybe ask for confirmation
         }
         setChanged();
         notifyObservers();
@@ -123,20 +120,15 @@ public class ShoppingList extends Observable {
      */
 
 
-    /**
-     * Updates the database when a product was added to a list
-     * @param item_to_add : The product that was added to this list
-     */
-    private void addProductToListDB(ProductItem item_to_add){
-        // TODO: DB QUERY
-    }
 
     /**
      * Updates the database when a product was removed from a list
      * @param item_to_remove : The product that was removed from this list
      */
-    private void removeProductFromListDB(ProductItem item_to_remove){
+    private void removeProductFromListDB(ProductItem item_to_remove, Context context){
         // TODO: DB
+        AppDatabase db = AppDatabase.getDatabase(context);
+        db.m_foodisticDAO().removeProductFromList(item_to_remove.getM_id(), m_id);
     }
 
     /**
@@ -144,12 +136,16 @@ public class ShoppingList extends Observable {
      * @param item : The product of which the amount was changed
      * @param mod : The modification that happened to this product
      */
-    private void updateDataBase(ProductItem item, CartItemModification mod){
+    private void updateDataBase(ProductItem item, CartItemModification mod, Context context){
+        AppDatabase db = AppDatabase.getDatabase(context);
+        int current_quantity = db.m_foodisticDAO().getProductQuantity(item.getM_id(), m_id);
+
         if(mod == CartItemModification.PLUS){
-            // TODO: UPDATE DB +
+            db.m_foodisticDAO().updateProductQuantity(m_id, item.getM_id(), current_quantity + 1);
+
         }
         else{
-            //TODO : UPDATE DB -
+            db.m_foodisticDAO().updateProductQuantity(m_id, item.getM_id(), current_quantity - 1);
         }
 
     }

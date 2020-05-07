@@ -65,13 +65,12 @@ public class ListCollectionFragment extends Fragment {
         // Set adapter for the listview
         listcontainer.setAdapter(shop_list_adapter);
 
-        listcontainer.setClickable(true);
-        listcontainer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                openList(view);
-            }
-        });
+//        listcontainer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+////            @Override
+////            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+////                openList(view);
+////            }
+////        });
 
 
         // Set on click listener for the FAB
@@ -115,6 +114,7 @@ public class ListCollectionFragment extends Fragment {
         View selected = getView().findViewById(view.getId());
         // Retrieve the textual content of this object
         String listname = ((TextView) selected).getText().toString();
+
 
         //TODO: Switch fragment to ListFragment
         loadListFragment(listname);

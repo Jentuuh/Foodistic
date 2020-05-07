@@ -10,8 +10,7 @@ import androidx.room.PrimaryKey;
 /**
  * @author jentevandersanden
  * Class that represents the row ProductOnListEntity in the table ProductsOnList*/
-@Entity(tableName = "ProductsOnList", foreignKeys = { @ForeignKey(entity = ProductEntity.class, parentColumns = "ID" , childColumns = "productid", onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.CASCADE)
-                                                    , @ForeignKey(entity = ShoppingListEntity.class, parentColumns = "ID", childColumns = "listID", onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.CASCADE)})
+@Entity(tableName = "ProductsOnList")
 public class ProductOnListEntity {
 
     /** Columns */

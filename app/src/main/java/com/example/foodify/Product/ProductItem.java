@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 public class ProductItem {
 
+    private int m_id;                           // product ID
     private String m_name;                      // Name of the product
     private float m_price;                      // Price of the product
     private String m_description;               // Description of the product
@@ -61,6 +62,7 @@ public class ProductItem {
     public Drawable getImage(){return m_image;};
     public float getDiscount(){return m_discount;}
     public FoodStyle getFoodstyle(){return m_foodstyle;}
+    public int getM_id() { return m_id; }
 
     /**
      * Setters
