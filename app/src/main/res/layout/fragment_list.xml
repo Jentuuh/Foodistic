@@ -19,12 +19,30 @@
         android:textColor="#000000"
         android:textSize="30sp" />
 
+    <TextView
+        android:id="@+id/total_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="700px"
+
+        android:text="Totaal:"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/uncheck_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50px"
+        android:text="Vink alle uit" />
+
     <ListView
         android:id="@+id/ListItemView"
         android:layout_width="match_parent"
-        android:layout_marginBottom="400px"
-        android:layout_marginTop="100px"
+        android:layout_marginBottom="300px"
+        android:layout_marginTop="50px"
         android:layout_height="wrap_content">
+
     </ListView>
 
 </LinearLayout>

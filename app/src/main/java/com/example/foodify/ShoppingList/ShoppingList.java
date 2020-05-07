@@ -1,7 +1,11 @@
 package com.example.foodify.ShoppingList;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.Entities.ProductOnListEntity;
@@ -102,14 +106,34 @@ public class ShoppingList extends Observable {
      * the product will be removed
      * @param pos
      */
-    public void removeByPos(int pos, Context context){
-        ShoppingCartItem item = m_products_on_list.get(pos);
+    public void removeByPos(int pos, final Context context, final ArrayAdapter adapter){
+        final ShoppingCartItem item = m_products_on_list.get(pos);
         if (item.getQuantity() > 1){
             item.removeOne();
             updateDataBase(item.getItem(), CartItemModification.MINUS, context);
         }
         else{   // if theres only one left
-            removeItem(item,context); //TODO maybe ask for confirmation
+
+            new AlertDialog.Builder(context)
+                    .setTitle("Verwijder product van lijst")
+                    .setMessage("Weet je zeker dat je dit wilt doen?")
+
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Continue with delete operation
+                            removeItem(item,context);
+                            adapter.notifyDataSetChanged();
+                            Toast.makeText(context, "Product '" + item.getItem().getName()+ "' werd verwijderd van uw lijst.", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+
+                    // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+
         }
         setChanged();
         notifyObservers();
@@ -130,7 +154,7 @@ public class ShoppingList extends Observable {
     private void removeProductFromListDB(ProductItem item_to_remove, Context context){
         // TODO: DB
         AppDatabase db = AppDatabase.getDatabase(context);
-        db.m_foodisticDAO().removeProductFromList(item_to_remove.getM_id(), m_id);
+        db.m_foodisticDAO().removeProductFromList( m_id, item_to_remove.getName());
     }
 
     /**
@@ -140,16 +164,16 @@ public class ShoppingList extends Observable {
      */
     private void updateDataBase(ProductItem item, CartItemModification mod, Context context){
         AppDatabase db = AppDatabase.getDatabase(context);
-        int current_quantity = db.m_foodisticDAO().getProductQuantity(item.getM_id(), m_id);
+        int current_quantity = db.m_foodisticDAO().getItemOnList(m_id, item.getName()).getQuantity();
 
         Log.v("CURRENTQUAN", Integer.toString(current_quantity));
 
         if(mod == CartItemModification.PLUS){
-            db.m_foodisticDAO().updateProductQuantity(m_id, item.getM_id(), current_quantity + 1);
+            db.m_foodisticDAO().updateProductQuantity(m_id,current_quantity + 1, item.getName());
 
         }
         else{
-            db.m_foodisticDAO().updateProductQuantity(m_id, item.getM_id(), current_quantity - 1);
+            db.m_foodisticDAO().updateProductQuantity(m_id, current_quantity - 1, item.getName());
         }
 
     }

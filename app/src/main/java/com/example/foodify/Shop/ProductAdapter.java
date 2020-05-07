@@ -7,11 +7,16 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodify.Database.AppDatabase;
+import com.example.foodify.Database.Entities.ProductEntity;
+import com.example.foodify.Database.Entities.ProductOnListEntity;
 import com.example.foodify.Enums.Size;
 import com.example.foodify.MainActivity;
 import com.example.foodify.Product.ProductItem;
@@ -103,7 +108,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        ProductItem prodItem = mDiscountList.get(position);
+        final ProductItem prodItem = mDiscountList.get(position);
         holder.itemName.setText(prodItem.getName());
         holder.itemPrice.setText("€ " + new DecimalFormat("###.##").format(prodItem.calculatePrice()));
         holder.prevItemPrice.setText("€ " + new DecimalFormat("###.##").format(prodItem.getPrice()));
@@ -119,6 +124,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             public void onClick(View v) {
                 //TODO Open item fragment once item is pressed
                 ((MainActivity)mContext.getActivity()).addToCart(mDiscountList.get(position));
+                // User feedback
+                Toast.makeText(mContext.getActivity(), "Toegevoegd aan je winkelmandje!", Toast.LENGTH_SHORT).show();
               //  NavHostFragment.findNavController(mContext).navigate(R.id.shop_to_filter_on_view_more);
                 }
             });
@@ -126,8 +133,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         holder.addToList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Open item fragment once item is pressed
-                Log.v("ListAdapter", "Open the item page here");
+
+                // TODO : actually add the product to the list
+                Toast.makeText(mContext.getActivity(), "Toegevoegd aan je boodschappenlijstje!", Toast.LENGTH_SHORT).show();
+
 
             }
         });

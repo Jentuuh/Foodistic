@@ -3,7 +3,9 @@ package com.example.foodify.ShoppingList;
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.R;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -67,7 +69,28 @@ public class ListCollectionAdapter extends ArrayAdapter<ShoppingList> {
                     @Override
                     public void onClick(View v) {
                         // TODO : ask for confirmation
-                        removeShoppingList(list_item);
+                        new AlertDialog.Builder(getContext())
+                                .setTitle("Verwijder lijst")
+                                .setMessage("Weet je zeker dat je dit wilt doen?")
+
+                                // Specifying a listener allows you to take an action before dismissing the dialog.
+                                // The dialog is automatically dismissed when a dialog button is clicked.
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Continue with delete operation
+                                        removeShoppingList(list_item);
+                                        if(lists_to_display.isEmpty()){
+                                            NavHostFragment.findNavController(mFragment).navigate(R.id.listcoll_to_createList);
+                                        }
+                                    }
+                                })
+
+                                // A null listener allows the button to dismiss the dialog and take no further action.
+                                .setNegativeButton(android.R.string.no, null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+
+
                     }
                 });
             }
@@ -100,7 +123,7 @@ public class ListCollectionAdapter extends ArrayAdapter<ShoppingList> {
 
         // Give the user feedback
         Toast.makeText(mContext,"Lijst '" + list_to_remove.getName() + "' werd verwijderd.", Toast.LENGTH_SHORT).show();
-        this.notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     /**
@@ -110,6 +133,7 @@ public class ListCollectionAdapter extends ArrayAdapter<ShoppingList> {
     private void removeShoppingListDB(ShoppingList list_to_remove){
         AppDatabase db = AppDatabase.getDatabase(getContext());
         db.m_foodisticDAO().deleteShoppingList(list_to_remove.getName());
+        lists_to_display.remove(list_to_remove);
     }
 }
 

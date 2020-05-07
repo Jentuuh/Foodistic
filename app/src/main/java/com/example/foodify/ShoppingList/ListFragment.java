@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,12 +29,15 @@ import java.util.List;
 
 
 /**
+ * @author jentevandersanden
  * A simple {@link Fragment} subclass.
  */
 public class ListFragment extends Fragment {
 
     private String m_list_name;
     private ListView m_productcontainer;
+    private TextView m_total_price;
+    private Button m_uncheck_all_button;
     private ShoppingList m_list_to_display;
     private ShopListAdapter adapter;
 
@@ -63,18 +67,35 @@ public class ListFragment extends Fragment {
         // Set the list title in the view
         ((TextView) getActivity().findViewById(R.id.listTitle)).setText(m_list_name);
 
+        // Set a listener for the 'uncheck all button'
+        m_uncheck_all_button = (Button) getActivity().findViewById(R.id.uncheck_button);
+        m_uncheck_all_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (ShoppingCartItem item : m_list_to_display.getProducts()){
+                    item.setChecked(false);
+                    AppDatabase db = AppDatabase.getDatabase(getContext());
+                    db.m_foodisticDAO().uncheckAll(false, m_list_to_display.getM_id());
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+
         m_list_to_display = new ShoppingList(m_list_name, getArguments().getInt("listID"));
 
         // Retrieve list container from layout
         m_productcontainer = (ListView) getView().findViewById(R.id.ListItemView);
 
-        adapter = new ShopListAdapter(getActivity(), R.layout.shoplistitem, m_list_to_display);
+        adapter = new ShopListAdapter(getActivity(), R.layout.shoplistitem, m_list_to_display, this);
 
         // Set the adapter for the listcontainer
         m_productcontainer.setAdapter(adapter);
 
         // Retrieve the list data
         getListData();
+
+        m_total_price = (TextView)getActivity().findViewById(R.id.total_price);
+        updatePrice();
     }
 
 
@@ -88,7 +109,7 @@ public class ListFragment extends Fragment {
 
         // Get data from db
         AppDatabase db = AppDatabase.getDatabase(getContext());
-//
+
 //        // TEST PRODUCT "peren"
 //        ProductEntity product = new ProductEntity();
 //        product.setID(01);
@@ -107,7 +128,7 @@ public class ListFragment extends Fragment {
 //        test.setQuantity(3);
 //        db.m_foodisticDAO().addProductToList(test);
 
-
+        Log.v("listid", Integer.toString(m_list_to_display.getM_id()));
         // Retrieve items on this list
         List<ProductOnListEntity> results = db.m_foodisticDAO().getItemsOnList(m_list_to_display.getM_id());
 
@@ -132,15 +153,29 @@ public class ListFragment extends Fragment {
 
         for (ProductOnListEntity product_on_list : db_data) {
             ProductEntity product_to_add = db.m_foodisticDAO().getProduct(product_on_list.getProductid());
+
             if (product_to_add != null) {
                 ProductItem to_add = new ProductItem(product_to_add.getName(), product_to_add.getPrice(), product_to_add.getDescription(), product_to_add.getLikability(), null, product_to_add.getDiscount(), null);
                 ShoppingCartItem list_item = new ShoppingCartItem(to_add);
+
                 // Make sure the quantity is set to the quantity from the database
-                list_item.setQuantity(product_on_list.getQuantity());
-                Log.v("test", Integer.toString(list_item.getQuantity()));
+                list_item.setQuantity(product_on_list.getQuantity());;
+                list_item.setChecked(product_on_list.isChecked());
                 m_list_to_display.addItem(list_item);
             }
         }
+    }
+
+    private float calculatePrice(){
+        float result = 0.0f;
+        for(ShoppingCartItem item: m_list_to_display.getProducts()){
+            result += (item.getItem().getPrice()) * item.getQuantity();
+        }
+        return result;
+    }
+
+    public void updatePrice(){
+        m_total_price.setText("Totaal: €" + Float.toString(calculatePrice()));
     }
 
 }

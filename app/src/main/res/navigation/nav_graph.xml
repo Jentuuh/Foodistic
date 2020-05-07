@@ -55,6 +55,9 @@
         <action
             android:id="@+id/listCollection_to_listFragment"
             app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/listcoll_to_createList"
+            app:destination="@id/createShoppingList" />
     </fragment>
     <activity
         android:id="@+id/nameShoppingListActivity"
@@ -80,6 +83,11 @@
         android:id="@+id/mainActivity"
         android:name="com.example.foodify.MainActivity"
         android:label="MainActivity" />
+    <fragment
+        android:id="@+id/createShoppingList"
+        android:name="com.example.foodify.ShoppingList.CreateShoppingListFragment"
+        android:label="Maak een lijstje aan"
+        tools:layout="@layout/fragment_create_list" />
 
 
 </navigation>

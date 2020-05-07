@@ -112,23 +112,23 @@ public interface foodisticDAO {
     @Query("SELECT * FROM ProductsOnList WHERE listID LIKE :list_ID")
     List<ProductOnListEntity> getItemsOnList(int list_ID);
 
-    /**
-     * Gets a certain item on a certain list
-     * @param list_ID : the list to retrieve from
-     * @param product_id : the item to be retrieved
-     * @return
-     */
-    @Query("SELECT * FROM ProductsOnList WHERE listID LIKE :list_ID AND productid LIKE :product_id")
-    ProductOnListEntity getItemOnList(int list_ID, int product_id);
+    @Query(("SELECT * FROM ProductsOnList WHERE listID LIKE :list_ID AND productname LIKE :product_name"))
+    ProductOnListEntity getItemOnList(int list_ID, String product_name);
 
     /**
      * Updates a product's quantity when + or - was pressed in the shopping list UI.
      * @param list_ID : list that we want to update
-     * @param product_ID : specific product that we want to update
+
      * @param new_quantity : The updated quantity
      */
-    @Query("UPDATE ProductsOnList SET quantity = :new_quantity WHERE listID LIKE :list_ID AND productid LIKE :product_ID")
-    void updateProductQuantity(int list_ID, int product_ID, int new_quantity);
+    @Query("UPDATE ProductsOnList SET quantity = :new_quantity WHERE listID LIKE :list_ID AND productname LIKE :product_name")
+    void updateProductQuantity(int list_ID, int new_quantity, String product_name);
+
+    @Query("UPDATE ProductsOnList SET checked = :check WHERE listID LIKE :list_ID AND productname LIKE :product_name")
+    void updateProductChecked(boolean check, int list_ID, String product_name);
+
+    @Query("UPDATE ProductsOnList SET checked = :check WHERE listID LIKE :list_ID")
+    void uncheckAll(boolean check, int list_ID);
 
     /**
      * Insert a new product into a certain list
@@ -139,11 +139,10 @@ public interface foodisticDAO {
 
     /**
      * Removes a product on a certain list
-     * @param product_ID : product to be removed
      * @param list_ID : List to remove from
      */
-    @Query("DELETE FROM ProductsOnList WHERE listID LIKE :list_ID AND productid LIKE :product_ID ")
-    void removeProductFromList(int product_ID, int list_ID);
+    @Query("DELETE FROM ProductsOnList WHERE listID LIKE :list_ID AND productname LIKE :product_name ")
+    void removeProductFromList( int list_ID, String product_name);
 
     /**
      * Gets the quantity of a product on the list

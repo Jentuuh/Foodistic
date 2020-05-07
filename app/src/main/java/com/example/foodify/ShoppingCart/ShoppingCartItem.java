@@ -6,11 +6,13 @@ public class ShoppingCartItem {
 
 
     private int mQuantity;
+    private boolean checked;
     private ProductItem mItem;
 
 
     public ShoppingCartItem(ProductItem item){
         mItem = item;
+        checked = false;
         mQuantity = 1;
     }
 
@@ -29,6 +31,14 @@ public class ShoppingCartItem {
     }
 
     public void setQuantity(int quantity){mQuantity = quantity;}
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
 
     public ProductItem getItem() {
         return mItem;

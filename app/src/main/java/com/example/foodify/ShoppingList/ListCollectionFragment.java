@@ -65,13 +65,6 @@ public class ListCollectionFragment extends Fragment {
         // Set adapter for the listview
         listcontainer.setAdapter(shop_list_adapter);
 
-//        listcontainer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-////            @Override
-////            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-////                openList(view);
-////            }
-////        });
-
 
         // Set on click listener for the FAB
         add_button = (FloatingActionButton) getView().findViewById(R.id.addButton);
@@ -91,7 +84,9 @@ public class ListCollectionFragment extends Fragment {
         super.onStart();
         getShoppingLists();
         shop_list_adapter.notifyDataSetChanged();
-        Log.v ("Test", "Listcollectionfragment started");
+        if(lists_to_display.isEmpty()){
+            NavHostFragment.findNavController(this).navigate(R.id.listcoll_to_createList);
+        }
     }
 
 
@@ -150,8 +145,8 @@ public class ListCollectionFragment extends Fragment {
         // Parse the database data to actual objects that we can use in our code
         parseFromDBToObjects(lists_from_db);
 
-        // TEST DATA
-        lists_to_display.add(new ShoppingList("Testlijst", 01));
+//        // TEST DATA
+//        lists_to_display.add(new ShoppingList("Testlijst", 01));
     }
 
     /**

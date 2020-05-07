@@ -30,6 +30,9 @@ public class ProductOnListEntity {
     @ColumnInfo(name = "listID")
     private int listID;
 
+    @ColumnInfo(name = "checked")
+    private boolean checked;
+
 
 
     /**
@@ -76,5 +79,11 @@ public class ProductOnListEntity {
         this.listID = listID;
     }
 
+    public boolean isChecked() {
+        return checked;
+    }
 
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
 }

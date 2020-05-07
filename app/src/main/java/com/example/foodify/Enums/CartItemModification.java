@@ -2,5 +2,7 @@ package com.example.foodify.Enums;
 
 public enum CartItemModification {
     PLUS,
-    MINUS
+    MINUS,
+    CHECKED,
+    UNCHECKED
 }
