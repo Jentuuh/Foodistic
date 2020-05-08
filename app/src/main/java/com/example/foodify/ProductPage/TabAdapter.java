@@ -20,7 +20,7 @@ public class TabAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        if (position == 1) {
+        if (position == 0) {
             DescriptionFragment fragment = new DescriptionFragment(mItem);
             return fragment;
         }

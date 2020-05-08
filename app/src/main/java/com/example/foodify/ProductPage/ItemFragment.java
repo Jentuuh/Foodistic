@@ -89,7 +89,16 @@ public class ItemFragment extends Fragment {
         new TabLayoutMediator(tabLayout, mViewpager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                tab.setText("Test" + (position + 1)); // TODO give tab name of fragment
+                switch(position){
+                    case 0:
+                        tab.setText("Algemene informatie");
+                        break;
+                    case 1:
+                        tab.setText("Prijsvergelijking");
+                        break;
+
+                }
+                 // TODO give tab name of fragment
             }
         }).attach();
         setupLayout(view);
