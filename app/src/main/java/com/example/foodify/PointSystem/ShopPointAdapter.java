@@ -16,6 +16,10 @@ import com.example.foodify.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter that handles how the shop points data is shown
+ * @author jorisbertram
+ */
 public class ShopPointAdapter extends ArrayAdapter<ShopPoint> {
     private Context context;
     private List<ShopPoint> shopPointList;

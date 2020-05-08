@@ -118,7 +118,15 @@ public class MainActivity extends AppCompatActivity implements Observer {
         mNavController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                if(destination.getId() == R.id.profileFragment){
 
+                    //mToolbar.setVisibility(View.GONE);
+                    //mBottomNav.setVisibility(View.GONE);
+                }
+                else{
+                    mToolbar.setVisibility(View.VISIBLE);
+                    mBottomNav.setVisibility(View.VISIBLE);
+                }
             }
         });
     }

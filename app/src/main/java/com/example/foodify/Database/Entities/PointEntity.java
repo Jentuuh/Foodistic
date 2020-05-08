@@ -6,8 +6,9 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 /**
+ * Class that represents the row PointEntity in the table points
  * @author jorisbertram
- * Class that represents the row PointEntity in the table points */
+ */
 @Entity(tableName = "Points")
 public class PointEntity {
 

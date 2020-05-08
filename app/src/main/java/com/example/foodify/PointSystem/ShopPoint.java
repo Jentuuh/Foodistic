@@ -1,5 +1,9 @@
 package com.example.foodify.PointSystem;
 
+/**
+ * Class that holds the points of shop data
+ * @author jorisbertram
+ */
 public class ShopPoint {
     private int m_logo;
     private String m_name;

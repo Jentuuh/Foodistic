@@ -32,7 +32,7 @@ import java.util.Random;
 
 /**
  * Fragment which handles the store points
- * @author Joris Bertram
+ * @author jorisbertram
  */
 public class PointFragment extends Fragment {
 

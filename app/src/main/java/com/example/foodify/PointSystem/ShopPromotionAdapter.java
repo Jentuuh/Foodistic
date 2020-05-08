@@ -17,6 +17,10 @@ import com.example.foodify.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter that handles how the shop point promotion data is shown
+ * @author jorisbertram
+ */
 public class ShopPromotionAdapter extends ArrayAdapter<ShopPromotion> {
     private Context context;
     private List<ShopPromotion> shopPromotionList;
