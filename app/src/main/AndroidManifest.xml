@@ -19,8 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".Login.LoginActivity" />
+        <activity android:name=".Login.RegisterActivity" />
         <activity android:name=".ShoppingList.NameShoppingListActivity" />
         <activity android:name=".ShoppingList.CreateShoppingListFragment"></activity>
     </application>

@@ -29,12 +29,20 @@ public interface foodisticDAO {
 
 
     /**
-     * Gets all users with a certain name from the database
+     * Gets user with a certain name from the database
      * @param f_name: the name of the user we're looking for
      * @return
      */
     @Query("SELECT * FROM Users WHERE firstname LIKE :f_name")
-    List<UserEntity> getUserByName(String f_name);
+    UserEntity getUserByName(String f_name);
+
+    /**
+     * Gets user with a certain email address from db
+     * @param mail : The email the user must have.
+     * @return
+     */
+    @Query("SELECT * FROM Users WHERE email LIKE :mail")
+    UserEntity getUserByEmail(String mail);
 
     /**
      * Inserts a new UserEntity (row) into the database

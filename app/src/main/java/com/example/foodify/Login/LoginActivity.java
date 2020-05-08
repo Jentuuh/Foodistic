@@ -1,13 +1,19 @@
-package com.example.foodify;
+package com.example.foodify.Login;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.foodify.Database.AppDatabase;
+import com.example.foodify.Database.Entities.UserEntity;
+import com.example.foodify.MainActivity;
+import com.example.foodify.R;
 
 /**
  * @author jentevandersanden
@@ -44,6 +50,22 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.putExtra("TabToStart", 1);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void onLoginClick(){
@@ -67,7 +89,20 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void login(String email, String password){
-        // TODO: implement
+    public void login( String email, String password){
+
+        AppDatabase db = AppDatabase.getDatabase(getApplicationContext());
+        UserEntity user =  db.m_foodisticDAO().getUserByEmail(email);
+
+        if (password.equals(user.getPassword())){
+            // Save this logged in user
+            SaveSharedPreference.setUserName(getApplicationContext(), email);
+            // Start main activity
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        else{
+            SaveSharedPreference.setUserName(getApplicationContext(), "");
+        }
     }
 }

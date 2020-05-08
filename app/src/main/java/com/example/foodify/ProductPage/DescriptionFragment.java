@@ -1,8 +1,10 @@
 package com.example.foodify.ProductPage;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +19,9 @@ import android.widget.Toast;
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.Entities.CommentEntity;
 import com.example.foodify.Enums.FoodStyle;
+import com.example.foodify.Login.LoginActivity;
+import com.example.foodify.Login.SaveSharedPreference;
+import com.example.foodify.MainActivity;
 import com.example.foodify.Product.Comment;
 import com.example.foodify.Product.ProductItem;
 import com.example.foodify.R;
@@ -34,13 +39,15 @@ import java.util.List;
  */
 public class DescriptionFragment extends Fragment {
 
-    ProductItem mItem;
-    TextView description;
-    ListView comment_container;
-    EditText comment_text_field;
-    Button place_button;
-    CommentAdapter comment_adapter;
-    List<Comment> comments_to_display;
+    private ProductItem mItem;
+    private TextView description;
+    private ListView comment_container;
+    private EditText comment_text_field;
+    private Button place_button;
+    private CommentAdapter comment_adapter;
+    private List<Comment> comments_to_display;
+    private final Fragment self_ref = this;
+
 
     public DescriptionFragment(ProductItem item) {
         // Required empty public constructor
@@ -87,7 +94,17 @@ public class DescriptionFragment extends Fragment {
         place_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                placeComment();
+
+                // Check if the user is logged in
+                if(SaveSharedPreference.getUserName(getActivity()).length() == 0){
+                    // TODO: NAVIGATE TO THE LOGIN ACTIVITY
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_itemFragment_to_loginActivity);
+                }
+                else{
+                    // Place comment, you're already logged in!
+                    placeComment();
+                }
+
             }
         });
 
@@ -131,6 +148,7 @@ public class DescriptionFragment extends Fragment {
 
             // Insert the entity into the database
             db.m_foodisticDAO().createComment(comment_to_insert);
+            loadComments();
             comment_adapter.notifyDataSetChanged();
 
             // Feedback to the user
