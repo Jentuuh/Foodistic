@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
     }
 
-    public void navigateTo(int actionId){
+    public void navigateTo(int actionId, Bundle bundle){
         if (mDrawerLayout.isDrawerOpen(GravityCompat.END)){ // If you tap on an item but the shopping cart is open, close it
             mDrawerLayout.closeDrawer(GravityCompat.END);
         }

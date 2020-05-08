@@ -1,11 +1,9 @@
 package com.example.foodify.ShoppingCart;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -18,8 +16,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.foodify.MainActivity;
 import com.example.foodify.Product.ProductItem;
@@ -49,7 +45,7 @@ public class ShoppingCartAdapter extends ArrayAdapter<ShoppingCartItem> {
 
         }
         ShoppingCartItem cartItem = getItem(position);
-        ProductItem item = cartItem.getItem();
+        final ProductItem item = cartItem.getItem();
 
         if (item != null){
 
@@ -79,7 +75,9 @@ public class ShoppingCartAdapter extends ArrayAdapter<ShoppingCartItem> {
                     @Override
                     public void onClick(View v) {
                         //TODO Open item fragment once item is pressed
-                        ((MainActivity)mContext).navigateTo(R.id.shopFilterFragment);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("itemId", item.getId());
+                        ((MainActivity)mContext).navigateTo(R.id.itemFragment, bundle);
 
                         Log.v("ListAdapter", "Open the item page here");
 

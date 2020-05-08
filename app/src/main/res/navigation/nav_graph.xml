@@ -88,6 +88,16 @@
         android:name="com.example.foodify.ShoppingList.CreateShoppingListFragment"
         android:label="Maak een lijstje aan"
         tools:layout="@layout/fragment_create_list" />
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="com.example.foodify.ItemFragment"
+        android:label="Product informatie"
+        tools:layout="@layout/fragment_item">
+        <argument
+            android:name="itemId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+    </fragment>
 
 
 </navigation>

@@ -28,6 +28,10 @@ public class ProductItem {
     /**
      * CONSTRUCTORS
      */
+
+    /**
+     * Constructor without discount
+     */
     public ProductItem(String name, float price, String description, float likability, ArrayList<Comment> comments, Drawable img){
         this(name,price,description,likability,comments,0,img);
 
@@ -62,7 +66,7 @@ public class ProductItem {
     public Drawable getImage(){return m_image;};
     public float getDiscount(){return m_discount;}
     public FoodStyle getFoodstyle(){return m_foodstyle;}
-    public int getM_id() { return m_id; }
+    public int getId() { return m_id; }
 
     /**
      * Setters

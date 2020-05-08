@@ -1,5 +1,6 @@
 package com.example.foodify.Shop;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,8 +46,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         ImageView prodImg;
         ImageButton addToCart;
         ImageButton addToList;
+        CardView container;
 
-         ;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -57,6 +59,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                     prodImg = itemView.findViewById(R.id.product_img);
                     addToCart = itemView.findViewById(R.id.add_to_cart_button);
                     addToList = itemView.findViewById(R.id.add_to_list_button);
+                    container = itemView.findViewById(R.id.product_container);
                     break;
                 case MEDIUM:
                     break;
@@ -67,6 +70,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                     prodImg = itemView.findViewById(R.id.large_product_img);
                     addToCart = itemView.findViewById(R.id.add_to_cart_button);
                     addToList = itemView.findViewById(R.id.add_to_list_button);
+                    container = itemView.findViewById(R.id.large_product_container);
+
                     break;
                 default:
                     itemName = itemView.findViewById(R.id.product_name);
@@ -75,6 +80,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                     prodImg = itemView.findViewById(R.id.product_img);
                     addToCart = itemView.findViewById(R.id.add_to_cart_button);
                     addToList = itemView.findViewById(R.id.add_to_list_button);
+                    container = itemView.findViewById(R.id.product_container);
 
 
             }
@@ -118,6 +124,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
         // click listeners
 
+        holder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("itemId", prodItem.getId());
+                (NavHostFragment.findNavController(mContext)).navigate(R.id.itemFragment, bundle);
+            }
+        });
 
         holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
