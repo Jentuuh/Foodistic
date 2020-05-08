@@ -1,10 +1,15 @@
 package com.example.foodify.ShoppingList;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -33,6 +38,9 @@ public class CreateShoppingListFragment extends Fragment {
 
     }
 
+
+
+
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         super.onCreate(savedInstanceState);
@@ -44,6 +52,7 @@ public class CreateShoppingListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
         m_create_button = (Button) getActivity().findViewById(R.id.createButton);
         m_create_button.setOnClickListener(new View.OnClickListener() {
             @Override

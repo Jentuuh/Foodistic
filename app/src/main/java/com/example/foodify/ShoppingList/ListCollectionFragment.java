@@ -1,5 +1,7 @@
 package com.example.foodify.ShoppingList;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
@@ -86,6 +88,7 @@ public class ListCollectionFragment extends Fragment {
         shop_list_adapter.notifyDataSetChanged();
         if(lists_to_display.isEmpty()){
             NavHostFragment.findNavController(this).navigate(R.id.listcoll_to_createList);
+
         }
     }
 

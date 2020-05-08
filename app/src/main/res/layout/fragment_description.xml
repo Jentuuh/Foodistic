@@ -6,12 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:orientation="vertical"
     tools:context=".ProductPage.DescriptionFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    >
     <EditText
         android:id="@+id/place_reaction"
         android:layout_width="217dp"
@@ -40,6 +43,7 @@
         app:layout_constraintStart_toEndOf="@+id/place_reaction"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.995" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/descriptiontitle"
@@ -59,16 +63,16 @@
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="388dp"
         android:justificationMode="inter_word"
         android:paddingHorizontal="80px"
         android:text="This is a description. This is a description.This is a description.This is a description.This is a description.This is a description.This is a description.This is a description.This is a description.This is a description.This is a description.This is a description.This is a description.This is a description.This is a description.This is a description.This is a description.This is a description."
-        app:layout_constraintBottom_toTopOf="@+id/place_reaction"
+
+        app:layout_constraintBottom_toTopOf="@+id/commenttitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descriptiontitle"
-        app:layout_constraintVertical_bias="0.368" />
+        app:layout_constraintVertical_bias="0.135" />
 
     <TextView
         android:id="@+id/commenttitle"
