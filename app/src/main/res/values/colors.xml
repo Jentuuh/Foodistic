@@ -4,7 +4,10 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="red">#FF0000</color>
+    <color name="green">#00FF00</color>
     <color name="buttonBlueActive">#17AAB9</color>
     <color name="buttonBlue">#1CCADB</color>
     <color name="darkishBlue">#13808D</color>
+    <color name="lightgray">#dddddd</color>
+
 </resources>

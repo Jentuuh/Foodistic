@@ -1,8 +1,12 @@
 package com.example.foodify.ProductPage;
 
+import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -12,11 +16,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.foodify.MainActivity;
 import com.example.foodify.Product.ProductItem;
 import com.example.foodify.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.text.DecimalFormat;
 
 
 public class ItemFragment extends Fragment {
@@ -81,6 +92,71 @@ public class ItemFragment extends Fragment {
                 tab.setText("Test" + (position + 1)); // TODO give tab name of fragment
             }
         }).attach();
+        setupLayout(view);
+    }
 
+    public void setupLayout(@NonNull View view){
+        TextView prodName = view.findViewById(R.id.main_product_name);
+        TextView prodPrice = view.findViewById(R.id.main_item_price);
+        TextView prevProdPrice = view.findViewById(R.id.main_item_prev_price);
+        ImageView prodImg = view.findViewById(R.id.main_item_img);
+        TextView prodLike = view.findViewById(R.id.like_percentage);
+        ImageButton cart = view.findViewById(R.id.add_to_cart_button);
+        ImageButton list = view.findViewById(R.id.add_to_list_button);
+        final ImageButton like = view.findViewById(R.id.like_button);
+        final ImageButton dislike = view.findViewById(R.id.dislike_button);
+
+        prodName.setText(mItem.getName());
+        if (mItem.getDiscount() != 0){
+            prodPrice.setText("€ " + new DecimalFormat("###.##").format(mItem.calculatePrice()));
+            prevProdPrice.setText("€ " + new DecimalFormat("###.##").format(mItem.getPrice()));
+            prevProdPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+        else{
+            prodPrice.setText("€ " + new DecimalFormat("###.##").format(mItem.getPrice()));
+
+        }
+        prodImg.setImageDrawable(mItem.getImage());
+        prodLike.setText("("+new DecimalFormat("###").format((mItem.getLikability()*100)) + "% goede beoordelingen)");
+
+
+
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO Open item fragment once item is pressed
+                ((MainActivity)getActivity()).addToCart(mItem);
+                // User feedback
+                Toast.makeText(getActivity(), "Toegevoegd aan je winkelmandje!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // TODO : actually add the product to the list
+                Toast.makeText(getActivity(), "Toegevoegd aan je boodschappenlijstje!", Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+
+        like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                like.setSelected(!like.isSelected());
+                dislike.setSelected(false);
+                //TODO add
+            }
+        });
+        dislike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dislike.setSelected(!dislike.isSelected());
+                like.setSelected(false);
+                //TODO add dislike
+            }
+        });
     }
 }
