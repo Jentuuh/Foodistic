@@ -1,7 +1,10 @@
 package com.example.foodify.PointSystem;
 
-import android.graphics.drawable.Drawable;
 
+/**
+ * Class that holds the data of shop promotion
+ * @author jorisbertram
+ */
 public class ShopPromotion {
     private int m_image;
     private String m_name;

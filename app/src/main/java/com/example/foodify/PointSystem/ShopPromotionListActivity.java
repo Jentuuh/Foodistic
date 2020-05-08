@@ -20,15 +20,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodify.Database.AppDatabase;
-import com.example.foodify.Database.Entities.PointEntity;
 import com.example.foodify.Database.Entities.PromotionEntity;
 import com.example.foodify.MainActivity;
-import com.example.foodify.Product.Promotion;
 import com.example.foodify.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity that handles the point promotion list per shop
+ * @author jorisbertram
+ */
 public class ShopPromotionListActivity extends AppCompatActivity {
 
     private Toolbar toolbar;

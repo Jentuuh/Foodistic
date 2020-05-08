@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
                 if(destination.getId() == R.id.profileFragment){
 
                     //mToolbar.setVisibility(View.GONE);
-                    mBottomNav.setVisibility(View.GONE);
+                    //mBottomNav.setVisibility(View.GONE);
                 }
                 else{
                     mToolbar.setVisibility(View.VISIBLE);

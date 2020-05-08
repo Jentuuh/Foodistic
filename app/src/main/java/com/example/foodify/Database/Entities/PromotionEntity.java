@@ -6,8 +6,9 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 /**
+ * Class that represents the row PromotionEntity in the table Promotions
  * @author jorisbertram
- * Class that represents the row PromotionEntity in the table Promotions */
+ */
 @Entity(tableName = "Promotions", primaryKeys = {"name", "shop"})
 public class PromotionEntity  {
 
