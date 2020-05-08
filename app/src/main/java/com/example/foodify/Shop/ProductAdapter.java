@@ -1,4 +1,6 @@
 package com.example.foodify.Shop;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
@@ -117,8 +119,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         final ProductItem prodItem = mDiscountList.get(position);
         holder.itemName.setText(prodItem.getName());
         holder.itemPrice.setText("€ " + new DecimalFormat("###.##").format(prodItem.calculatePrice()));
-        holder.prevItemPrice.setText("€ " + new DecimalFormat("###.##").format(prodItem.getPrice()));
-        holder.prevItemPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        if (prodItem.getDiscount() != 0f){
+            holder.itemPrice.setTextColor(mContext.getResources().getColor(R.color.red));
+            holder.prevItemPrice.setText("€ " + new DecimalFormat("###.##").format(prodItem.getPrice()));
+            holder.prevItemPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        }
         holder.prodImg.setImageDrawable(prodItem.getImage());
 
 

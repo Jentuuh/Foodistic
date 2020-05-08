@@ -1,14 +1,13 @@
-package com.example.foodify;
+package com.example.foodify.ProductPage;
 
-import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.foodify.Product.ProductItem;
+import com.example.foodify.ProductPage.DescriptionFragment;
 
 public class TabAdapter extends FragmentStateAdapter {
     ProductItem mItem;
@@ -21,7 +20,7 @@ public class TabAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        if (position == 1) {
+        if (position == 0) {
             DescriptionFragment fragment = new DescriptionFragment(mItem);
             return fragment;
         }

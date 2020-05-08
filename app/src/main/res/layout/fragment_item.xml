@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ItemFragment"
+    tools:context=".ProductPage.ItemFragment"
 
     >
 
@@ -29,16 +29,34 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+        <TextView
+            android:id="@+id/main_product_name"
+            android:layout_width="212dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            android:autoSizeTextType="uniform"
+            android:maxLines="1"
+            android:text="Product name"
+            android:textStyle="bold"
+            android:textSize="30dp"
+            app:layout_constraintBottom_toTopOf="@id/like_button"
+            app:layout_constraintStart_toEndOf="@id/main_item_img"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.649" />
+
         <ImageButton
             android:id="@+id/like_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="76dp"
             android:background="@drawable/ic_thumb_up_black_24dp"
-            android:backgroundTint="#00FF00"
+            android:backgroundTint="@color/like"
             android:padding="50dp"
             android:text="60%"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:focusable="true"
             app:layout_constraintStart_toEndOf="@+id/main_item_img"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,14 +64,16 @@
             android:id="@+id/dislike_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="76dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/ic_thumb_down_black_24dp"
-            android:backgroundTint="#FF00"
+            android:backgroundTint="@color/dislike"
             android:padding="50dp"
             android:text="60%"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.372"
+            app:layout_constraintHorizontal_bias="0.179"
             app:layout_constraintStart_toEndOf="@+id/like_button"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,144 +81,115 @@
             android:id="@+id/like_percentage"
             android:layout_width="179dp"
             android:layout_height="21dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="24dp"
             android:text="(60% goede beoordelingen)"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.372"
+            app:layout_constraintHorizontal_bias="0.489"
             app:layout_constraintStart_toEndOf="@+id/main_item_img"
             app:layout_constraintTop_toBottomOf="@+id/like_button" />
 
-    <TextView
-        android:id="@+id/main_item_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="€ 22.22"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.408"
-        app:layout_constraintStart_toEndOf="@+id/main_item_img"
-        app:layout_constraintTop_toBottomOf="@+id/like_percentage"
-
-        android:textStyle="bold"
-        android:textSize="25dp"
-        />
-
-    <TextView
-        android:id="@+id/main_item_prev_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="€ 22.22"
-
-        android:textSize="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.243"
-        app:layout_constraintStart_toEndOf="@+id/main_item_price"
-        app:layout_constraintTop_toBottomOf="@+id/like_percentage" />
-
-    <ImageButton
-        android:id="@+id/add_to_cart_button"
-
-        android:layout_width="62dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="18dp"
-        android:adjustViewBounds="true"
-        android:background="#0000"
-        android:padding="10dp"
-
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_cart_plus_solid"
-
-        android:tint="@color/colorPrimary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_item_img"
-        app:layout_constraintVertical_bias="0.0">
-
-    </ImageButton>
-
-    <ImageButton
-        android:id="@+id/add_to_list_button"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="28dp"
-
-        android:layout_marginTop="16dp"
-        android:adjustViewBounds="true"
-        android:background="#0000"
-        android:padding="10dp"
-
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_notes_medical_solid"
-        android:tint="@color/colorPrimary"
-        app:layout_constraintStart_toEndOf="@+id/add_to_cart_button"
-        app:layout_constraintTop_toBottomOf="@+id/main_item_img">
-
-    </ImageButton>
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-<!--
-    <LinearLayout
-        android:id="@+id/tabs"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_data_container">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button.redeem"
+        <TextView
+            android:id="@+id/main_item_price"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginTop="-6dp"
-            android:layout_weight="1"
-            android:text="Algemene informatie"
-            android:textSize="16sp"
-            app:backgroundTint="@color/buttonBlue"
-            app:cornerRadius="0dp"
-            app:rippleColor="#CD680000"
-            app:strokeColor="#CD06645B"
-            app:strokeWidth="2dp"
-            android:textAllCaps="false"
-            tools:ignore="HardcodedText" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="€ 22.22"
+            android:textColor="@color/red"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button.submit"
+            app:layout_constraintStart_toEndOf="@+id/main_item_img"
+            app:layout_constraintTop_toBottomOf="@+id/like_percentage" />
+
+        <TextView
+            android:id="@+id/main_item_prev_price"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginTop="-6dp"
-            android:layout_weight="1"
-            android:text="Prijsvergelijking"
-            android:textSize="16sp"
-            app:backgroundTint="@color/buttonBlueActive"
-            app:cornerRadius="0dp"
-            app:rippleColor="#CD680000"
-            app:strokeColor="#CD06645B"
-            android:textAllCaps="false"
-            app:strokeWidth="2dp"
-            tools:ignore="HardcodedText" />
-    </LinearLayout>
-    -->
+            android:layout_height="wrap_content"
+            android:text="€ 22.22"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/main_item_price"
+            app:layout_constraintTop_toBottomOf="@+id/like_percentage" />
+
+        <ImageButton
+            android:id="@+id/add_to_cart_button"
+
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
+            android:background="#0000"
+            android:padding="10dp"
+
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_cart_plus_solid"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:tint="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_item_img">
+
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/add_to_list_button"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_marginStart="28dp"
+
+            android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
+            android:background="#0000"
+            android:padding="10dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_notes_medical_solid"
+            android:tint="@color/colorPrimary"
+            app:layout_constraintStart_toEndOf="@+id/add_to_cart_button"
+            app:layout_constraintTop_toBottomOf="@+id/main_item_img">
+
+        </ImageButton>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/scroller"
         app:layout_constraintTop_toBottomOf="@+id/main_data_container"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/tabContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tabs"
-        tools:layout_editor_absoluteX="-16dp">
+    <ScrollView
+        android:id="@+id/scroller"
+        android:layout_width="406dp"
+        android:layout_height="292dp"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/tabs">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/tabContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
-    </androidx.viewpager2.widget.ViewPager2>
+            </androidx.viewpager2.widget.ViewPager2>
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

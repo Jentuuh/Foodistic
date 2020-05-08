@@ -2,6 +2,7 @@ package com.example.foodify.Database;
 
 import androidx.room.*;
 
+import com.example.foodify.Database.Entities.CommentEntity;
 import com.example.foodify.Database.Entities.PointEntity;
 import com.example.foodify.Database.Entities.PromotionEntity;
 import com.example.foodify.Database.Entities.ProductEntity;
@@ -28,12 +29,20 @@ public interface foodisticDAO {
 
 
     /**
-     * Gets all users with a certain name from the database
+     * Gets user with a certain name from the database
      * @param f_name: the name of the user we're looking for
      * @return
      */
     @Query("SELECT * FROM Users WHERE firstname LIKE :f_name")
-    List<UserEntity> getUserByName(String f_name);
+    UserEntity getUserByName(String f_name);
+
+    /**
+     * Gets user with a certain email address from db
+     * @param mail : The email the user must have.
+     * @return
+     */
+    @Query("SELECT * FROM Users WHERE email LIKE :mail")
+    UserEntity getUserByEmail(String mail);
 
     /**
      * Inserts a new UserEntity (row) into the database
@@ -204,4 +213,25 @@ public interface foodisticDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void createPromotion(PromotionEntity new_promotion);
 
+
+    /**
+     * //////////////
+     * COMMENT QUERYS
+     * //////////////
+     */
+
+    /**
+     * Gets all comments for a certain product.
+     * @param product_name : the product to get the comments for.
+     * @return
+     */
+    @Query("SELECT * FROM Comments WHERE productname = :product_name")
+    List<CommentEntity> getCommentsForProduct(String product_name);
+
+    /**
+     * Inserts a new comment into the database.
+     * @param new_comment : the new comment to be inserted.
+     */
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void createComment(CommentEntity new_comment);
 }
