@@ -1,6 +1,5 @@
-package com.example.foodify;
+package com.example.foodify.ProductPage;
 
-import android.content.ClipData;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -15,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.foodify.Product.ProductItem;
+import com.example.foodify.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -47,15 +47,17 @@ public class ItemFragment extends Fragment {
         Bundle args = getArguments();
         if(args != null) {
             int itemId = args.getInt("itemId");
-            if (itemId == -1){
-                //TODO remove this, this is to test if it works
+
+            // TODO: NOTE: I COMMENTED THESE if AND else OUT, IT DIDN'T WORK OTHERWISE BECAUSE ITEMID WASN'T EQUAL TO -1
+//            if (itemId == -1){
+//                //TODO remove this, this is to test if it works
                 Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
                 mItem = new ProductItem("Test_item",  1.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.50f, img);
                 Log.v("ItemFragment" ,"Id was -1");
-            }
-            else{
-                //TODO get item from db with same id
-            }
+//            }
+//            else{
+//                //TODO get item from db with same id
+//            }
         }
     }
 

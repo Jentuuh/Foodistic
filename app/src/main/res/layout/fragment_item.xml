@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ItemFragment"
+    tools:context=".ProductPage.ItemFragment"
 
     >
 
@@ -68,77 +68,75 @@
             app:layout_constraintStart_toEndOf="@+id/main_item_img"
             app:layout_constraintTop_toBottomOf="@+id/like_button" />
 
-    <TextView
-        android:id="@+id/main_item_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="€ 22.22"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.408"
-        app:layout_constraintStart_toEndOf="@+id/main_item_img"
-        app:layout_constraintTop_toBottomOf="@+id/like_percentage"
+        <TextView
+            android:id="@+id/main_item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="€ 22.22"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.408"
 
-        android:textStyle="bold"
-        android:textSize="25dp"
-        />
+            app:layout_constraintStart_toEndOf="@+id/main_item_img"
+            app:layout_constraintTop_toBottomOf="@+id/like_percentage" />
 
-    <TextView
-        android:id="@+id/main_item_prev_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="€ 22.22"
+        <TextView
+            android:id="@+id/main_item_prev_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="€ 22.22"
 
-        android:textSize="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.243"
-        app:layout_constraintStart_toEndOf="@+id/main_item_price"
-        app:layout_constraintTop_toBottomOf="@+id/like_percentage" />
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.243"
+            app:layout_constraintStart_toEndOf="@+id/main_item_price"
+            app:layout_constraintTop_toBottomOf="@+id/like_percentage" />
 
-    <ImageButton
-        android:id="@+id/add_to_cart_button"
+        <ImageButton
+            android:id="@+id/add_to_cart_button"
 
-        android:layout_width="62dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="18dp"
-        android:adjustViewBounds="true"
-        android:background="#0000"
-        android:padding="10dp"
+            android:layout_width="62dp"
+            android:layout_height="58dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="18dp"
+            android:adjustViewBounds="true"
+            android:background="#0000"
+            android:padding="10dp"
 
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_cart_plus_solid"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_cart_plus_solid"
 
-        android:tint="@color/colorPrimary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_item_img"
-        app:layout_constraintVertical_bias="0.0">
+            android:tint="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_item_img"
+            app:layout_constraintVertical_bias="0.0">
 
-    </ImageButton>
+        </ImageButton>
 
-    <ImageButton
-        android:id="@+id/add_to_list_button"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="28dp"
+        <ImageButton
+            android:id="@+id/add_to_list_button"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="28dp"
 
-        android:layout_marginTop="16dp"
-        android:adjustViewBounds="true"
-        android:background="#0000"
-        android:padding="10dp"
+            android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
+            android:background="#0000"
+            android:padding="10dp"
 
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_notes_medical_solid"
-        android:tint="@color/colorPrimary"
-        app:layout_constraintStart_toEndOf="@+id/add_to_cart_button"
-        app:layout_constraintTop_toBottomOf="@+id/main_item_img">
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_notes_medical_solid"
+            android:tint="@color/colorPrimary"
+            app:layout_constraintStart_toEndOf="@+id/add_to_cart_button"
+            app:layout_constraintTop_toBottomOf="@+id/main_item_img">
 
-    </ImageButton>
-
+        </ImageButton>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 <!--
     <LinearLayout
         android:id="@+id/tabs"
@@ -189,16 +187,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        app:layout_constraintTop_toBottomOf="@+id/main_data_container"
-        />
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/scroller"
+        app:layout_constraintTop_toBottomOf="@+id/main_data_container" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/tabContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tabs"
-        tools:layout_editor_absoluteX="-16dp">
+    <ScrollView
+        android:id="@+id/scroller"
+        android:layout_width="415dp"
+        android:layout_height="225dp"
+        android:layout_marginBottom="44dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/tabContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
-    </androidx.viewpager2.widget.ViewPager2>
+            </androidx.viewpager2.widget.ViewPager2>
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

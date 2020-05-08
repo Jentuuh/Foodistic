@@ -90,8 +90,8 @@
         tools:layout="@layout/fragment_create_list" />
     <fragment
         android:id="@+id/itemFragment"
-        android:name="com.example.foodify.ItemFragment"
-        android:label="Product informatie"
+        android:name="com.example.foodify.ProductPage.ItemFragment"
+        android:label="Productinformatie"
         tools:layout="@layout/fragment_item">
         <argument
             android:name="itemId"

@@ -2,6 +2,7 @@ package com.example.foodify.Database;
 
 import androidx.room.*;
 
+import com.example.foodify.Database.Entities.CommentEntity;
 import com.example.foodify.Database.Entities.PointEntity;
 import com.example.foodify.Database.Entities.PromotionEntity;
 import com.example.foodify.Database.Entities.ProductEntity;
@@ -204,4 +205,25 @@ public interface foodisticDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void createPromotion(PromotionEntity new_promotion);
 
+
+    /**
+     * //////////////
+     * COMMENT QUERYS
+     * //////////////
+     */
+
+    /**
+     * Gets all comments for a certain product.
+     * @param product_name : the product to get the comments for.
+     * @return
+     */
+    @Query("SELECT * FROM Comments WHERE productname = :product_name")
+    List<CommentEntity> getCommentsForProduct(String product_name);
+
+    /**
+     * Inserts a new comment into the database.
+     * @param new_comment : the new comment to be inserted.
+     */
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void createComment(CommentEntity new_comment);
 }

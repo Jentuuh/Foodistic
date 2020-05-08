@@ -59,7 +59,7 @@ public class ListCollectionAdapter extends ArrayAdapter<ShoppingList> {
 
             TextView listName = (TextView) view.findViewById(R.id.list_name_view);
             ImageButton deleteButton = (ImageButton) view.findViewById(R.id.delete_button_view);
-            ConstraintLayout listNameContainer = (ConstraintLayout) view.findViewById(R.id.list_container_view);
+            CardView listNameContainer = (CardView) view.findViewById(R.id.list_container_view);
 
             if(listName != null){
                 listName.setText(list_item.getName());
