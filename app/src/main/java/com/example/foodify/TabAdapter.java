@@ -21,9 +21,16 @@ public class TabAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        DescriptionFragment fragment = new DescriptionFragment(mItem);
-        return fragment;
+        if (position == 1) {
+            DescriptionFragment fragment = new DescriptionFragment(mItem);
+            return fragment;
+        }
+        else{
+            //TODO change DescriptionFragment to compare prices fragment here
+            DescriptionFragment fragment = new DescriptionFragment(mItem);
+            return fragment;
 
+        }
     }
 
     @Override
