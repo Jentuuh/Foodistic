@@ -116,11 +116,11 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
 
                             if(isChecked){
                                 // Save that the item is checked
-                                db.m_foodisticDAO().updateProductChecked(true, mList.getM_id(), item.getName());
+                                db.m_foodisticDAO().updateProductChecked(true, mList.getName(), item.getName());
                             }
                             else{
                                 // Save that the item is unchecked
-                                db.m_foodisticDAO().updateProductChecked(false, mList.getM_id(), item.getName());
+                                db.m_foodisticDAO().updateProductChecked(false, mList.getName(), item.getName());
                             }
                         }
                     });

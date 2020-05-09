@@ -154,7 +154,7 @@ public class ShoppingList extends Observable {
     private void removeProductFromListDB(ProductItem item_to_remove, Context context){
         // TODO: DB
         AppDatabase db = AppDatabase.getDatabase(context);
-        db.m_foodisticDAO().removeProductFromList( m_id, item_to_remove.getName());
+        db.m_foodisticDAO().removeProductFromList( m_name, item_to_remove.getName());
     }
 
     /**
@@ -164,16 +164,16 @@ public class ShoppingList extends Observable {
      */
     private void updateDataBase(ProductItem item, CartItemModification mod, Context context){
         AppDatabase db = AppDatabase.getDatabase(context);
-        int current_quantity = db.m_foodisticDAO().getItemOnList(m_id, item.getName()).getQuantity();
+        int current_quantity = db.m_foodisticDAO().getItemOnList(m_name, item.getName()).getQuantity();
 
         Log.v("CURRENTQUAN", Integer.toString(current_quantity));
 
         if(mod == CartItemModification.PLUS){
-            db.m_foodisticDAO().updateProductQuantity(m_id,current_quantity + 1, item.getName());
+            db.m_foodisticDAO().updateProductQuantity(m_name,current_quantity + 1, item.getName());
 
         }
         else{
-            db.m_foodisticDAO().updateProductQuantity(m_id, current_quantity - 1, item.getName());
+            db.m_foodisticDAO().updateProductQuantity(m_name, current_quantity - 1, item.getName());
         }
 
     }

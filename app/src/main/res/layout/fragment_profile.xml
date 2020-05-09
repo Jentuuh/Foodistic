@@ -14,7 +14,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="20dp"
-        app:cardBackgroundColor="@color/darkishBlue"
+        app:cardBackgroundColor="#009688"
         app:cardCornerRadius="10dp"
         app:cardElevation="6dp"
         app:contentPadding="4dp"
@@ -298,10 +298,11 @@
                 android:id="@+id/button.save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/buttonBlueActive"
+                android:backgroundTint="#009688"
                 android:text="Opslaan"
                 android:translationZ="2dp"
-                android:visibility="visible" />
+                android:visibility="visible"
+                app:iconTint="#009688" />
 
         </LinearLayout>
 

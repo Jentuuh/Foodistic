@@ -271,8 +271,10 @@ Log.v("test","test");
             public void onClick(View v) {
 
                 // TODO : actually add the product to the list
-                Toast.makeText(mContext.getActivity(), "Toegevoegd aan je boodschappenlijstje!", Toast.LENGTH_SHORT).show();
-
+                Bundle bundle = new Bundle();
+                bundle.putString("productName", prodItem.getName());
+                (NavHostFragment.findNavController(mContext)).navigate(R.id.action_shopFragment_to_chooseListFragment, bundle);
+//                Toast.makeText(mContext.getActivity(), "Toegevoegd aan je boodschappenlijstje!", Toast.LENGTH_SHORT).show();
 
             }
         });

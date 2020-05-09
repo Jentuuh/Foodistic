@@ -51,6 +51,12 @@ public interface foodisticDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void createUser(UserEntity user);
 
+    /**
+     * Deletes all users from the database
+     */
+    @Query("DELETE FROM Users")
+    void deleteUsers();
+
 
     /**
      * //////////////
@@ -59,10 +65,10 @@ public interface foodisticDAO {
      */
     /**
      * Gets information about a product with a certain ID
-     * @param p_ID
+     * @param p_name
      */
-    @Query("SELECT * FROM Products WHERE ID LIKE :p_ID")
-    ProductEntity getProduct(int p_ID);
+    @Query("SELECT * FROM Products WHERE name LIKE :p_name")
+    ProductEntity getProduct(String p_name);
 
     /**
      * Creates and inserts a new product into the db
@@ -77,6 +83,14 @@ public interface foodisticDAO {
      */
     @Query("SELECT * FROM Products")
     List<ProductEntity> getAllProducts();
+
+    /**
+     * Deletes all products from the database
+     */
+    @Query("DELETE FROM Products")
+    void deleteProducts();
+
+
 
 
     /**
@@ -108,6 +122,13 @@ public interface foodisticDAO {
 
 
     /**
+     * Deletes all shopping lsits from the database
+     */
+    @Query("DELETE FROM ShoppingLists")
+    void deleteShoppingLists();
+
+
+    /**
      * //////////////////////////////
      * ITEMS ON SHOPPING LIST QUERYS
      * /////////////////////////////
@@ -115,29 +136,29 @@ public interface foodisticDAO {
 
     /**
      * Gets all items on a certain list
-     * @param list_ID : list that we want the items from
+     * @param list_name : list that we want the items from
      * @return
      */
-    @Query("SELECT * FROM ProductsOnList WHERE listID LIKE :list_ID")
-    List<ProductOnListEntity> getItemsOnList(int list_ID);
+    @Query("SELECT * FROM ProductsOnList WHERE listname LIKE :list_name")
+    List<ProductOnListEntity> getItemsOnList(String list_name);
 
-    @Query(("SELECT * FROM ProductsOnList WHERE listID LIKE :list_ID AND productname LIKE :product_name"))
-    ProductOnListEntity getItemOnList(int list_ID, String product_name);
+    @Query(("SELECT * FROM ProductsOnList WHERE listname LIKE :list_name AND productname LIKE :product_name"))
+    ProductOnListEntity getItemOnList(String list_name, String product_name);
 
     /**
      * Updates a product's quantity when + or - was pressed in the shopping list UI.
-     * @param list_ID : list that we want to update
+     * @param list_name : list that we want to update
 
      * @param new_quantity : The updated quantity
      */
-    @Query("UPDATE ProductsOnList SET quantity = :new_quantity WHERE listID LIKE :list_ID AND productname LIKE :product_name")
-    void updateProductQuantity(int list_ID, int new_quantity, String product_name);
+    @Query("UPDATE ProductsOnList SET quantity = :new_quantity WHERE listname LIKE :list_name AND productname LIKE :product_name")
+    void updateProductQuantity(String list_name, int new_quantity, String product_name);
 
-    @Query("UPDATE ProductsOnList SET checked = :check WHERE listID LIKE :list_ID AND productname LIKE :product_name")
-    void updateProductChecked(boolean check, int list_ID, String product_name);
+    @Query("UPDATE ProductsOnList SET checked = :check WHERE listname LIKE :list_name AND productname LIKE :product_name")
+    void updateProductChecked(boolean check, String list_name, String product_name);
 
-    @Query("UPDATE ProductsOnList SET checked = :check WHERE listID LIKE :list_ID")
-    void uncheckAll(boolean check, int list_ID);
+    @Query("UPDATE ProductsOnList SET checked = :check WHERE listname LIKE :list_name")
+    void uncheckAll(boolean check, String list_name);
 
     /**
      * Insert a new product into a certain list
@@ -148,19 +169,24 @@ public interface foodisticDAO {
 
     /**
      * Removes a product on a certain list
-     * @param list_ID : List to remove from
+     * @param list_name : List to remove from
      */
-    @Query("DELETE FROM ProductsOnList WHERE listID LIKE :list_ID AND productname LIKE :product_name ")
-    void removeProductFromList( int list_ID, String product_name);
+    @Query("DELETE FROM ProductsOnList WHERE listname LIKE :list_name AND productname LIKE :product_name ")
+    void removeProductFromList( String list_name, String product_name);
 
     /**
      * Gets the quantity of a product on the list
-     * @param product_id : Product that contains the quantity
+     * @param product_name : Product that contains the quantity
      * @return
      */
-    @Query("SELECT quantity FROM ProductsOnList WHERE productid LIKE :product_id AND listID LIKE :list_id")
-    int getProductQuantity(int product_id , int list_id);
+    @Query("SELECT quantity FROM ProductsOnList WHERE productname LIKE :product_name AND listname LIKE :list_name")
+    int getProductQuantity(String product_name , String list_name);
 
+    /**
+     * Deletes all products that are on lists from the database
+     */
+    @Query("DELETE FROM ProductsOnList")
+    void deleteProductsOnLists();
 
 
 
@@ -193,6 +219,14 @@ public interface foodisticDAO {
     @Query("UPDATE Points SET points = :f_points WHERE shop = :f_shop ")
     void setPointsByShop(String f_shop, int f_points);
 
+
+    /**
+     * Deletes all points from the database
+     */
+    @Query("DELETE FROM Points")
+    void deletePoints();
+
+
     /**
      * ////////////////////
      * POINT PROMOTION QUERYS
@@ -213,6 +247,11 @@ public interface foodisticDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void createPromotion(PromotionEntity new_promotion);
 
+    /**
+     * Deletes all promotions from the database
+     */
+    @Query("DELETE FROM Promotions")
+    void deletePromotions();
 
     /**
      * //////////////
@@ -234,4 +273,11 @@ public interface foodisticDAO {
      */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void createComment(CommentEntity new_comment);
+
+    /**
+     * Deletes all comments from the database
+     */
+    @Query("DELETE FROM Comments")
+    void deleteComments();
+
 }

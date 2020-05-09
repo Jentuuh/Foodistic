@@ -32,13 +32,12 @@
 
     <TextView
         android:id="@+id/discount_title"
-        android:text="Individual Discounts"
-        android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/promotion_list"
+        android:text="Individuele kortingen"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/promotion_list" />
 <LinearLayout
     android:id="@+id/discount_view_more"
     android:clickable="true"
@@ -55,8 +54,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
+        android:text="Zie meer"
         android:textColor="@color/darkishBlue"
-        android:text="View more"
         android:textSize="20dp" />
 
     <ImageView

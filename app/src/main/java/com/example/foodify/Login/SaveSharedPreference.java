@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-
+/**
+ * @author jentevandersanden
+ * This class saves the log-in state of the application
+ */
 public class SaveSharedPreference
 {
     static final String PREF_USER_NAME= "username";

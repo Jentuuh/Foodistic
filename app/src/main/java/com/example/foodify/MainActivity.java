@@ -27,6 +27,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
+import com.example.foodify.Database.AppDatabase;
+import com.example.foodify.Database.DatabasePopulator;
+import com.example.foodify.Database.Entities.ProductEntity;
 import com.example.foodify.Login.LoginActivity;
 import com.example.foodify.Login.SaveSharedPreference;
 import com.example.foodify.Product.ProductItem;
@@ -62,6 +65,15 @@ public class MainActivity extends AppCompatActivity implements Observer {
         setupBasket();
         NavigationUI.setupWithNavController(mToolbar, mNavController, mAppBarConfig);
         setupDestinationListeners();
+
+        // TEST PRODUCT
+        ProductEntity new_product = new ProductEntity();
+        new_product.setName("Test_item");
+        new_product.setPrice(1.5555555f);
+        new_product.setDiscount(0.2222f);
+        new_product.setLikability(20.3f);
+        new_product.setDescription("testtesttesttest");
+        DatabasePopulator.addProduct(AppDatabase.getDatabase(getApplicationContext()),new_product);
 
     }
 
@@ -270,5 +282,12 @@ public class MainActivity extends AppCompatActivity implements Observer {
         setCount(this, mShoppingCart.getCount());
         updateTotalBasket();
         mShoppingCartAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Method that will supply all the test data for the application, using the DatabasePopulator
+     */
+    private void insertTestData(){
+
     }
 }

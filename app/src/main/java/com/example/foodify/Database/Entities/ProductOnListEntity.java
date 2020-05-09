@@ -18,17 +18,14 @@ public class ProductOnListEntity {
     @NonNull
     private int ID;
 
-    @ColumnInfo(name = "productid")
-    private int productid;
+    @ColumnInfo(name = "listname")
+    private String listname;
 
     @ColumnInfo(name = "productname")
     private String productname;
 
     @ColumnInfo(name = "quantity")
     private int quantity;
-
-    @ColumnInfo(name = "listID")
-    private int listID;
 
     @ColumnInfo(name = "checked")
     private boolean checked;
@@ -55,14 +52,6 @@ public class ProductOnListEntity {
         this.quantity = quantity;
     }
 
-    public int getProductid() {
-        return productid;
-    }
-
-    public void setProductid(int productid) {
-        this.productid = productid;
-    }
-
     public String getProductname() {
         return productname;
     }
@@ -71,12 +60,12 @@ public class ProductOnListEntity {
         this.productname = productname;
     }
 
-    public int getListID() {
-        return listID;
+    public String getListname() {
+        return listname;
     }
 
-    public void setListID(int listID) {
-        this.listID = listID;
+    public void setListname(String listname) {
+        this.listname = listname;
     }
 
     public boolean isChecked() {

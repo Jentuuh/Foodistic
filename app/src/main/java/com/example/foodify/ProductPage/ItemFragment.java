@@ -29,7 +29,9 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.text.DecimalFormat;
 
-
+/**
+ * @author Tim-Lukas Blom
+ */
 public class ItemFragment extends Fragment {
     ProductItem mItem;
     TabAdapter mTabAdapter;

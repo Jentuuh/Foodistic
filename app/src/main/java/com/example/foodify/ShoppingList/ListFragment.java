@@ -75,7 +75,7 @@ public class ListFragment extends Fragment {
                 for (ShoppingCartItem item : m_list_to_display.getProducts()){
                     item.setChecked(false);
                     AppDatabase db = AppDatabase.getDatabase(getContext());
-                    db.m_foodisticDAO().uncheckAll(false, m_list_to_display.getM_id());
+                    db.m_foodisticDAO().uncheckAll(false, m_list_to_display.getName());
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -128,9 +128,9 @@ public class ListFragment extends Fragment {
 //        test.setQuantity(3);
 //        db.m_foodisticDAO().addProductToList(test);
 
-        Log.v("listid", Integer.toString(m_list_to_display.getM_id()));
         // Retrieve items on this list
-        List<ProductOnListEntity> results = db.m_foodisticDAO().getItemsOnList(m_list_to_display.getM_id());
+        List<ProductOnListEntity> results = db.m_foodisticDAO().getItemsOnList(m_list_to_display.getName());
+        Log.v("itemcount", Integer.toString(results.size()));
 
         // Parse it into usable objects
         parseIntoListItems(results);
@@ -152,7 +152,7 @@ public class ListFragment extends Fragment {
         AppDatabase db = AppDatabase.getDatabase(getContext());
 
         for (ProductOnListEntity product_on_list : db_data) {
-            ProductEntity product_to_add = db.m_foodisticDAO().getProduct(product_on_list.getProductid());
+            ProductEntity product_to_add = db.m_foodisticDAO().getProduct(product_on_list.getProductname());
 
             if (product_to_add != null) {
                 ProductItem to_add = new ProductItem(product_to_add.getName(), product_to_add.getPrice(), product_to_add.getDescription(), product_to_add.getLikability(), null, product_to_add.getDiscount(), null);
@@ -177,5 +177,4 @@ public class ListFragment extends Fragment {
     public void updatePrice(){
         m_total_price.setText("Totaal: €" + Float.toString(calculatePrice()));
     }
-
 }

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/shop_to_filter_on_view_more"
             app:destination="@id/shopFilterFragment" />
+        <action
+            android:id="@+id/action_shopFragment_to_chooseListFragment"
+            app:destination="@id/chooseListFragment" />
     </fragment>
     <fragment
         android:id="@+id/listFragment"
@@ -100,6 +103,9 @@
         <action
             android:id="@+id/action_itemFragment_to_loginActivity"
             app:destination="@id/loginActivity" />
+        <action
+            android:id="@+id/action_itemFragment_to_chooseListFragment"
+            app:destination="@id/chooseListFragment" />
     </fragment>
     <fragment
         android:id="@+id/descriptionFragment"
@@ -109,6 +115,17 @@
         <action
             android:id="@+id/action_descriptionFragment_to_loginActivity"
             app:destination="@id/loginActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseListFragment"
+        android:name="com.example.foodify.Shop.ChooseListFragment"
+        android:label="Kies een lijstje">
+        <action
+            android:id="@+id/action_chooseListFragment_to_createShoppingList"
+            app:destination="@id/createShoppingList" />
+        <argument
+            android:name="productName"
+            app:argType="string" />
     </fragment>
 
 

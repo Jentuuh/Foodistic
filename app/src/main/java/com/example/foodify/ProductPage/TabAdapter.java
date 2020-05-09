@@ -9,6 +9,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.example.foodify.Product.ProductItem;
 import com.example.foodify.ProductPage.DescriptionFragment;
 
+/**
+ * @author Tim-Lukas Blom
+ */
 public class TabAdapter extends FragmentStateAdapter {
     ProductItem mItem;
     public TabAdapter(@NonNull Fragment fragment, ProductItem item) {

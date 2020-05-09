@@ -16,6 +16,9 @@ import com.example.foodify.Database.Entities.UserEntity;
 import com.example.foodify.MainActivity;
 import com.example.foodify.R;
 
+/**
+ * @author jentevandersanden
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     private Button m_login_button;

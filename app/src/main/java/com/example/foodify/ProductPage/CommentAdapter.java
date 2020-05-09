@@ -21,6 +21,9 @@ import com.example.foodify.R;
 
 import java.util.List;
 
+/**
+ * @author jentevandersanden
+ */
 public class CommentAdapter extends ArrayAdapter<Comment> {
     private int resourceLayout;
     private Context mContext;

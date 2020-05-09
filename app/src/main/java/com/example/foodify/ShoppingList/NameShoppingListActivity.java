@@ -67,6 +67,7 @@ public class NameShoppingListActivity extends AppCompatActivity {
         if(nameDoesntAlreadyExist()) {
             createShoppingList(m_name_field.getText().toString());
             showShoppingListActivity(m_name_field.getText().toString());
+
         }
     }
 
@@ -124,6 +125,7 @@ public class NameShoppingListActivity extends AppCompatActivity {
 
         // Go back to the MainActivity
         startActivity(intent);
+        Toast.makeText(getApplicationContext(), "Lijst '" + name + "' werd aangemaakt!", Toast.LENGTH_SHORT).show();
 
 
     }

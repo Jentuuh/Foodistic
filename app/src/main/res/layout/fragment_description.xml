@@ -10,40 +10,30 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
-    >
-    <EditText
-        android:id="@+id/place_reaction"
-        android:layout_width="217dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="20dp"
-        android:ems="10"
-        android:hint="Plaats uw reactie..."
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.128"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.99" />
-
     <Button
         android:id="@+id/place_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="32dp"
         android:text="Plaats"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.222"
-        app:layout_constraintStart_toEndOf="@+id/place_reaction"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.995" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/list_of_comments"
+        app:layout_constraintVertical_bias="0.304" />
+
+    <EditText
+        android:id="@+id/place_reaction"
+        android:layout_width="227dp"
+        android:layout_height="43dp"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:hint="Plaats uw reactie..."
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/place_button"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/descriptiontitle"
@@ -96,7 +86,11 @@
         android:layout_marginBottom="9dp"
         app:layout_constraintBottom_toTopOf="@+id/place_reaction"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/commenttitle" />
+        app:layout_constraintTop_toBottomOf="@+id/commenttitle"
+        app:layout_constraintVertical_bias="0.0">
+
+    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
