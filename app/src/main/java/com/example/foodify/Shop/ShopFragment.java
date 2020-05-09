@@ -3,7 +3,9 @@ package com.example.foodify.Shop;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -11,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -32,14 +36,41 @@ public class ShopFragment extends Fragment {
 
     private ArrayList<Promotion> mPromotionList;
     private PromotionAdapter mPromotionAdapter;
-
+    private Menu mMenu;
     private ArrayList<ProductItem> mDiscountedItems;
     private ProductAdapter mProductAdapter;
     private LinearLayoutManager mPromotionLayoutManager;
     private LinearLayoutManager mDiscountLayoutManager;
+    private SearchView mSearch;
 
     public ShopFragment() {
         // Required empty public constructor
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        mMenu = menu;
+        mMenu.findItem(R.id.search_icon).setVisible(true);
+        setupSearchFilter();
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
+
+
+    private void setupSearchFilter(){
+         mSearch = (SearchView) mMenu.findItem(R.id.search_icon).getActionView();
+        mMenu.findItem(R.id.search_icon).setEnabled(false);
+        mSearch.setFocusable(false);
+        mSearch.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSearchClick();
+                //search.clearFocus();
+            }
+        });
+
     }
 
 
@@ -53,8 +84,18 @@ public class ShopFragment extends Fragment {
 
     }
 
+
+    private void onSearchClick(){
+        Bundle bundle = new Bundle();
+        bundle.putString("filterType", "search");
+        NavHostFragment.findNavController(this).navigate(R.id.shop_filter_onSearch, bundle);
+
+    }
+
     private void discountViewMore(){
-        NavHostFragment.findNavController(this).navigate(R.id.shopFilterFragment);
+        Bundle bundle = new Bundle();
+        bundle.putString("filterType", "discount");
+        NavHostFragment.findNavController(this).navigate(R.id.shop_to_filter_on_view_more, bundle);
     }
 
     @Override
@@ -107,6 +148,9 @@ public class ShopFragment extends Fragment {
         mProductAdapter.discountedItems();
 
     }
+
+
+
 
     public void testData(){
         Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);

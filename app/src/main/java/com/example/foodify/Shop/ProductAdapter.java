@@ -93,6 +93,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     }
 
     public void sortByPriceDESC(){
+        clearFilter();
         Collections.sort(mFilteredList, new Comparator<ProductItem>(){
             @Override
             public int compare(ProductItem a, ProductItem b) {
@@ -111,6 +112,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
 
     public void sortByPriceASC(){
+        clearFilter();
         Collections.sort(mFilteredList, new Comparator<ProductItem>(){
             @Override
             public int compare(ProductItem a, ProductItem b) {
@@ -128,6 +130,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     }
 
     public void sortByHighestDiscount(){
+        clearFilter();
         Collections.sort(mFilteredList, new Comparator<ProductItem>(){
             @Override
             public int compare(ProductItem a, ProductItem b) {
@@ -144,10 +147,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         });
     }
 
-    public void resetFilers(){
+    public void resetFilters(){
         mFilteredList.clear();
         addAll();
 
+    }
+
+    private void clearFilter() {
+    mFilteredList.clear();
     }
 
     public void addAll(){
@@ -155,7 +162,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     }
 
     public void discountedItems(){
-        //TODO maybe filter from highest discount
+        clearFilter();
         for(ProductItem item : mProductItems){
             if (item.getDiscount() > 0){
                 mFilteredList.add(item);
@@ -173,7 +180,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
                 // Clear the filter list
                 mFilteredList.clear();
-Log.v("test","test");
                 // If there is no search value, then add all original list items to filter list
                 if (TextUtils.isEmpty(text)) {
                     mFilteredList.addAll(mProductItems);
@@ -231,8 +237,6 @@ Log.v("test","test");
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        Log.v("prodadapter", ""+mProductItems.size());
-
         final ProductItem prodItem = mFilteredList.get(position);
         holder.itemName.setText(prodItem.getName());
         holder.itemPrice.setText("€ " + new DecimalFormat("###.##").format(prodItem.calculatePrice()));
@@ -250,7 +254,7 @@ Log.v("test","test");
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("itemId", prodItem.getId());
+                bundle.putString("itemName", prodItem.getName());
                 (NavHostFragment.findNavController(mContext)).navigate(R.id.itemFragment, bundle);
             }
         });
@@ -283,11 +287,10 @@ Log.v("test","test");
         }
     @Override
     public int getItemCount() {
-        Log.v("prodadapter", ""+mFilteredList.size());
         return mFilteredList.size();
 
+    }
     }
 
 
 
-}

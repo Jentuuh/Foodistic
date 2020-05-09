@@ -16,6 +16,10 @@
         <action
             android:id="@+id/action_shopFragment_to_chooseListFragment"
             app:destination="@id/chooseListFragment" />
+        <action
+            android:id="@+id/shop_filter_onSearch"
+            app:destination="@id/shopFilterFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/listFragment"
@@ -81,7 +85,11 @@
         android:id="@+id/shopFilterFragment"
         android:name="com.example.foodify.Shop.ShopFilterFragment"
         android:label="Zoeken"
-        tools:layout="@layout/fragment_shop_filter" />
+        tools:layout="@layout/fragment_shop_filter" >
+        <argument
+            android:name="filterType"
+            app:argType="string" />
+    </fragment>
     <activity
         android:id="@+id/mainActivity"
         android:name="com.example.foodify.MainActivity"
@@ -97,9 +105,8 @@
         android:label="Productinformatie"
         tools:layout="@layout/fragment_item">
         <argument
-            android:name="itemId"
-            android:defaultValue="-1"
-            app:argType="integer" />
+            android:name="itemName"
+            app:argType="string" />
         <action
             android:id="@+id/action_itemFragment_to_loginActivity"
             app:destination="@id/loginActivity" />

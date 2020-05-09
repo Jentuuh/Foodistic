@@ -58,7 +58,7 @@
                 android:id="@+id/total_view_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="40dp"
+                android:layout_marginEnd="16dp"
                 android:text="0.0 €"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"

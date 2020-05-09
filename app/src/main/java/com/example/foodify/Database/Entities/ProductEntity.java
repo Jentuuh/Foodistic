@@ -39,8 +39,8 @@ public class ProductEntity {
     @ColumnInfo(name = "discount")
     private float discount;
 
-//    @ColumnInfo(name = "likability")
-//    private FoodStyle likability;
+    @ColumnInfo(name = "foodstyle")
+    private String foodstyle;
 //
 //    @ColumnInfo(name = "discount")
 //    private float discount;
@@ -101,6 +101,20 @@ public class ProductEntity {
     public void setDiscount(float discount) {
         this.discount = discount;
     }
+
+    public FoodStyle getFoodstyleEnum(){
+
+        if (foodstyle != null)
+            return FoodStyle.valueOf(this.foodstyle);
+        else
+            return null;
+    }
+
+    public String getFoodstyle(){return this.foodstyle;}
+
+    public void setFoodstyle(String foodstyle){this.foodstyle = foodstyle;}
+
+    public void setFoodstyle(FoodStyle fStyle){this.foodstyle = fStyle.toString();}
 
     //    public FoodStyle getLikability() {
 //        return likability;

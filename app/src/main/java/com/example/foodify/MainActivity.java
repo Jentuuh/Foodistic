@@ -2,8 +2,11 @@ package com.example.foodify;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,14 +18,15 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,8 +34,7 @@ import android.widget.TextView;
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.DatabasePopulator;
 import com.example.foodify.Database.Entities.ProductEntity;
-import com.example.foodify.Login.LoginActivity;
-import com.example.foodify.Login.SaveSharedPreference;
+import com.example.foodify.Enums.FoodStyle;
 import com.example.foodify.Product.ProductItem;
 import com.example.foodify.ShoppingCart.ShoppingCart;
 import com.example.foodify.ShoppingCart.ShoppingCartAdapter;
@@ -65,15 +68,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
         setupBasket();
         NavigationUI.setupWithNavController(mToolbar, mNavController, mAppBarConfig);
         setupDestinationListeners();
+        insertTestData();
 
-        // TEST PRODUCT
-        ProductEntity new_product = new ProductEntity();
-        new_product.setName("Test_item");
-        new_product.setPrice(1.5555555f);
-        new_product.setDiscount(0.2222f);
-        new_product.setLikability(20.3f);
-        new_product.setDescription("testtesttesttest");
-        DatabasePopulator.addProduct(AppDatabase.getDatabase(getApplicationContext()),new_product);
 
     }
 
@@ -130,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         mNavController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+
                 if(destination.getId() == R.id.profileFragment){
 
                     //mToolbar.setVisibility(View.GONE);
@@ -172,18 +169,30 @@ public class MainActivity extends AppCompatActivity implements Observer {
      * @param menu
      * @return
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         mMenu = menu;
         // Add toolbar
         getMenuInflater().inflate(R.menu.toolbarmenuitems, menu);
-        menu.findItem(R.id.search_icon).setVisible(false);
+        MenuItem searchItem = menu.findItem(R.id.search_icon);
+        searchItem.setVisible(false);
+        SearchView my_search_view = (SearchView) searchItem.getActionView();
+        ImageView searchIcon = (ImageView)my_search_view.findViewById(androidx.appcompat.R.id.search_button);
+        searchIcon.setImageResource(R.drawable.ic_search_black_24dp);
+        SearchView.SearchAutoComplete searchAutoComplete = my_search_view.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchAutoComplete.setHintTextColor(getResources().getColor(R.color.white));
+        searchAutoComplete.setTextColor(getResources().getColor(android.R.color.white));
+
+
+
         //createBasketTests();
        // updateTotalBasket();
         setCount(this, mShoppingCart.getCount());
 
         return true;
     }
+
 
     /**
      * temporary method that adds 18 carrots to shopping cart
@@ -226,7 +235,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
             case R.id.shoppingBasket:
                 mDrawerLayout.openDrawer(GravityCompat.END);
                 return true;
-
 
             default:
                 // If we got here, the user's action was not recognized.
@@ -289,5 +297,38 @@ public class MainActivity extends AppCompatActivity implements Observer {
      */
     private void insertTestData(){
 
+        AppDatabase db = AppDatabase.getDatabase(getApplicationContext());
+
+        // TEST PRODUCT
+        ProductEntity test_item = new ProductEntity();
+        test_item.setName("Nodiscount");
+        test_item.setPrice(1.5555555f);
+        test_item.setDiscount(0f);
+        test_item.setLikability(20.3f);
+        test_item.setDescription("testtesttesttest");
+        DatabasePopulator.addProduct(db, test_item);
+
+        ProductEntity gehakt = new ProductEntity();
+        gehakt.setName("Gehakt");
+        gehakt.setPrice(1.5555555f);
+        gehakt.setDiscount(0f);
+        gehakt.setLikability(20.3f);
+        gehakt.setDescription("1 ton goedkoop gehakt");
+        DatabasePopulator.addProduct(db ,gehakt);
+
+        // TEST PRODUCT "peren"
+        ProductEntity peer = new ProductEntity();
+        peer.setName("Peer");
+        peer.setPrice(10.33f);
+        peer.setDescription("1 mooie duure peer speciaal voor jou");
+        peer.setLikability(0.13f);
+        peer.setDiscount(0.10f);
+        peer.setFoodstyle(FoodStyle.VEGAN);
+
+        DatabasePopulator.addProduct(db, peer);
+
+
     }
+
+
 }

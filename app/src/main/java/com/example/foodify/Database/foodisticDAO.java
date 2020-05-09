@@ -67,8 +67,10 @@ public interface foodisticDAO {
      * Gets information about a product with a certain ID
      * @param p_name
      */
-    @Query("SELECT * FROM Products WHERE name LIKE :p_name")
+    @Query("SELECT * FROM Products WHERE name LIKE :p_name LIMIT 1")
     ProductEntity getProduct(String p_name);
+
+
 
     /**
      * Creates and inserts a new product into the db

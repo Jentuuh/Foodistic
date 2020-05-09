@@ -21,6 +21,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.foodify.Database.AppDatabase;
+import com.example.foodify.Database.Entities.ProductEntity;
+import com.example.foodify.Enums.FoodStyle;
 import com.example.foodify.MainActivity;
 import com.example.foodify.Product.ProductItem;
 import com.example.foodify.R;
@@ -59,18 +62,32 @@ public class ItemFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         if(args != null) {
-            int itemId = args.getInt("itemId");
+            String itemName = args.getString("itemName");
 
             // TODO: NOTE: I COMMENTED THESE if AND else OUT, IT DIDN'T WORK OTHERWISE BECAUSE ITEMID WASN'T EQUAL TO -1
-//            if (itemId == -1){
-//                //TODO remove this, this is to test if it works
+            if (itemName != null){
+
+
+                //TODO get item from db with same id
+                AppDatabase db = AppDatabase.getDatabase(getActivity());
+                 ProductEntity dbProd = db.m_foodisticDAO().getProduct(itemName);
+                Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
+
+                mItem = new ProductItem(dbProd.getName(), dbProd.getPrice(), dbProd.getDescription(), dbProd.getLikability(), null, dbProd.getDiscount(), img);
+                if (dbProd.getFoodstyleEnum() != null)
+                    mItem.setFoodstyle(dbProd.getFoodstyleEnum());
+                else
+                    mItem.setFoodstyle(FoodStyle.OMNIVORE);
+
+
+            }
+            else{
+                //TODO remove this, this is to test if it works
                 Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
                 mItem = new ProductItem("Test_item",  1.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.50f, img);
                 Log.v("ItemFragment" ,"Id was -1");
-//            }
-//            else{
-//                //TODO get item from db with same id
-//            }
+
+            }
         }
     }
 

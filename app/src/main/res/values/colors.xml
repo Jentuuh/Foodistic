@@ -9,5 +9,6 @@
     <color name="buttonBlue">#1CCADB</color>
     <color name="darkishBlue">#13808D</color>
     <color name="lightgray">#dddddd</color>
+    <color name="white">#FFFFFF</color>
 
 </resources>

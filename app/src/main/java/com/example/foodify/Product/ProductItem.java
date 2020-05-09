@@ -73,6 +73,7 @@ public class ProductItem {
      */
     public void setImage(Drawable img){m_image = img;}
     public void setDiscount(float discount){m_discount = discount;}
+    public void setFoodstyle(FoodStyle foodstyle){m_foodstyle = foodstyle;}
 
 
     public float calculatePrice(){

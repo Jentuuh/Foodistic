@@ -19,10 +19,12 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
 
 import com.example.foodify.Database.AppDatabase;
+import com.example.foodify.Database.DatabasePopulator;
 import com.example.foodify.Database.Entities.ProductEntity;
+import com.example.foodify.Enums.FoodStyle;
 import com.example.foodify.Enums.Size;
 import com.example.foodify.Product.ProductItem;
 import com.example.foodify.R;
@@ -63,9 +65,26 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
         mMenu.findItem(R.id.search_icon).setVisible(true);
         setupSearchFilter();
         super.onCreateOptionsMenu(menu, inflater);
+        String filterType = getArguments().getString("filterType");
+        if (filterType != null){
+            switch (filterType) {
+                case "search":
+                    mAdapter.resetFilters();
+                    mSearchFilter.setIconifiedByDefault(false);
+                    Log.v("adapt","search");
+                    break;
+
+                case "discount":
+                    mAdapter.discountedItems();
+                    Log.v("adapt","discount");
+                    break;
+
+            }
 
 
-
+        }
+        else
+            Log.v("ShopFilterFragment", "arg = null");
     }
 
 
@@ -88,7 +107,6 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_shop_filter, container, false);
     }
 
@@ -106,7 +124,6 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
 
     public void setupSearchFilter(){
         mSearchFilter = (SearchView) mMenu.findItem(R.id.search_icon).getActionView();
-
         //mSearchFilter = (SearchView) getView().findViewById(R.id.search_filter);
         //mSearchFilter.setIconifiedByDefault(false);
         mSearchFilter.setOnQueryTextListener(this);
@@ -124,7 +141,7 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
         parseFromDBToObjects(products_from_db);
 
         //TODO remove testdata
-        testData();
+       // testData();
         mAdapter.addAll();
     }
 
@@ -136,7 +153,12 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
         Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
         for(ProductEntity dbItem : db_products){
             //TODO Dynamically add img to product, add comments
-            mFilteredProductItems.add(new ProductItem(dbItem.getName(), dbItem.getPrice(), dbItem.getDescription(), dbItem.getLikability(), null, dbItem.getDiscount(), img));
+            ProductItem newProd = new ProductItem(dbItem.getName(), dbItem.getPrice(), dbItem.getDescription(), dbItem.getLikability(), null, dbItem.getDiscount(), img);
+            if (dbItem.getFoodstyleEnum() != null)
+                newProd.setFoodstyle(dbItem.getFoodstyleEnum());
+            else
+                newProd.setFoodstyle(FoodStyle.OMNIVORE);
+            mFilteredProductItems.add(newProd);
         }
 
 
