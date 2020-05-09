@@ -4,16 +4,22 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.SearchView;
 
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.Entities.ProductEntity;
@@ -28,10 +34,12 @@ import java.util.List;
 /**
  *  Fragment where you can filter through a list of items
  */
-public class ShopFilterFragment extends Fragment {
+public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private ProductAdapter mAdapter;
     private ArrayList<ProductItem> mFilteredProductItems;
+    private SearchView mSearchFilter;
+    private Menu mMenu;
 
     public ShopFilterFragment() {
         // Required empty public constructor
@@ -46,11 +54,14 @@ public class ShopFilterFragment extends Fragment {
         mFilteredProductItems = new ArrayList<ProductItem>();
         mAdapter = new ProductAdapter(mFilteredProductItems, this, Size.LARGE);
         getProducts();
+
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        menu.findItem(R.id.search_icon).setVisible(true);
+        mMenu = menu;
+        mMenu.findItem(R.id.search_icon).setVisible(true);
+        setupSearchFilter();
         super.onCreateOptionsMenu(menu, inflater);
 
 
@@ -63,12 +74,13 @@ public class ShopFilterFragment extends Fragment {
 
 
 
-        mFilteredProductItems.add(new ProductItem("Test_item",  1.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.50f, img));
-        mFilteredProductItems.add(new ProductItem("Test_item",  1.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.50f, img));
-        mFilteredProductItems.add(new ProductItem("Test_item",  1.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.50f, img));
-        mFilteredProductItems.add(new ProductItem("Test_item",  1.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.50f, img));
-        mFilteredProductItems.add(new ProductItem("Test_item",  1.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.50f, img));
+        mFilteredProductItems.add(new ProductItem("wortel",  5.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.50f, img));
+        mFilteredProductItems.add(new ProductItem("appel",  0.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.40f, img));
+        mFilteredProductItems.add(new ProductItem("banaan",  2.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.40f, img));
+        mFilteredProductItems.add(new ProductItem("Test_item",  1.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.20f, img));
+        mFilteredProductItems.add(new ProductItem("Test_item",  1.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.10f, img));
         mAdapter.notifyDataSetChanged();
+        Log.v("filterfrag", ""+mFilteredProductItems.size());
 
     }
 
@@ -83,15 +95,24 @@ public class ShopFilterFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        RecyclerView discountRecyclerView = getView().findViewById(R.id.filtered_product_list);
+        RecyclerView filterRecyclerView = getView().findViewById(R.id.filtered_product_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        discountRecyclerView.setLayoutManager(layoutManager);
-        discountRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        discountRecyclerView.setAdapter(mAdapter);
+        filterRecyclerView.setLayoutManager(layoutManager);
+        filterRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        filterRecyclerView.setAdapter(mAdapter);
+        filterRecyclerView.setHasFixedSize(true);
     }
 
+    public void setupSearchFilter(){
+        mSearchFilter = (SearchView) mMenu.findItem(R.id.search_icon).getActionView();
 
+        //mSearchFilter = (SearchView) getView().findViewById(R.id.search_filter);
+        //mSearchFilter.setIconifiedByDefault(false);
+        mSearchFilter.setOnQueryTextListener(this);
+        mSearchFilter.setSubmitButtonEnabled(true);
+        mSearchFilter.setQueryHint("Search Here");
+    }
 
     private void getProducts(){
 
@@ -104,7 +125,7 @@ public class ShopFilterFragment extends Fragment {
 
         //TODO remove testdata
         testData();
-
+        mAdapter.addAll();
     }
 
     /**
@@ -117,6 +138,19 @@ public class ShopFilterFragment extends Fragment {
             //TODO Dynamically add img to product, add comments
             mFilteredProductItems.add(new ProductItem(dbItem.getName(), dbItem.getPrice(), dbItem.getDescription(), dbItem.getLikability(), null, dbItem.getDiscount(), img));
         }
+
+
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        mAdapter.filter(newText);
+        return true;
+    }
 }

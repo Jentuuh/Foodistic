@@ -34,9 +34,38 @@
         android:id="@+id/discount_title"
         android:text="Individual Discounts"
         android:textSize="20dp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/promotion_list" />
+        app:layout_constraintTop_toBottomOf="@+id/promotion_list"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+<LinearLayout
+    android:id="@+id/discount_view_more"
+    android:clickable="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/promotion_list"
+    android:gravity="center"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:textColor="@color/darkishBlue"
+        android:text="View more"
+        android:textSize="20dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@color/darkishBlue"
+        android:src="@drawable/ic_arrow_forward_black_24dp" />
+
+</LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/discount_list"

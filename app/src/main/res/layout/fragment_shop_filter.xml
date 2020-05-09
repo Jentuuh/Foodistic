@@ -8,6 +8,7 @@
     tools:context=".Shop.ShopFilterFragment">
 
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/filtered_product_list"
         android:layout_width="match_parent"

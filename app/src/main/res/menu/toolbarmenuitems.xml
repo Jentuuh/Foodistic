@@ -5,14 +5,15 @@
     >
 
 
-        <!-- "Mark Favorite", should appear as action button if possible -->
-    <item android:id="@+id/search_icon"
+    <item
+        android:id="@+id/search_icon"
         android:title="search_title"
         android:icon="@drawable/ic_search_black_24dp"
         app:showAsAction="ifRoom"
         app:actionViewClass="android.widget.SearchView"
 
         />
+
 
     <item
         android:id="@+id/shoppingBasket"
