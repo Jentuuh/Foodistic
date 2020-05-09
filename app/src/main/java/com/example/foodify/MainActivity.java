@@ -35,6 +35,9 @@ import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.DatabasePopulator;
 import com.example.foodify.Database.Entities.ProductEntity;
 import com.example.foodify.Enums.FoodStyle;
+import com.example.foodify.Database.Entities.ProductInShopEntity;
+import com.example.foodify.Login.LoginActivity;
+import com.example.foodify.Login.SaveSharedPreference;
 import com.example.foodify.Product.ProductItem;
 import com.example.foodify.ShoppingCart.ShoppingCart;
 import com.example.foodify.ShoppingCart.ShoppingCartAdapter;
@@ -71,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
         insertTestData();
 
 
+        // INSERT ALL SAMPLE DATA
+       // insertTestData();
     }
 
     /**

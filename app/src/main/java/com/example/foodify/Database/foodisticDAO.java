@@ -4,11 +4,13 @@ import androidx.room.*;
 
 import com.example.foodify.Database.Entities.CommentEntity;
 import com.example.foodify.Database.Entities.PointEntity;
+import com.example.foodify.Database.Entities.ProductInShopEntity;
 import com.example.foodify.Database.Entities.PromotionEntity;
 import com.example.foodify.Database.Entities.ProductEntity;
 import com.example.foodify.Database.Entities.ProductOnListEntity;
 import com.example.foodify.Database.Entities.ShoppingListEntity;
 import com.example.foodify.Database.Entities.UserEntity;
+import com.example.foodify.Product.ProductInShop;
 
 import java.util.List;
 
@@ -281,5 +283,18 @@ public interface foodisticDAO {
      */
     @Query("DELETE FROM Comments")
     void deleteComments();
+
+
+    /**
+     * //////////////////////
+     * PRODUCT IN SHOP QUERYS
+     * //////////////////////
+     */
+
+    @Query("SELECT * FROM ProductsInShops WHERE productname LIKE :productname")
+    List<ProductInShopEntity> getShopsForProduct(String productname);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void createProductInShop(ProductInShopEntity product);
 
 }
