@@ -5,6 +5,7 @@ import android.graphics.Point;
 import com.example.foodify.Database.Entities.CommentEntity;
 import com.example.foodify.Database.Entities.PointEntity;
 import com.example.foodify.Database.Entities.ProductEntity;
+import com.example.foodify.Database.Entities.ProductInShopEntity;
 import com.example.foodify.Database.Entities.PromotionEntity;
 import com.example.foodify.Database.Entities.ShoppingListEntity;
 import com.example.foodify.Database.Entities.UserEntity;
@@ -70,6 +71,10 @@ public class DatabasePopulator{
      */
     public static void addPointEntity(AppDatabase db, PointEntity point){
         db.m_foodisticDAO().createShopPoint(point);
+    }
+
+    public static void addProductInShop(AppDatabase db, ProductInShopEntity productinshop){
+        db.m_foodisticDAO().createProductInShop(productinshop);
     }
 
     /**

@@ -29,7 +29,7 @@ public class TabAdapter extends FragmentStateAdapter {
         }
         else{
             //TODO change DescriptionFragment to compare prices fragment here
-            DescriptionFragment fragment = new DescriptionFragment(mItem);
+            ComparisonFragment fragment = new ComparisonFragment(mItem);
             return fragment;
 
         }

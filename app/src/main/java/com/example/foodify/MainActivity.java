@@ -30,6 +30,7 @@ import android.widget.TextView;
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.DatabasePopulator;
 import com.example.foodify.Database.Entities.ProductEntity;
+import com.example.foodify.Database.Entities.ProductInShopEntity;
 import com.example.foodify.Login.LoginActivity;
 import com.example.foodify.Login.SaveSharedPreference;
 import com.example.foodify.Product.ProductItem;
@@ -66,15 +67,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
         NavigationUI.setupWithNavController(mToolbar, mNavController, mAppBarConfig);
         setupDestinationListeners();
 
-        // TEST PRODUCT
-        ProductEntity new_product = new ProductEntity();
-        new_product.setName("Test_item");
-        new_product.setPrice(1.5555555f);
-        new_product.setDiscount(0.2222f);
-        new_product.setLikability(20.3f);
-        new_product.setDescription("testtesttesttest");
-        DatabasePopulator.addProduct(AppDatabase.getDatabase(getApplicationContext()),new_product);
-
+        // INSERT ALL SAMPLE DATA
+        insertTestData();
     }
 
     /**
@@ -288,6 +282,28 @@ public class MainActivity extends AppCompatActivity implements Observer {
      * Method that will supply all the test data for the application, using the DatabasePopulator
      */
     private void insertTestData(){
+
+        // TEST PRODUCT
+        ProductEntity new_product = new ProductEntity();
+        new_product.setName("Test_item");
+        new_product.setPrice(1.5555555f);
+        new_product.setDiscount(0.2222f);
+        new_product.setLikability(20.3f);
+        new_product.setDescription("testtesttesttest");
+        DatabasePopulator.addProduct(AppDatabase.getDatabase(getApplicationContext()),new_product);
+
+        ProductInShopEntity product_in_shop = new ProductInShopEntity();
+        product_in_shop.setProductname("Test_item");
+        product_in_shop.setShopname("Colruyt");
+        product_in_shop.setPrice(1.56f);
+        DatabasePopulator.addProductInShop(AppDatabase.getDatabase(getApplicationContext()), product_in_shop);
+
+        ProductInShopEntity product_in_shop1 = new ProductInShopEntity();
+        product_in_shop1.setProductname("Test_item");
+        product_in_shop1.setShopname("Delhaize");
+        product_in_shop1.setPrice(1.77f);
+        DatabasePopulator.addProductInShop(AppDatabase.getDatabase(getApplicationContext()), product_in_shop1);
+
 
     }
 }
