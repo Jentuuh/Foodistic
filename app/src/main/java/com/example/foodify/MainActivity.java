@@ -34,6 +34,7 @@ import android.widget.TextView;
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.DatabasePopulator;
 import com.example.foodify.Database.Entities.ProductEntity;
+import com.example.foodify.Database.Entities.UserEntity;
 import com.example.foodify.Enums.FoodStyle;
 import com.example.foodify.Database.Entities.ProductInShopEntity;
 import com.example.foodify.Login.LoginActivity;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         setupBasket();
         NavigationUI.setupWithNavController(mToolbar, mNavController, mAppBarConfig);
         setupDestinationListeners();
-        //insertTestData();
+        insertTestData();
 
 
         // INSERT ALL SAMPLE DATA
@@ -306,6 +307,14 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
         // Reset the db
         DatabasePopulator.clearDatabase(db);
+
+        UserEntity user = new UserEntity();
+        user.setFirstname("test");
+        user.setLastname("test");
+        user.setAddress("test");
+        user.setEmail("test");
+        user.setPassword("test");
+        DatabasePopulator.addUser(db, user);
 
         // TEST PRODUCT
         ProductEntity test_item = new ProductEntity();
