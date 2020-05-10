@@ -30,79 +30,94 @@
 
         <TextView
             android:id="@+id/large_product_name"
-            android:layout_width="wrap_content"
+            android:layout_width="116dp"
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMaxTextSize="18dp"
+            android:autoSizeMinTextSize="12dp"
             android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="Test Item"
+            android:textSize="18dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/large_product_img"
             tools:layout_editor_absoluteY="0dp" />
 
-        <TextView
-            android:id="@+id/large_product_price"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="230dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
             android:gravity="center"
-            android:text="Q 22.22"
-            app:layout_constraintStart_toEndOf="@+id/large_product_name"
-            tools:layout_editor_absoluteY="0dp"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            />
+            <TextView
+                android:id="@+id/large_product_price"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="Q 22.22"
+                android:textSize="14dp"
 
+                app:layout_constraintEnd_toStartOf="@+id/large_prev_prod_price"
+                tools:layout_editor_absoluteY="0dp" />
 
-        <TextView
-            android:id="@+id/large_prev_prod_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text=""
-            android:textSize="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/large_product_price"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.516" />
+            <TextView
+                android:id="@+id/large_prev_prod_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="3"
+                android:text=""
+                android:textSize="11dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/add_to_cart_button"
+                app:layout_constraintTop_toTopOf="parent"
+                 />
 
-        <ImageButton
-            android:id="@+id/add_to_cart_button"
+            <ImageButton
+                android:id="@+id/add_to_cart_button"
 
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:adjustViewBounds="true"
-            android:background="#0000"
-            android:padding="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_cart_plus_solid"
-            android:tint="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="#0000"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_cart_plus_solid"
+                android:tint="@color/colorPrimary"
 
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/add_to_list_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/add_to_list_button"
 
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.571">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.571">
 
-        </ImageButton>
+            </ImageButton>
 
-        <ImageButton
-            android:id="@+id/add_to_list_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="8dp"
-            android:adjustViewBounds="true"
-            android:background="#0000"
+            <ImageButton
+                android:id="@+id/add_to_list_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="#0000"
 
-            android:padding="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_notes_medical_solid"
-            android:tint="@color/colorPrimary"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_notes_medical_solid"
+                android:tint="@color/colorPrimary"
 
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        </ImageButton>
+            </ImageButton>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

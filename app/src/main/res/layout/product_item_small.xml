@@ -16,8 +16,8 @@
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="120dp"
-        android:layout_height="74dp">
+        android:layout_width="136dp"
+        android:layout_height="87dp">
 
         <ImageView
             android:id="@+id/product_img"
@@ -53,7 +53,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="Item name eeeeeee"
-                android:textSize="14dp"
+                android:textSize="16dp"
                 android:textStyle="bold">
 
             </TextView>
@@ -62,22 +62,17 @@
                 android:id="@+id/prod_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/red"
                 android:text="Q 22.22"
-                android:textSize="11dp"
-                />
-
+                android:textColor="@color/red"
+                android:textSize="14dp" />
 
 
             <TextView
                 android:id="@+id/prev_prod_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Q 22.22"
-                android:textSize="8dp"
-                />
-
-
+                android:text=""
+                android:textSize="11dp" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout

@@ -17,10 +17,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.Entities.ProductEntity;
+import com.example.foodify.Enums.Categories;
 import com.example.foodify.Enums.FoodStyle;
 import com.example.foodify.Enums.Size;
 import com.example.foodify.Product.ProductItem;
@@ -76,13 +78,66 @@ public class ShopFragment extends Fragment {
 
     }
 
+    private void setupCategoryButtons(final View rootView){
+        Button vlees = rootView.findViewById(R.id.vlees_button);
+        Button groenten = rootView.findViewById(R.id.groenten_button);
+        Button fruit = rootView.findViewById(R.id.fruit_button);
+        Button graan = rootView.findViewById(R.id.graan_button);
+        Button zuivel = rootView.findViewById(R.id.zuivel_button);
+        Button drank = rootView.findViewById(R.id.drank_button);
+
+        vlees.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    filterWithCategory(Categories.VLEES);
+            }
+        });
+        groenten.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterWithCategory(Categories.GROENTEN);
+            }
+        });
+        fruit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterWithCategory(Categories.FRUIT);
+            }
+        });
+        graan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterWithCategory(Categories.GRAANPRODUCTEN);
+            }
+        });
+        zuivel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterWithCategory(Categories.ZUIVEL);
+            }
+        });
+        drank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterWithCategory(Categories.DRANKEN);
+            }
+        });
+    }
+
+    private void filterWithCategory(Categories c){
+        Bundle b = new Bundle();
+        b.putString("category", c.toString());
+        NavHostFragment.findNavController(this).navigate(R.id.shop_filter_onSearch, b);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_shop, container, false);
 
+        setupCategoryButtons(rootView);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shop, container, false);
+        return rootView;
 
 
     }

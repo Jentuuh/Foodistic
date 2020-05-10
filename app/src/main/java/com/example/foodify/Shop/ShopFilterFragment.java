@@ -118,7 +118,7 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
 
             }
         }
-        else{
+        if (filters == null && category == null){
             mAdapter.resetFilters();
             resetbools();
         }

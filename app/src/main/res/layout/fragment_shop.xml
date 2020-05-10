@@ -14,7 +14,7 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:text="Promoties"
 
-        android:textColor="#009688"
+        android:textColor="@color/colorPrimary"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.161"
@@ -28,13 +28,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:background="#000000"
+
 
         app:layout_constraintTop_toTopOf="@id/promotions_title"
         tools:layout_editor_absoluteX="0dp">
 
     </androidx.recyclerview.widget.RecyclerView>
-
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/title_view_more_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/promotion_list"
+    android:gravity="center"
+    >
     <TextView
         android:id="@+id/discount_title"
         android:layout_width="wrap_content"
@@ -42,20 +48,20 @@
         android:layout_marginStart="16dp"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="Individuele kortingen"
-        android:textColor="#009688"
+        android:textColor="@color/colorPrimary"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/promotion_list" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
     android:id="@+id/discount_view_more"
     android:clickable="true"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="horizontal"
     android:foreground="?android:attr/selectableItemBackground"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/promotion_list"
+    app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
     android:gravity="center"
     >
 
@@ -75,14 +81,14 @@
         android:src="@drawable/ic_arrow_forward_black_24dp" />
 
 </LinearLayout>
-
+</androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/discount_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="#0000"
-        app:layout_constraintTop_toBottomOf="@id/discount_title"
+        app:layout_constraintTop_toBottomOf="@id/title_view_more_container"
         tools:layout_editor_absoluteX="0dp">
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -94,10 +100,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Categorieën"
-        android:textSize="20dp"
+        android:textSize="30dp"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/discount_list"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="16dp"
         />
     <LinearLayout
         app:layout_constraintTop_toBottomOf="@id/Categories_title"
@@ -113,23 +120,35 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/vlees_button"
                 android:text="Vlees"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/colorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="25dp"
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/groenten_button"
                 android:text="Groenten"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/colorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="25dp"
+
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/fruit_button"
                 android:text="Fruit"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/colorPrimary"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="25dp"
+
                 />
         </LinearLayout>
         <LinearLayout
@@ -140,19 +159,30 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/graan_button"
                 android:text="Graanproducten"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/colorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="25dp"
+
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:text="Zuivel"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/colorPrimary"
                 android:id="@+id/zuivel_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="25dp"
+
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:text="Dranken"
+                android:padding="25dp"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/colorPrimary"
                 android:id="@+id/drank_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
