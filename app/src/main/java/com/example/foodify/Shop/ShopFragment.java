@@ -180,7 +180,7 @@ public class ShopFragment extends Fragment {
         Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
         for(ProductEntity dbItem : db_products){
             //TODO Dynamically add img to product, add comments
-            ProductItem newProd = new ProductItem(dbItem.getName(), dbItem.getPrice(), dbItem.getDescription(), dbItem.getLikability(), null, dbItem.getDiscount(), img);
+            ProductItem newProd = new ProductItem(dbItem.getName(), dbItem.getPrice(), dbItem.getDescription(), dbItem.getLikability(), null, dbItem.getDiscount(), img, dbItem.getEnumCategory());
             if (dbItem.getFoodstyleEnum() != null)
                 newProd.setFoodstyle(dbItem.getFoodstyleEnum());
             else

@@ -2,6 +2,7 @@ package com.example.foodify.Database.Entities;
 
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -9,6 +10,7 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import com.example.foodify.Enums.Categories;
 import com.example.foodify.Enums.FoodStyle;
 
 import java.util.Date;
@@ -41,9 +43,9 @@ public class ProductEntity {
 
     @ColumnInfo(name = "foodstyle")
     private String foodstyle;
-//
-//    @ColumnInfo(name = "discount")
-//    private float discount;
+
+    @ColumnInfo(name = "category")
+    private String category;
 
 //    @ColumnInfo(name = "img")
     //    private Drawable img;
@@ -104,10 +106,13 @@ public class ProductEntity {
 
     public FoodStyle getFoodstyleEnum(){
 
-        if (foodstyle != null)
+        if (foodstyle != null) {
             return FoodStyle.valueOf(this.foodstyle);
-        else
+        }
+        else {
+            Log.v("prodentity", "foodstyle=null");
             return null;
+        }
     }
 
     public String getFoodstyle(){return this.foodstyle;}
@@ -115,6 +120,22 @@ public class ProductEntity {
     public void setFoodstyle(String foodstyle){this.foodstyle = foodstyle;}
 
     public void setFoodstyle(FoodStyle fStyle){this.foodstyle = fStyle.toString();}
+
+    public String getCategory(){return this.category;}
+    public void setCategory(String newCategory){this.category = newCategory;}
+
+    public void setCategory(Categories newcat){this.category = newcat.toString();}
+
+    public Categories getEnumCategory(){
+        if (category != null)
+            return Categories.valueOf(this.category);
+        else {
+            Log.v("prodentity", "category=null");
+            return null;
+    }}
+
+
+
 
     //    public FoodStyle getLikability() {
 //        return likability;

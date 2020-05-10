@@ -70,7 +70,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/shop_filter"
+        android:id="@+id/discount_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -158,4 +158,110 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/category_filter"
+        app:layout_constraintTop_toBottomOf="@+id/discount_container"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="4dp"
+        android:padding="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp">
+            <TextView
+                android:id="@+id/filter_category_title"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:text="Sorteer op voedselgroep"
+                android:textColor="@color/colorPrimary"
+                />
+
+            <LinearLayout
+                app:layout_constraintTop_toBottomOf="@id/filter_category_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                >
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    >
+                <CheckBox
+                    android:id="@+id/vlees_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vlees"
+                    android:layout_weight="1"
+                    />
+
+
+                <CheckBox
+                    android:id="@+id/fruit_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fruit"
+                    android:layout_weight="1"
+
+                    />
+                <CheckBox
+                    android:id="@+id/groenten_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Groenten"
+                    android:layout_weight="1"
+
+                    />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    >
+                    <CheckBox
+                        android:id="@+id/drank_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dranken"
+                        android:layout_weight="1"
+                        />
+
+
+                    <CheckBox
+                        android:id="@+id/graan_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Graanproducten"
+                        android:layout_weight="1"
+
+                        />
+                    <CheckBox
+                        android:id="@+id/zuivel_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Zuivel"
+                        android:layout_weight="1"
+
+                        />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodify.Enums.Categories;
 import com.example.foodify.Enums.Size;
 import com.example.foodify.MainActivity;
 import com.example.foodify.Product.ProductItem;
@@ -93,12 +94,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     }
 
     public void sortByPrice(float min, float max){
-        clearFilter();
-        for(ProductItem item : mProductItems){
+        ArrayList<ProductItem> newFiltered = new ArrayList<ProductItem>();
+        for(ProductItem item : mFilteredList){
             if (item.calculatePrice() > min && item.calculatePrice() < max){
-                mFilteredList.add(item);
+                newFiltered.add(item);
             }
         }
+        mFilteredList = newFiltered;
         notifyDataSetChanged();
 
     }
@@ -155,13 +157,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         });
     }
 
+
+
     public void resetFilters(){
         mFilteredList.clear();
         addAll();
 
     }
 
-    private void clearFilter() {
+    public void clearFilter() {
     mFilteredList.clear();
     }
 
@@ -169,15 +173,29 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         mFilteredList.addAll(mProductItems);
     }
 
-    public void discountedItems(){
-        clearFilter();
-        for(ProductItem item : mProductItems){
-            if (item.getDiscount() > 0){
-                mFilteredList.add(item);
+
+    public void categoryItems(Categories cat){
+        ArrayList<ProductItem> newFiltered = new ArrayList<ProductItem>();
+        for(ProductItem item : mFilteredList){
+            if (item.getCategory() == cat){
+                newFiltered.add(item);
             }
         }
+        mFilteredList = newFiltered;
         notifyDataSetChanged();
     }
+
+    public void discountedItems(){
+        ArrayList<ProductItem> newFiltered = new ArrayList<ProductItem>();
+        for(ProductItem item : mFilteredList){
+            if (item.getDiscount() > 0){
+                newFiltered.add(item);
+            }
+        }
+        mFilteredList = newFiltered;
+        notifyDataSetChanged();
+    }
+
 
     public void filter(final String text) {
 

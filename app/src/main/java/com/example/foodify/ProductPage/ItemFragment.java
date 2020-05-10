@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.Entities.ProductEntity;
+import com.example.foodify.Enums.Categories;
 import com.example.foodify.Enums.FoodStyle;
 import com.example.foodify.MainActivity;
 import com.example.foodify.Product.ProductItem;
@@ -70,7 +71,7 @@ public class ItemFragment extends Fragment {
                  ProductEntity dbProd = db.m_foodisticDAO().getProduct(itemName);
                 Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
 
-                mItem = new ProductItem(dbProd.getName(), dbProd.getPrice(), dbProd.getDescription(), dbProd.getLikability(), null, dbProd.getDiscount(), img);
+                mItem = new ProductItem(dbProd.getName(), dbProd.getPrice(), dbProd.getDescription(), dbProd.getLikability(), null, dbProd.getDiscount(), img, dbProd.getEnumCategory());
                 if (dbProd.getFoodstyleEnum() != null)
                     mItem.setFoodstyle(dbProd.getFoodstyleEnum());
                 else
@@ -81,7 +82,7 @@ public class ItemFragment extends Fragment {
             else{
                 //TODO remove this, this is to test if it works
                 Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
-                mItem = new ProductItem("Test_item",  1.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.50f, img);
+                mItem = new ProductItem("Test_item",  1.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.50f, img, Categories.DRANKEN);
                 Log.v("ItemFragment" ,"Id was -1");
 
             }

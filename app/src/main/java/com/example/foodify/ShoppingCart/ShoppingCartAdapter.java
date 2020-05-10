@@ -165,9 +165,5 @@ public class ShoppingCartAdapter extends ArrayAdapter<ShoppingCartItem> {
 
         return view;
     }
-    private String calculatePrice(float originalPrice, float discount){
-
-        return "€ " + new DecimalFormat("###.##").format(originalPrice - (originalPrice * discount));
-    }
 
 }

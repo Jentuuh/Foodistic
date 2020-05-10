@@ -155,7 +155,7 @@ public class ListFragment extends Fragment {
             ProductEntity product_to_add = db.m_foodisticDAO().getProduct(product_on_list.getProductname());
 
             if (product_to_add != null) {
-                ProductItem to_add = new ProductItem(product_to_add.getName(), product_to_add.getPrice(), product_to_add.getDescription(), product_to_add.getLikability(), null, product_to_add.getDiscount(), null);
+                ProductItem to_add = new ProductItem(product_to_add.getName(), product_to_add.getPrice(), product_to_add.getDescription(), product_to_add.getLikability(), null, product_to_add.getDiscount(), null, product_to_add.getEnumCategory());
                 ShoppingCartItem list_item = new ShoppingCartItem(to_add);
 
                 // Make sure the quantity is set to the quantity from the database

@@ -21,6 +21,7 @@ import androidx.appcompat.widget.SearchView;
 
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.Entities.ProductEntity;
+import com.example.foodify.Enums.Categories;
 import com.example.foodify.Enums.FoodStyle;
 import com.example.foodify.Enums.Size;
 import com.example.foodify.Product.ProductItem;
@@ -39,7 +40,7 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
     private Boolean mDiscount;
     private Boolean mPriceAsc;
     private Boolean mPriceDesc;
-
+    private Categories mCategory;
     private ProductAdapter mAdapter;
     private ArrayList<ProductItem> mFilteredProductItems;
     private SearchView mSearchFilter;
@@ -61,6 +62,7 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
         mDiscount = false;
         mPriceAsc = false;
         mPriceDesc = false;
+        mCategory = null;
         getProducts();
 
     }
@@ -76,7 +78,14 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
 
     private void getFilters(){
         Bundle bundle = getArguments();
+
+        String category = bundle.getString("category");
         String[] filters = bundle.getStringArray("filterType");
+        mAdapter.resetFilters();
+        if (category != null){
+            mCategory = Categories.valueOf(category);
+            mAdapter.categoryItems(mCategory);
+        }
         if (filters != null) {
             for (String filter : filters) {
                 if (filter != null) {
@@ -125,7 +134,7 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
         Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
 
 
-
+/*
         mFilteredProductItems.add(new ProductItem("wortel",  5.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.50f, img));
         mFilteredProductItems.add(new ProductItem("appel",  0.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.40f, img));
         mFilteredProductItems.add(new ProductItem("banaan",  2.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.40f, img));
@@ -133,6 +142,8 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
         mFilteredProductItems.add(new ProductItem("Test_item",  1.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.10f, img));
         mAdapter.notifyDataSetChanged();
         Log.v("filterfrag", ""+mFilteredProductItems.size());
+
+ */
 
     }
 
@@ -155,6 +166,9 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
         Log.v("shopfilt", "toFilterFragment()");
 
         Bundle filters = new Bundle();
+        if (mCategory != null){
+            filters.putString("category" ,mCategory.toString());
+        }
         String[] filterTypes = new String[4];
         if (mDiscount)
             filterTypes[0] = "discount";
@@ -167,7 +181,7 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
 
         filters.putStringArray("filterType", filterTypes);
 
-        NavHostFragment.findNavController(this).navigate(R.id.action_shopFilterFragment_to_filterFragment, filters);
+        NavHostFragment.findNavController(this).navigate(R.id.filterFragment, filters);
 
     }
 
@@ -214,7 +228,7 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
         Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
         for(ProductEntity dbItem : db_products){
             //TODO Dynamically add img to product, add comments
-            ProductItem newProd = new ProductItem(dbItem.getName(), dbItem.getPrice(), dbItem.getDescription(), dbItem.getLikability(), null, dbItem.getDiscount(), img);
+            ProductItem newProd = new ProductItem(dbItem.getName(), dbItem.getPrice(), dbItem.getDescription(), dbItem.getLikability(), null, dbItem.getDiscount(), img, dbItem.getEnumCategory());
             if (dbItem.getFoodstyleEnum() != null)
                 newProd.setFoodstyle(dbItem.getFoodstyleEnum());
             else

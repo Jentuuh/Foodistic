@@ -34,6 +34,7 @@ import android.widget.TextView;
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.DatabasePopulator;
 import com.example.foodify.Database.Entities.ProductEntity;
+import com.example.foodify.Enums.Categories;
 import com.example.foodify.Enums.FoodStyle;
 import com.example.foodify.Database.Entities.ProductInShopEntity;
 import com.example.foodify.Login.LoginActivity;
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
 
         // INSERT ALL SAMPLE DATA
-       // insertTestData();
+        //insertTestData();
     }
 
     /**
@@ -199,33 +200,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
     }
 
 
-    /**
-     * temporary method that adds 18 carrots to shopping cart
-     *
-     */
-    public void createBasketTests(){
-        //TODO remove this when everything works
-        Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null,0.3f, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null,0.3f, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null,0.3f ,img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-        mShoppingCart.addItem(new ProductItem("Test_item",  1.5f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, img));
-
-    }
 
 
     /**
@@ -311,6 +285,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
         test_item.setDiscount(0f);
         test_item.setLikability(20.3f);
         test_item.setDescription("testtesttesttest");
+        test_item.setFoodstyle(FoodStyle.OMNIVORE);
+        test_item.setCategory(Categories.DRANKEN);
         DatabasePopulator.addProduct(db, test_item);
 
         ProductEntity gehakt = new ProductEntity();
@@ -319,6 +295,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
         gehakt.setDiscount(0f);
         gehakt.setLikability(20.3f);
         gehakt.setDescription("1 ton goedkoop gehakt");
+        gehakt.setFoodstyle(FoodStyle.OMNIVORE);
+        gehakt.setCategory(Categories.VLEES);
         DatabasePopulator.addProduct(db ,gehakt);
 
         // TEST PRODUCT "peren"
@@ -329,8 +307,21 @@ public class MainActivity extends AppCompatActivity implements Observer {
         peer.setLikability(0.13f);
         peer.setDiscount(0.10f);
         peer.setFoodstyle(FoodStyle.VEGAN);
+        peer.setCategory(Categories.FRUIT);
 
         DatabasePopulator.addProduct(db, peer);
+
+
+        ProductEntity wortel = new ProductEntity();
+        wortel.setName("Wortel");
+        wortel.setPrice(10.33f);
+        wortel.setDescription("1 mooie Wortel peer speciaal voor jou");
+        wortel.setLikability(0.93f);
+        wortel.setDiscount(0.15f);
+        wortel.setFoodstyle(FoodStyle.VEGAN);
+        wortel.setCategory(Categories.GROENTEN);
+
+        DatabasePopulator.addProduct(db, wortel);
 
 
     }
