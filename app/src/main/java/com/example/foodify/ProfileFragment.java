@@ -16,7 +16,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +30,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.example.foodify.Database.AppDatabase;
+import com.example.foodify.Database.Entities.UserEntity;
+import com.example.foodify.Login.SaveSharedPreference;
 import com.example.foodify.PointSystem.PointFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -45,6 +52,7 @@ public class ProfileFragment extends Fragment {
 
     private Button m_editButton;
     private Button m_saveButton;
+    private Button m_logoutButton;
 
     private LinearLayout m_textContent;
     private LinearLayout m_editContent;
@@ -61,6 +69,7 @@ public class ProfileFragment extends Fragment {
     private EditText m_emailEdit;
     private EditText m_passwordEdit;
     private EditText m_confirmPasswordEdit;
+
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -81,6 +90,22 @@ public class ProfileFragment extends Fragment {
         setupIcons();
         setupModeSystem();
         setMode(Mode.TEXT);
+
+    }
+
+    @Override
+    public void onStart() {        // Retrieve list container from layout
+        super.onStart();
+
+        // Check if the user is logged in
+        if(SaveSharedPreference.getUserName(getActivity()).length() == 0){
+            NavHostFragment.findNavController(getParentFragment()).navigate(R.id.action_profileFragment_to_loginActivity);
+        }
+        else{
+            // Do nothing, you're logged in!
+            setupLogout();
+            getUserFromDB();
+        }
     }
 
     /**
@@ -116,6 +141,36 @@ public class ProfileFragment extends Fragment {
         setLeftDrawable(m_confirmPasswordEdit, android.R.drawable.ic_lock_idle_lock, 50, 50);
     }
 
+    private void getUserFromDB(){
+
+        String username = SaveSharedPreference.getUserName(getContext());
+
+        AppDatabase db = AppDatabase.getDatabase(getContext());
+
+        UserEntity user = db.m_foodisticDAO().getUserByName(username);
+
+        Log.v("test", username);
+
+        if(user != null) {
+            // Set Textviews to log in data
+            m_firstNameText.setText(user.getFirstname());
+            m_lastNameText.setText(user.getLastname());
+            m_addressText.setText(user.getAddress());
+            m_emailText.setText(user.getEmail());
+            m_passwordText.setText(user.getPassword());
+
+            // Set editText fields to log in data
+            m_firstNameEdit.setText(user.getFirstname());
+            m_lastNameEdit.setText(user.getLastname());
+            m_emailEdit.setText(user.getEmail());
+            m_addressEdit.setText(user.getAddress());
+            m_passwordEdit.setText(user.getPassword());
+        }
+
+
+    }
+
+
     private void setupModeSystem() {
         // Setup Mode Buttons
         m_editButton = (Button) getView().findViewById(R.id.button_edit);
@@ -130,8 +185,31 @@ public class ProfileFragment extends Fragment {
         m_saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSaveToast();
-                setMode(Mode.TEXT);
+
+                // Check if everything was filled in
+                if(m_firstNameEdit.getText().toString().matches("") ||
+                    m_lastNameEdit.getText().toString().matches("") ||
+                    m_emailEdit.getText().toString().matches("")    ||
+                    m_addressEdit.getText().toString().matches("") ||
+                    m_passwordEdit.getText().toString().matches("") ||
+                    m_confirmPasswordEdit.getText().toString().matches("")){
+
+                    Toast.makeText(getContext(), "Vul eerst alle velden in.",Toast.LENGTH_SHORT).show();
+
+                } else {
+
+
+                    if (m_passwordEdit.getText().toString().matches(m_confirmPasswordEdit.getText().toString())){
+                        // TODO: update in DB
+                        showSaveToast();
+                        setMode(Mode.TEXT);
+                    }
+                    // If passwords don't match
+                    else{
+                        Toast.makeText(getContext(), "Zorg dat de paswoorden overeenkomen.",Toast.LENGTH_SHORT).show();
+                    }
+
+                }
             }
         });
 
@@ -139,6 +217,18 @@ public class ProfileFragment extends Fragment {
         m_textContent = (LinearLayout) getView().findViewById(R.id.linearLayout_text);
         m_editContent = (LinearLayout) getView().findViewById(R.id.linearLayout_edit);
     }
+
+    private void setupLogout(){
+        m_logoutButton = (Button)getView().findViewById(R.id.button_logout);
+
+        m_logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleLogout();
+            }
+        });
+    }
+
 
     /**
      * Set mode to given mode
@@ -189,5 +279,11 @@ public class ProfileFragment extends Fragment {
         int duration = Toast.LENGTH_SHORT;
 
         Toast.makeText(context, text, duration).show();
+    }
+
+    private void handleLogout(){
+        SaveSharedPreference.setUserName(getContext(),"");
+        ((BottomNavigationView) getActivity().findViewById(R.id.bottom_nav)).setSelectedItemId(R.id.shopFragment);
+        Toast.makeText(getContext(),"Je bent nu uitgelogd.", Toast.LENGTH_SHORT).show();
     }
 }

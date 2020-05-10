@@ -44,7 +44,11 @@
         android:id="@+id/profileFragment"
         android:name="com.example.foodify.ProfileFragment"
         android:label="Profiel"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_loginActivity"
+            app:destination="@id/loginActivity" />
+    </fragment>
     <activity
         android:id="@+id/registerActivity"
         android:name="com.example.foodify.Login.RegisterActivity"

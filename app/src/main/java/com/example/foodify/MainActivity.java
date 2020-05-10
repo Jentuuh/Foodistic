@@ -35,6 +35,7 @@ import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.DatabasePopulator;
 import com.example.foodify.Database.Entities.ProductEntity;
 import com.example.foodify.Enums.Categories;
+import com.example.foodify.Database.Entities.UserEntity;
 import com.example.foodify.Enums.FoodStyle;
 import com.example.foodify.Database.Entities.ProductInShopEntity;
 import com.example.foodify.Login.LoginActivity;
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         setupBasket();
         NavigationUI.setupWithNavController(mToolbar, mNavController, mAppBarConfig);
         setupDestinationListeners();
-        //insertTestData();
+        insertTestData();
 
 
         // INSERT ALL SAMPLE DATA
@@ -278,6 +279,17 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
         AppDatabase db = AppDatabase.getDatabase(getApplicationContext());
 
+        // Reset the db
+        DatabasePopulator.clearDatabase(db);
+
+        UserEntity user = new UserEntity();
+        user.setFirstname("test");
+        user.setLastname("test");
+        user.setAddress("test");
+        user.setEmail("test");
+        user.setPassword("test");
+        DatabasePopulator.addUser(db, user);
+
         // TEST PRODUCT
         ProductEntity test_item = new ProductEntity();
         test_item.setName("Nodiscount");
@@ -303,7 +315,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         ProductEntity peer = new ProductEntity();
         peer.setName("Peer");
         peer.setPrice(10.33f);
-        peer.setDescription("1 mooie duure peer speciaal voor jou");
+        peer.setDescription("1 mooie duue peer speciaal voor jou");
         peer.setLikability(0.13f);
         peer.setDiscount(0.10f);
         peer.setFoodstyle(FoodStyle.VEGAN);

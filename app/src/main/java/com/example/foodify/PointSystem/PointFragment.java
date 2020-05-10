@@ -1,12 +1,16 @@
 package com.example.foodify.PointSystem;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -150,6 +154,25 @@ public class PointFragment extends Fragment {
         startActivity(openPromotionIntent);
     }
 
+    /**
+     * Callback functions which handles what needs to happen when QR button is clicked
+     */
+    private void onQRpress() {
+        // Request CAMERA permission if necessary
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[] {Manifest.permission.CAMERA }, 1);
+        }
+
+        // Start CAMERA if permission
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED) {
+            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+            startActivity(intent);
+        }
+    }
+
     private int getRandomInt(int min, int max) {
         return new Random().nextInt((max - min) + 1) + min;
     }
@@ -202,6 +225,12 @@ public class PointFragment extends Fragment {
         // Setup QRButton
         m_qrButton = getView().findViewById(R.id.button_qr);
         m_qrButton.setTypeface(iconFont);
+        m_qrButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onQRpress();
+            }
+        });
 
         // Get CodeText
         m_codeText = (EditText) getView().findViewById(R.id.editText_code);
@@ -212,7 +241,7 @@ public class PointFragment extends Fragment {
      * @param tab
      */
     private void setTab(PointFragment.Tab tab) {
-        int activeButtonColor = getResources().getColor(R.color.buttonBlueActive);
+        int activeButtonColor = getResources().getColor(R.color.colorPrimaryDark);
 
         // Update Activity
         resetTabs();
@@ -234,7 +263,7 @@ public class PointFragment extends Fragment {
      * Reset tabs (show none)
      */
     private void resetTabs() {
-        int buttonColor = getResources().getColor(R.color.buttonBlue);
+        int buttonColor = getResources().getColor(R.color.colorPrimary);
         m_redeemButton.setBackgroundTintList(ColorStateList.valueOf(buttonColor));
         m_submitButton.setBackgroundTintList(ColorStateList.valueOf(buttonColor));
 

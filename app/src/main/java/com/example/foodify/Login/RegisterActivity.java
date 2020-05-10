@@ -126,7 +126,6 @@ public class RegisterActivity extends AppCompatActivity {
      * @param password
      */
     public boolean insertIntoDataBase(String firstname, String lastname, String email, String address, String password){
-        // TODO: implement
 
         AppDatabase db = AppDatabase.getDatabase(getApplicationContext());
         UserEntity new_user = new UserEntity();

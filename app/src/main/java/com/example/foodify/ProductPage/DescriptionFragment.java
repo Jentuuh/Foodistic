@@ -102,7 +102,14 @@ public class DescriptionFragment extends Fragment {
                 }
                 else{
                     // Place comment, you're already logged in!
-                    placeComment();
+                    // Check if the field isn't empty
+                    if((comment_text_field.getText().toString().matches(""))){
+                        Toast.makeText(getContext(), "Vul eerst het veld in met uw reactie.", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        placeComment();
+                    }
+
                 }
 
             }
@@ -117,7 +124,6 @@ public class DescriptionFragment extends Fragment {
     private void loadComments(){
 
         comments_to_display.clear();
-        // TODO: Query db for comments
 
         AppDatabase db = AppDatabase.getDatabase(getContext());
         List<CommentEntity> results = db.m_foodisticDAO().getCommentsForProduct(mItem.getName());
@@ -142,7 +148,7 @@ public class DescriptionFragment extends Fragment {
             AppDatabase db = AppDatabase.getDatabase(getContext());
             // Create a new comment entity
             CommentEntity comment_to_insert = new CommentEntity();
-            comment_to_insert.setAuthor("Jente");
+            comment_to_insert.setAuthor(SaveSharedPreference.getUserName(getContext()));
             comment_to_insert.setCommentText(comment_text);
             comment_to_insert.setProductname(mItem.getName());
 
