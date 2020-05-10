@@ -4,30 +4,28 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+
 import androidx.appcompat.widget.SearchView;
 
 import com.example.foodify.Database.AppDatabase;
-import com.example.foodify.Database.DatabasePopulator;
 import com.example.foodify.Database.Entities.ProductEntity;
 import com.example.foodify.Enums.FoodStyle;
 import com.example.foodify.Enums.Size;
 import com.example.foodify.Product.ProductItem;
 import com.example.foodify.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +36,15 @@ import java.util.List;
  */
 public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTextListener {
 
+    private Boolean mDiscount;
+    private Boolean mPriceAsc;
+    private Boolean mPriceDesc;
+
     private ProductAdapter mAdapter;
     private ArrayList<ProductItem> mFilteredProductItems;
     private SearchView mSearchFilter;
     private Menu mMenu;
+    private boolean mIsDiscount;
 
     public ShopFilterFragment() {
         // Required empty public constructor
@@ -55,6 +58,9 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
         setHasOptionsMenu(true);
         mFilteredProductItems = new ArrayList<ProductItem>();
         mAdapter = new ProductAdapter(mFilteredProductItems, this, Size.LARGE);
+        mDiscount = false;
+        mPriceAsc = false;
+        mPriceDesc = false;
         getProducts();
 
     }
@@ -65,28 +71,55 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
         mMenu.findItem(R.id.search_icon).setVisible(true);
         setupSearchFilter();
         super.onCreateOptionsMenu(menu, inflater);
-        String filterType = getArguments().getString("filterType");
-        if (filterType != null){
-            switch (filterType) {
-                case "search":
-                    mAdapter.resetFilters();
-                    mSearchFilter.setIconifiedByDefault(false);
-                    Log.v("adapt","search");
-                    break;
-
-                case "discount":
-                    mAdapter.discountedItems();
-                    Log.v("adapt","discount");
-                    break;
-
-            }
-
-
-        }
-        else
-            Log.v("ShopFilterFragment", "arg = null");
+        getFilters();
     }
 
+    private void getFilters(){
+        Bundle bundle = getArguments();
+        String[] filters = bundle.getStringArray("filterType");
+        if (filters != null) {
+            for (String filter : filters) {
+                if (filter != null) {
+                    switch (filter) {
+                        case "search":
+                            mAdapter.resetFilters();
+                            mSearchFilter.setIconifiedByDefault(false);
+                            Log.v("adapt", "search");
+                            break;
+                        case "discount":
+                            mAdapter.discountedItems();
+                            mDiscount = true;
+                            Log.v("adapt", "discount");
+                            break;
+                        case "priceASC":
+                            mAdapter.sortByPriceASC();
+                            mPriceAsc = true;
+                            mPriceDesc = false;
+                            Log.v("adapt", "asc");
+                            break;
+                        case "priceDESC":
+                            mAdapter.sortByPriceDESC();
+                            mPriceDesc = true;
+                            mPriceAsc = false;
+                            Log.v("adapt", "desc");
+                            break;
+
+                    }
+                }
+
+            }
+        }
+        else{
+            mAdapter.resetFilters();
+            resetbools();
+        }
+    }
+
+    private void resetbools(){
+        mDiscount = false;
+        mPriceAsc = false;
+        mPriceDesc = false;
+    }
 
     private void testData(){
         Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
@@ -106,8 +139,36 @@ public class ShopFilterFragment extends Fragment implements SearchView.OnQueryTe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_shop_filter, container, false);
+        FloatingActionButton filter = (FloatingActionButton)rootView.findViewById(R.id.floatingActionButton);
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toFilterFragment();
+            }
+        });
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shop_filter, container, false);
+        return rootView;
+    }
+
+    private void toFilterFragment(){
+        Log.v("shopfilt", "toFilterFragment()");
+
+        Bundle filters = new Bundle();
+        String[] filterTypes = new String[4];
+        if (mDiscount)
+            filterTypes[0] = "discount";
+            Log.v("shopfilt", "disount added to bundle ");
+
+        if (mPriceAsc)
+            filterTypes[1] = "priceASC";
+        if (mPriceDesc)
+            filterTypes[2] = "priceDESC";
+
+        filters.putStringArray("filterType", filterTypes);
+
+        NavHostFragment.findNavController(this).navigate(R.id.action_shopFilterFragment_to_filterFragment, filters);
+
     }
 
     @Override

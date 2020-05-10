@@ -92,8 +92,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         }
     }
 
-    public void sortByPriceDESC(){
+    public void sortByPrice(float min, float max){
         clearFilter();
+        for(ProductItem item : mProductItems){
+            if (item.calculatePrice() > min && item.calculatePrice() < max){
+                mFilteredList.add(item);
+            }
+        }
+        notifyDataSetChanged();
+
+    }
+
+    public void sortByPriceDESC(){
         Collections.sort(mFilteredList, new Comparator<ProductItem>(){
             @Override
             public int compare(ProductItem a, ProductItem b) {
@@ -112,7 +122,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
 
     public void sortByPriceASC(){
-        clearFilter();
         Collections.sort(mFilteredList, new Comparator<ProductItem>(){
             @Override
             public int compare(ProductItem a, ProductItem b) {
@@ -130,7 +139,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     }
 
     public void sortByHighestDiscount(){
-        clearFilter();
         Collections.sort(mFilteredList, new Comparator<ProductItem>(){
             @Override
             public int compare(ProductItem a, ProductItem b) {

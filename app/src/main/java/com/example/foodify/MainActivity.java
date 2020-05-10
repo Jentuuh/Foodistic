@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         setupBasket();
         NavigationUI.setupWithNavController(mToolbar, mNavController, mAppBarConfig);
         setupDestinationListeners();
-        insertTestData();
+        //insertTestData();
 
 
         // INSERT ALL SAMPLE DATA
