@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         AppDatabase db = AppDatabase.getDatabase(getApplicationContext());
 
         // Reset the db
-        DatabasePopulator.clearDatabase(db);
+        //DatabasePopulator.clearDatabase(db);
 
         UserEntity user = new UserEntity();
         user.setFirstname("test");
