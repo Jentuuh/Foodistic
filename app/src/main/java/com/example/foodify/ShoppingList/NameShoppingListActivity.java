@@ -90,7 +90,6 @@ public class NameShoppingListActivity extends AppCompatActivity {
 
         // Set name and ID
         to_add.setName(name);
-        to_add.setID(02);
 
         // Add entity to db
         db.m_foodisticDAO().createShoppingList(to_add);

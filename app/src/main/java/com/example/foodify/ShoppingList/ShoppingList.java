@@ -84,8 +84,7 @@ public class ShoppingList extends Observable {
     public void removeItem(ShoppingCartItem item_to_remove, Context context){
         removeProductFromListDB(item_to_remove.getItem(), context);
         m_products_on_list.remove(item_to_remove);
-        setChanged();
-        notifyObservers();
+
     }
 
     /**
@@ -106,7 +105,7 @@ public class ShoppingList extends Observable {
      * the product will be removed
      * @param pos
      */
-    public void removeByPos(int pos, final Context context, final ArrayAdapter adapter){
+    public void removeByPos(int pos, final Context context, final ShopListAdapter adapter){
         final ShoppingCartItem item = m_products_on_list.get(pos);
         if (item.getQuantity() > 1){
             item.removeOne();
@@ -125,6 +124,7 @@ public class ShoppingList extends Observable {
                             // Continue with delete operation
                             removeItem(item,context);
                             adapter.notifyDataSetChanged();
+                            adapter.updatePriceAndMessage();
                             Toast.makeText(context, "Product '" + item.getItem().getName()+ "' werd verwijderd van uw lijst.", Toast.LENGTH_SHORT).show();
                         }
                     })
@@ -135,8 +135,6 @@ public class ShoppingList extends Observable {
                     .show();
 
         }
-        setChanged();
-        notifyObservers();
     }
 
     /**

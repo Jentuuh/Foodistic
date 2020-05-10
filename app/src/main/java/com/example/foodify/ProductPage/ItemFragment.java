@@ -10,6 +10,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
@@ -34,9 +35,11 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import java.text.DecimalFormat;
 
 public class ItemFragment extends Fragment {
-    ProductItem mItem;
-    TabAdapter mTabAdapter;
-    ViewPager2 mViewpager;
+    private ProductItem mItem;
+    private TabAdapter mTabAdapter;
+    private ViewPager2 mViewpager;
+    private final ItemFragment m_self_ref = this;
+
     public ItemFragment() {
         // Required empty public constructor
     }
@@ -162,7 +165,10 @@ public class ItemFragment extends Fragment {
             public void onClick(View v) {
 
                 // TODO : actually add the product to the list
-                Toast.makeText(getActivity(), "Toegevoegd aan je boodschappenlijstje!", Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle.putString("productName", mItem.getName());
+                (NavHostFragment.findNavController(m_self_ref)).navigate(R.id.action_itemFragment_to_chooseListFragment, bundle);
+//                Toast.makeText(getActivity(), "Toegevoegd aan je boodschappenlijstje!", Toast.LENGTH_SHORT).show();
 
 
             }

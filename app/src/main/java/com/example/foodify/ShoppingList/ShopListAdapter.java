@@ -30,7 +30,7 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
         private int resourceLayout;
         private Context mContext;
         private ShoppingList mList;
-        private final ArrayAdapter selfref = this;
+        private final ShopListAdapter selfref = this;
         private ListFragment m_fragment;
 
         public ShopListAdapter(@NonNull Context context, int resource, ShoppingList list, ListFragment fragm) {
@@ -101,7 +101,6 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
 
                             mList.removeByPos(position, mContext, selfref);
                             notifyDataSetChanged();
-                            m_fragment.updatePrice();
 
                         }
                     });
@@ -150,5 +149,8 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
         }
 
 
-
+    public void updatePriceAndMessage(){
+        m_fragment.updatePrice();
+        m_fragment.updateEmptyMessage();
+    }
 }

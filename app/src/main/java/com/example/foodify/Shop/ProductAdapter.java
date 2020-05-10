@@ -288,7 +288,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Open item fragment once item is pressed
+
                 ((MainActivity)mContext.getActivity()).addToCart(mProductItems.get(position));
                 // User feedback
                 Toast.makeText(mContext.getActivity(), "Toegevoegd aan je winkelmandje!", Toast.LENGTH_SHORT).show();
@@ -304,7 +304,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                 Bundle bundle = new Bundle();
                 bundle.putString("productName", prodItem.getName());
                 (NavHostFragment.findNavController(mContext)).navigate(R.id.action_shopFragment_to_chooseListFragment, bundle);
-//                Toast.makeText(mContext.getActivity(), "Toegevoegd aan je boodschappenlijstje!", Toast.LENGTH_SHORT).show();
 
             }
         });
