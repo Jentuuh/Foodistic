@@ -304,6 +304,9 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
         AppDatabase db = AppDatabase.getDatabase(getApplicationContext());
 
+        // Reset the db
+        DatabasePopulator.clearDatabase(db);
+
         // TEST PRODUCT
         ProductEntity test_item = new ProductEntity();
         test_item.setName("Nodiscount");
@@ -325,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         ProductEntity peer = new ProductEntity();
         peer.setName("Peer");
         peer.setPrice(10.33f);
-        peer.setDescription("1 mooie duure peer speciaal voor jou");
+        peer.setDescription("1 mooie duue peer speciaal voor jou");
         peer.setLikability(0.13f);
         peer.setDiscount(0.10f);
         peer.setFoodstyle(FoodStyle.VEGAN);

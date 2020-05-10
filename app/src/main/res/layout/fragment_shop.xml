@@ -7,22 +7,28 @@
     tools:context=".Shop.ShopFragment">
 
     <TextView
-    android:id="@+id/promotions_title"
-    android:text="Promoties"
-    android:textSize="20dp" android:layout_marginLeft="5dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/promotions_title"
+        android:layout_width="312dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="Promoties"
 
-    >
+        android:textColor="#009688"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.161"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </TextView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/promotion_list"
         android:layout_width="match_parent"
-        android:layout_height="174dp"
-        android:layout_marginTop="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:background="#000000"
 
         app:layout_constraintTop_toTopOf="@id/promotions_title"
         tools:layout_editor_absoluteX="0dp">
@@ -33,14 +39,13 @@
         android:id="@+id/discount_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="sans-serif-condensed-medium"
         android:text="Individuele kortingen"
-        android:textSize="20dp"
+        android:textColor="#009688"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/promotion_list"
-        android:layout_marginLeft="5dp"
-        />
-
+        app:layout_constraintTop_toBottomOf="@+id/promotion_list" />
 
     <LinearLayout
     android:id="@+id/discount_view_more"
@@ -58,9 +63,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
+        android:fontFamily="sans-serif-condensed-medium"
         android:text="Zie meer"
         android:textColor="@color/darkishBlue"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <ImageView
         android:layout_width="wrap_content"
