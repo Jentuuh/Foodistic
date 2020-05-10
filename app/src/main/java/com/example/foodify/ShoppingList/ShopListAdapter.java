@@ -101,6 +101,7 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
 
                             mList.removeByPos(position, mContext, selfref);
                             notifyDataSetChanged();
+                            updatePriceAndMessage();
 
                         }
                     });
