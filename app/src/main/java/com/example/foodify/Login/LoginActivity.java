@@ -94,15 +94,17 @@ public class LoginActivity extends AppCompatActivity {
         AppDatabase db = AppDatabase.getDatabase(getApplicationContext());
         UserEntity user =  db.m_foodisticDAO().getUserByEmail(email);
 
-        if (password.equals(user.getPassword())){
+        if (user != null && password.equals(user.getPassword())){
             // Save this logged in user
-            SaveSharedPreference.setUserName(getApplicationContext(), email);
+            SaveSharedPreference.setUserName(getApplicationContext(), user.getFirstname());
             // Start main activity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            Toast.makeText(getApplicationContext(), "Je bent nu ingelogd als: " + SaveSharedPreference.getUserName(getApplicationContext()) + ".", Toast.LENGTH_SHORT).show();
         }
         else{
             SaveSharedPreference.setUserName(getApplicationContext(), "");
+            Toast.makeText(getApplicationContext(), "Inloggen mislukt. Ben je zeker dat je gegevens kloppen?", Toast.LENGTH_SHORT).show();
         }
     }
 }
