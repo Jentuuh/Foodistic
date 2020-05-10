@@ -37,6 +37,14 @@
         android:layout_marginLeft="50px"
         android:text="Vink alle uit" />
 
+    <TextView
+        android:id="@+id/emptyMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:paddingHorizontal="200px"
+        android:text="Je hebt nog geen producten toegevoegd aan je lijstje. Ga naar de tab 'Winkel' om producten toe te voegen!" />
+
     <ListView
         android:id="@+id/ListItemView"
         android:layout_width="match_parent"

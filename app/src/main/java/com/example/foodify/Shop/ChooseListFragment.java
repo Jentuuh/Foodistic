@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -23,9 +24,10 @@ import java.util.List;
 
 public class ChooseListFragment extends Fragment {
 
-    ArrayList<String> m_list_names;
-    ArrayAdapter<String> m_adapter;
-    ListView m_list_of_lists;
+    private ArrayList<String> m_list_names;
+    private ArrayAdapter<String> m_adapter;
+    private ListView m_list_of_lists;
+    private final ChooseListFragment m_self_ref = this;
 
 
 
@@ -75,8 +77,9 @@ public class ChooseListFragment extends Fragment {
                 to_add.setQuantity(1);
                 to_add.setChecked(false);
                 to_add.setListname(listname);
-
                 db.m_foodisticDAO().addProductToList(to_add);
+                NavHostFragment.findNavController(m_self_ref).navigate(R.id.action_chooseListFragment_to_shopFragment);
+                Toast.makeText(getContext(), "Product toegevoegd aan " + listname + "!", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -140,6 +140,9 @@
         <argument
             android:name="productName"
             app:argType="string" />
+        <action
+            android:id="@+id/action_chooseListFragment_to_shopFragment"
+            app:destination="@id/shopFragment" />
     </fragment>
     <fragment
         android:id="@+id/filterFragment"

@@ -40,6 +40,7 @@ public class ListFragment extends Fragment {
     private Button m_uncheck_all_button;
     private ShoppingList m_list_to_display;
     private ShopListAdapter adapter;
+    private TextView m_emptyMessage;
 
 
     @Override
@@ -61,6 +62,9 @@ public class ListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        m_emptyMessage = (TextView)getActivity().findViewById(R.id.emptyMessage);
+        m_total_price = (TextView)getActivity().findViewById(R.id.total_price);
 
         // Retrieve the name of the list through the navigation arguments
         m_list_name = getArguments().getString("listname");
@@ -94,15 +98,17 @@ public class ListFragment extends Fragment {
         // Retrieve the list data
         getListData();
 
-        m_total_price = (TextView)getActivity().findViewById(R.id.total_price);
-        updatePrice();
+
+
     }
+
+
 
 
     /**
      * Retrieves the data for a certain list from the database.
      */
-    private void getListData(){
+    public void getListData(){
         // TODO: retrieve data from DB
         // Reset
         m_list_to_display.getProducts().clear();
@@ -134,6 +140,8 @@ public class ListFragment extends Fragment {
 
         // Parse it into usable objects
         parseIntoListItems(results);
+        updateEmptyMessage();
+        updatePrice();
 
 //        // TEST PRODUCT
 //        ArrayList<Comment> comments = new ArrayList<>();
@@ -177,4 +185,15 @@ public class ListFragment extends Fragment {
     public void updatePrice(){
         m_total_price.setText("Totaal: €" + Float.toString(calculatePrice()));
     }
+
+    public void updateEmptyMessage(){
+
+        if(m_list_to_display.getProducts().isEmpty()){
+            m_emptyMessage.setVisibility(View.VISIBLE);
+        }
+        else{
+            m_emptyMessage.setVisibility(View.INVISIBLE);
+        }
+    }
+
 }
