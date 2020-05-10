@@ -19,18 +19,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.Entities.UserEntity;
 import com.example.foodify.Login.SaveSharedPreference;
-import com.example.foodify.PointSystem.PointFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 /**
@@ -57,8 +52,8 @@ public class ProfileFragment extends Fragment {
     private TextView m_emailText;
     private TextView m_passwordText;
 
-    private EditText m_firstNameEdit;
-    private EditText m_lastNameEdit;
+    private TextView m_firstNameEdit;
+    private TextView m_lastNameEdit;
     private EditText m_addressEdit;
     private EditText m_emailEdit;
     private EditText m_passwordEdit;
@@ -120,8 +115,8 @@ public class ProfileFragment extends Fragment {
         setLeftDrawable(m_passwordText, android.R.drawable.ic_lock_idle_lock, 50, 50);
 
         //EditText
-        m_firstNameEdit = (EditText) getView().findViewById(R.id.editText_first_name);
-        m_lastNameEdit = (EditText) getView().findViewById(R.id.editText_last_name);
+        m_firstNameEdit = (TextView) getView().findViewById(R.id.editText_first_name);
+        m_lastNameEdit = (TextView) getView().findViewById(R.id.editText_last_name);
         m_addressEdit = (EditText) getView().findViewById(R.id.editText_address);
         m_emailEdit = (EditText) getView().findViewById(R.id.editText_email);
         m_passwordEdit = (EditText) getView().findViewById(R.id.editText_password);
@@ -134,36 +129,6 @@ public class ProfileFragment extends Fragment {
         setLeftDrawable(m_passwordEdit, android.R.drawable.ic_lock_idle_lock, 50, 50);
         setLeftDrawable(m_confirmPasswordEdit, android.R.drawable.ic_lock_idle_lock, 50, 50);
     }
-
-    private void getUserFromDB(){
-
-        String username = SaveSharedPreference.getUserName(getContext());
-
-        AppDatabase db = AppDatabase.getDatabase(getContext());
-
-        UserEntity user = db.m_foodisticDAO().getUserByName(username);
-
-        Log.v("test", username);
-
-        if(user != null) {
-            // Set Textviews to log in data
-            m_firstNameText.setText(user.getFirstname());
-            m_lastNameText.setText(user.getLastname());
-            m_addressText.setText(user.getAddress());
-            m_emailText.setText(user.getEmail());
-            m_passwordText.setText(user.getPassword());
-
-            // Set editText fields to log in data
-            m_firstNameEdit.setText(user.getFirstname());
-            m_lastNameEdit.setText(user.getLastname());
-            m_emailEdit.setText(user.getEmail());
-            m_addressEdit.setText(user.getAddress());
-            m_passwordEdit.setText(user.getPassword());
-        }
-
-
-    }
-
 
     private void setupModeSystem() {
         // Setup Mode Buttons
@@ -179,31 +144,7 @@ public class ProfileFragment extends Fragment {
         m_saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // Check if everything was filled in
-                if(m_firstNameEdit.getText().toString().matches("") ||
-                    m_lastNameEdit.getText().toString().matches("") ||
-                    m_emailEdit.getText().toString().matches("")    ||
-                    m_addressEdit.getText().toString().matches("") ||
-                    m_passwordEdit.getText().toString().matches("") ||
-                    m_confirmPasswordEdit.getText().toString().matches("")){
-
-                    Toast.makeText(getContext(), "Vul eerst alle velden in.",Toast.LENGTH_SHORT).show();
-
-                } else {
-
-
-                    if (m_passwordEdit.getText().toString().matches(m_confirmPasswordEdit.getText().toString())){
-                        // TODO: update in DB
-                        showSaveToast();
-                        setMode(Mode.TEXT);
-                    }
-                    // If passwords don't match
-                    else{
-                        Toast.makeText(getContext(), "Zorg dat de paswoorden overeenkomen.",Toast.LENGTH_SHORT).show();
-                    }
-
-                }
+                handleSaveData();
             }
         });
 
@@ -275,9 +216,81 @@ public class ProfileFragment extends Fragment {
         Toast.makeText(context, text, duration).show();
     }
 
+    private void handleSaveData() {
+        // Check if everything was filled in
+        if( m_firstNameEdit.getText().toString().matches("") ||
+                m_lastNameEdit.getText().toString().matches("") ||
+                m_emailEdit.getText().toString().matches("")    ||
+                m_addressEdit.getText().toString().matches("") ||
+                m_passwordEdit.getText().toString().matches("") ||
+                m_confirmPasswordEdit.getText().toString().matches("") )
+        {
+            Toast.makeText(getContext(), "Vul eerst alle velden in.",Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            if (m_passwordEdit.getText().toString().matches(m_confirmPasswordEdit.getText().toString())){
+                updateUserData();
+                showSaveToast();
+                setMode(Mode.TEXT);
+            }
+            // If passwords don't match
+            else{
+                Toast.makeText(getContext(), "Zorg dat de paswoorden overeenkomen.",Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+
     private void handleLogout(){
         SaveSharedPreference.setUserName(getContext(),"");
         ((BottomNavigationView) getActivity().findViewById(R.id.bottom_nav)).setSelectedItemId(R.id.shopFragment);
         Toast.makeText(getContext(),"Je bent nu uitgelogd.", Toast.LENGTH_SHORT).show();
+    }
+
+
+    /**
+     * ///////////////////////
+     * DATA + DATABASE METHODS
+     * ///////////////////////
+     */
+
+    /**
+     * Update points for given shop
+     */
+    private void updateUserData() {
+        AppDatabase db = AppDatabase.getDatabase(getActivity());
+        //UserEntity user = db.m_foodisticDAO().getUserByName(m_firstNameText.getText().toString());
+        db.m_foodisticDAO().setUserData(
+                m_firstNameText.getText().toString(),
+                m_emailEdit.getText().toString(),
+                m_addressEdit.getText().toString(),
+                m_passwordEdit.getText().toString()
+        );
+        getUserFromDB();
+    }
+
+    private void getUserFromDB(){
+        String username = SaveSharedPreference.getUserName(getContext());
+        AppDatabase db = AppDatabase.getDatabase(getContext());
+        UserEntity user = db.m_foodisticDAO().getUserByName(username);
+
+        Log.v("test", username);
+
+        if(user != null) {
+            // Set Textviews to log in data
+            m_firstNameText.setText(user.getFirstname());
+            m_lastNameText.setText(user.getLastname());
+            m_addressText.setText(user.getAddress());
+            m_emailText.setText(user.getEmail());
+            m_passwordText.setText(user.getPassword());
+
+            // Set editText fields to log in data
+            m_firstNameEdit.setText(user.getFirstname());
+            m_lastNameEdit.setText(user.getLastname());
+            m_emailEdit.setText(user.getEmail());
+            m_addressEdit.setText(user.getAddress());
+            m_passwordEdit.setText(user.getPassword());
+        }
     }
 }

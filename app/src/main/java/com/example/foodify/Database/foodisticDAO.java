@@ -61,6 +61,16 @@ public interface foodisticDAO {
 
 
     /**
+     * Update user data in database
+     */
+    @Query("UPDATE Users SET email = :email," +
+            "                address = :address," +
+            "                password = :password" +
+            "                WHERE firstname LIKE :f_name")
+    void setUserData(String f_name, String email, String address, String password);
+
+
+    /**
      * //////////////
      * PRODUCT QUERYS
      * //////////////
