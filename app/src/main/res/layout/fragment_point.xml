@@ -58,12 +58,11 @@
     </LinearLayout>
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout.submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/buttonBlueActive"
+        android:background="#00A694"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,7 +89,7 @@
             android:id="@+id/textView.code"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:background="#009688"
+            android:background="@color/colorPrimary"
             android:fontFamily="sans-serif-condensed-medium"
             android:gravity="center"
             android:padding="5dp"
@@ -110,6 +109,7 @@
             android:text="@string/fa_icon_qrcode"
             android:textSize="24sp"
             app:backgroundTint="#009688"
+            app:elevation="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/editText.code"
@@ -124,6 +124,7 @@
             android:text="ZEND"
             android:textSize="16sp"
             app:backgroundTint="#009688"
+            app:elevation="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

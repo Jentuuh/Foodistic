@@ -23,13 +23,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
-
-import com.example.foodify.PointSystem.PointFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 /**
@@ -45,6 +40,7 @@ public class ProfileFragment extends Fragment {
 
     private Button m_editButton;
     private Button m_saveButton;
+    private Button m_logoutButton;
 
     private LinearLayout m_textContent;
     private LinearLayout m_editContent;
@@ -81,6 +77,7 @@ public class ProfileFragment extends Fragment {
         setupIcons();
         setupModeSystem();
         setMode(Mode.TEXT);
+        setupLogout();
     }
 
     /**
@@ -140,6 +137,16 @@ public class ProfileFragment extends Fragment {
         m_editContent = (LinearLayout) getView().findViewById(R.id.linearLayout_edit);
     }
 
+    private void setupLogout() {
+        m_logoutButton = (Button) getView().findViewById(R.id.button_logout);
+        m_logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleLogout();
+            }
+        });
+    }
+
     /**
      * Set mode to given mode
      * @param mode
@@ -189,5 +196,9 @@ public class ProfileFragment extends Fragment {
         int duration = Toast.LENGTH_SHORT;
 
         Toast.makeText(context, text, duration).show();
+    }
+
+    private void handleLogout() {
+
     }
 }
