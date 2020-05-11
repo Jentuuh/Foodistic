@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -148,10 +149,10 @@ public class PointFragment extends Fragment {
      */
     private void onShopPress(int position) {
         ShopPoint shopPoint = shopPointList.get(position);
-        Intent openPromotionIntent = new Intent(this.getContext(), ShopPromotionListActivity.class);
-        openPromotionIntent.putExtra("SHOP_NAME", shopPoint.getName());
-        openPromotionIntent.putExtra("SHOP_POINTS", shopPoint.getPoints());
-        startActivity(openPromotionIntent);
+        Bundle bundle = new Bundle();
+        bundle.putString("SHOP_NAME", shopPoint.getName());
+        bundle.putInt("SHOP_POINTS", shopPoint.getPoints());
+        NavHostFragment.findNavController(this).navigate(R.id.shopPromotionActivity, bundle);
     }
 
     /**

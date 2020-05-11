@@ -18,6 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
@@ -27,6 +28,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -73,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
         setupToolbar();
         setupBasket();
         NavigationUI.setupWithNavController(mToolbar, mNavController, mAppBarConfig);
-        setupDestinationListeners();
 //        insertTestData();
 
 
@@ -135,17 +136,27 @@ public class MainActivity extends AppCompatActivity implements Observer {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
 
-                if(destination.getId() == R.id.profileFragment){
+                if(destination.getId() == R.id.shopFilterFragment){
 
                     //mToolbar.setVisibility(View.GONE);
                     //mBottomNav.setVisibility(View.GONE);
                 }
                 else{
-                    mToolbar.setVisibility(View.VISIBLE);
-                    mBottomNav.setVisibility(View.VISIBLE);
+                    mMenu.findItem(R.id.points_icon).setVisible(false);
+                    showSoftwareKeyboard(false);
+
                 }
             }
         });
+    }
+
+
+    private void showSoftwareKeyboard(boolean showKeyboard){
+
+        final InputMethodManager inputManager = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (this.getCurrentFocus() != null) {
+            inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), showKeyboard ? InputMethodManager.SHOW_FORCED : InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     public void setupBasket(){
@@ -184,19 +195,24 @@ public class MainActivity extends AppCompatActivity implements Observer {
         // Add toolbar
         getMenuInflater().inflate(R.menu.toolbarmenuitems, menu);
         MenuItem searchItem = menu.findItem(R.id.search_icon);
-        searchItem.setVisible(false);
         SearchView my_search_view = (SearchView) searchItem.getActionView();
+        my_search_view.setSubmitButtonEnabled(false);
         ImageView searchIcon = (ImageView)my_search_view.findViewById(androidx.appcompat.R.id.search_button);
         searchIcon.setImageResource(R.drawable.ic_search_black_24dp);
         SearchView.SearchAutoComplete searchAutoComplete = my_search_view.findViewById(androidx.appcompat.R.id.search_src_text);
         searchAutoComplete.setHintTextColor(getResources().getColor(R.color.white));
         searchAutoComplete.setTextColor(getResources().getColor(android.R.color.white));
+        searchItem.setVisible(false);
+
 
 
 
         //createBasketTests();
        // updateTotalBasket();
         setCount(this, mShoppingCart.getCount());
+        setupDestinationListeners();
+        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp));
+
 
         return true;
     }

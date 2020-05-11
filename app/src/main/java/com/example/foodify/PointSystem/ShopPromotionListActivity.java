@@ -1,8 +1,12 @@
 package com.example.foodify.PointSystem;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,9 +14,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,7 +29,6 @@ import android.widget.Toast;
 
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.Entities.PromotionEntity;
-import com.example.foodify.MainActivity;
 import com.example.foodify.R;
 
 import java.util.ArrayList;
@@ -31,11 +38,11 @@ import java.util.List;
  * Activity that handles the point promotion list per shop
  * @author jorisbertram
  */
-public class ShopPromotionListActivity extends AppCompatActivity {
+public class ShopPromotionListActivity extends Fragment {
 
     private Toolbar toolbar;
-    private Menu menu;
-
+    private Menu mMenu;
+    private ActionBar mToolbar;
     private ArrayList<ShopPromotion> shopPromotionList;
     private ShopPromotionAdapter adapter;
     private ListView shopPromotionView;
@@ -44,9 +51,8 @@ public class ShopPromotionListActivity extends AppCompatActivity {
     private int shopPoints;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop_promotion_list);
 
         shopPromotionList = new ArrayList<ShopPromotion>();
 
@@ -58,30 +64,42 @@ public class ShopPromotionListActivity extends AppCompatActivity {
 
         // Load data
         getPromotions();
+        setHasOptionsMenu(true);
 
-        // Toolbar
-        setupToolbar();
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_shop_promotion_list, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         setupPromotionList();
+
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.pointbar, menu);
-        return true;
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        mMenu = menu;
+        setupToolbar();
+
+
+
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        this.menu = menu;
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
         updateToolbar();
-
-        return super.onPrepareOptionsMenu(menu);
     }
 
     private void handleIntent() {
-        Intent intent = getIntent();
-
-        Bundle extras = intent.getExtras();
+        Bundle extras = getArguments();
         if (extras != null) {
             shopName = extras.getString("SHOP_NAME");
             shopPoints = extras.getInt("SHOP_POINTS");
@@ -92,32 +110,21 @@ public class ShopPromotionListActivity extends AppCompatActivity {
      * SETUPS
      */
     private void setupToolbar() {
-        toolbar = findViewById(R.id.toolbar_promotion_list);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setTitle(shopName);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("TabToStart", 2);
-                startActivity(intent);
-            }
-        });
+        mToolbar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        mMenu.findItem(R.id.points_icon).setVisible(true);
     }
     private void setupPromotionList() {
-        adapter = new ShopPromotionAdapter(getApplicationContext(), shopPromotionList);
+        adapter = new ShopPromotionAdapter(getActivity(), shopPromotionList);
 
-        shopPromotionView = (ListView) findViewById(R.id.listView_shop_promotion_list);
+        shopPromotionView = (ListView) getView().findViewById(R.id.listView_shop_promotion_list);
         shopPromotionView.setAdapter(adapter);
         shopPromotionView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) { onPromotionPress(position); }
         });
     }
+
+
 
     /**
      * Callback functions which handles what needs to happen when promotion button is clicked
@@ -138,7 +145,7 @@ public class ShopPromotionListActivity extends AppCompatActivity {
      * @param shopPromotion
      */
     private void openPurchaseDialog(final ShopPromotion shopPromotion) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(ShopPromotionListActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Accepteer aankoop");
         builder.setMessage("Ben je zeker dat je deze aankoop wil bevestigen?\n\n" +
                             "Je totaal aantal punten voor " + shopName +  " zal dalen naar " +
@@ -154,7 +161,7 @@ public class ShopPromotionListActivity extends AppCompatActivity {
                 updateToolbar();
 
                 // Open up Barcode
-                Intent openBarcodeIntent = new Intent(getApplication(), BarcodeActivity.class);
+                Intent openBarcodeIntent = new Intent(getActivity(), BarcodeActivity.class);
                 openBarcodeIntent.putExtra("PROMOTION_NAME", shopPromotion.getName());
                 openBarcodeIntent.putExtra("PROMOTION_POINTS", shopPromotion.getPoints());
                 startActivity(openBarcodeIntent);
@@ -176,7 +183,7 @@ public class ShopPromotionListActivity extends AppCompatActivity {
     }
 
     private void showNotEnoughToast() {
-        Context context = getApplicationContext();
+        Context context =  getActivity();
         CharSequence text =  "Niet genoeg punten om aankoop te maken.";
         int duration = Toast.LENGTH_SHORT;
 
@@ -187,10 +194,12 @@ public class ShopPromotionListActivity extends AppCompatActivity {
      * Updates toolbar when points changed
      */
     private void updateToolbar() {
-        final MenuItem pointItem = menu.findItem(R.id.points_icon);
+        Log.v("updatetoolbar","Walen");
+        MenuItem pointItem = mMenu.findItem(R.id.points_icon);
         ConstraintLayout rootView = (ConstraintLayout) pointItem.getActionView();
         TextView shopPointsIconText = (TextView) rootView.getChildAt(0);
         shopPointsIconText.setText(String.valueOf(shopPoints));
+      //  getActivity().invalidateOptionsMenu();
     }
 
     /**
@@ -203,7 +212,7 @@ public class ShopPromotionListActivity extends AppCompatActivity {
      * Creates test data to fill up DB
      */
     private void createTestData() {
-        AppDatabase db = AppDatabase.getDatabase(getApplication());
+        AppDatabase db = AppDatabase.getDatabase(getActivity());
 
         if (shopName.equals("Colruyt")) {
             shopPromotionList.add(new ShopPromotion(R.drawable.apple, "Appel", 5));
@@ -246,7 +255,7 @@ public class ShopPromotionListActivity extends AppCompatActivity {
      */
     private void getPromotions(){
         // Retrieve the shop points from the database
-        AppDatabase db = AppDatabase.getDatabase(getApplication());
+        AppDatabase db = AppDatabase.getDatabase(getActivity());
         List<PromotionEntity> lists_from_db = db.m_foodisticDAO().getPromotionsByShop(shopName);
 
         // Parse the database data to actual objects that we can use in our code
@@ -270,7 +279,7 @@ public class ShopPromotionListActivity extends AppCompatActivity {
      * Update points for given shop
      */
     private void updatePointsByName(String name, int points) {
-        AppDatabase db = AppDatabase.getDatabase(getApplication());
+        AppDatabase db = AppDatabase.getDatabase(getActivity());
         db.m_foodisticDAO().setPointsByShop(name, points);
     }
 }

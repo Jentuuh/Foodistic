@@ -8,5 +8,5 @@
         android:title="Points"
         app:showAsAction="always|withText"
         app:actionLayout="@layout/pointbar_layout"
-        tools:ignore="HardcodedText" />
+        />
 </menu>

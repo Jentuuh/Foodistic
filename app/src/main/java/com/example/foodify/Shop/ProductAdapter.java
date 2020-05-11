@@ -34,12 +34,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     private Fragment mContext;
     private Size mSize;
 
+
     public ProductAdapter(ArrayList<ProductItem> itemlist, Fragment context, Size size){
         mProductItems = itemlist;
         mContext = context;
         mSize = size;
         mFilteredList = new ArrayList<ProductItem>();
         mFilteredList.addAll(mProductItems);
+
 
 
     }
@@ -207,11 +209,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                 // Clear the filter list
                 mFilteredList.clear();
                 // If there is no search value, then add all original list items to filter list
+
                 if (TextUtils.isEmpty(text)) {
                     mFilteredList.addAll(mProductItems);
                 }
                 else {
-
                     // Iterate in the original List and add it to filter list...
                     for (ProductItem item : mProductItems) {
                         if (item.getName().toLowerCase().contains(text.toLowerCase()) ) {
@@ -219,9 +221,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                             mFilteredList.add(item);
                         }
                     }
+
                 }
 
-                // Set on UI Thread
+                // Set on UI Threads
                 (mContext).getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -289,7 +292,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             @Override
             public void onClick(View v) {
 
-                ((MainActivity)mContext.getActivity()).addToCart(mProductItems.get(position));
+                ((MainActivity)mContext.getActivity()).addToCart(mFilteredList.get(position));
                 // User feedback
                 Toast.makeText(mContext.getActivity(), "Toegevoegd aan je winkelmandje!", Toast.LENGTH_SHORT).show();
               //  NavHostFragment.findNavController(mContext).navigate(R.id.shop_to_filter_on_view_more);

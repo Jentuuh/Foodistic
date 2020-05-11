@@ -98,7 +98,7 @@ public class ListCollectionFragment extends Fragment {
         //Intent intent = new Intent(getActivity(), NameShoppingListActivity.class);
         //startActivity(intent);
         //TODO Eventueel NameListActivity veranderen naar een FRAGMENT
-        NavHostFragment.findNavController(this).navigate(R.id.action_listCollectionFragment_to_nameShoppingListActivity);
+        NavHostFragment.findNavController(this).navigate(R.id.nameShoppingListActivity);
     }
 
 

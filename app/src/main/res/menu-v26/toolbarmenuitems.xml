@@ -17,13 +17,22 @@
         android:iconTint="@color/red"
 
         />
-
+    <item
+        android:id="@+id/points_icon"
+        android:icon="@drawable/ic_coins_solid"
+        android:title="Points"
+        app:showAsAction="always|withText"
+        app:actionLayout="@layout/pointbar_layout"
+        android:visible="false"
+        />
 
     <item
         android:id="@+id/shoppingBasket"
         android:icon="@drawable/basket_with_count"
         android:title="@string/shoppingbasket"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
+
+
 
 
 </menu>
