@@ -114,9 +114,9 @@ public class ListFragment extends Fragment implements SearchView.OnQueryTextList
                     AppDatabase db = AppDatabase.getDatabase(getContext());
                     db.m_foodisticDAO().deleteAllChecked(true);
                     getListData();
-                    adapter.notifyDataSetChanged();
                     Toast.makeText(getContext(), "Geselecteerde producten werden van '" + m_list_name + "' verwijderd.", Toast.LENGTH_SHORT).show();
-
+                    adapter.notifyDataSetChanged();
+                    adapter.fillFilteredList();
             }
         });
 
@@ -132,7 +132,6 @@ public class ListFragment extends Fragment implements SearchView.OnQueryTextList
         // Retrieve the list data
         getListData();
         adapter.fillFilteredList();
-
 
     }
 
