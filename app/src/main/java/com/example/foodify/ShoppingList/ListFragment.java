@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.Entities.ProductEntity;
@@ -94,6 +95,7 @@ public class ListFragment extends Fragment {
                     db.m_foodisticDAO().deleteAllChecked(true);
                     getListData();
                     adapter.notifyDataSetChanged();
+                    Toast.makeText(getContext(), "Geselecteerde producten werden van '" + m_list_name + "' verwijderd.", Toast.LENGTH_SHORT).show();
 
             }
         });
