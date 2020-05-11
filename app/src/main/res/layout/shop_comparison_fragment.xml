@@ -15,9 +15,9 @@
             android:id="@+id/shop_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50px"
             android:fontFamily="sans-serif-condensed-medium"
             android:text="Winkel"
-            android:layout_marginLeft="200px"
             android:textColor="#009688"
             android:textSize="18sp" />
 
@@ -25,9 +25,19 @@
             android:id="@+id/price_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="400px"
+            android:layout_marginLeft="200px"
             android:fontFamily="sans-serif-condensed-medium"
             android:text="Prijs"
+            android:textColor="#009688"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120px"
+            android:layout_weight="1"
+            android:text="Beschikbaarheid"
             android:textColor="#009688"
             android:textSize="18sp" />
     </LinearLayout>

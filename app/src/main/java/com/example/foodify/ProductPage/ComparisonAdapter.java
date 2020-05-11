@@ -42,12 +42,21 @@ public class ComparisonAdapter extends ArrayAdapter {
         if(product != null){
             TextView shopname = (TextView) view.findViewById(R.id.shopname);
             TextView price = (TextView) view.findViewById(R.id.price);
+            TextView availability = (TextView) view.findViewById(R.id.availability);
 
             if(shopname != null){
                 shopname.setText(product.getM_shopname());
             }
             if(price != null){
                 price.setText(Float.toString(product.getM_price_in_shop()));
+            }
+            if(availability != null){
+                if(product.isM_availability()){
+                    availability.setText("Op voorraad");
+                }
+                else {
+                    availability.setText("Niet op voorraad");
+                }
             }
         }
 

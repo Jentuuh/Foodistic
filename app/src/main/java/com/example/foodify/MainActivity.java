@@ -22,6 +22,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -334,6 +335,24 @@ public class MainActivity extends AppCompatActivity implements Observer {
         wortel.setCategory(Categories.GROENTEN);
 
         DatabasePopulator.addProduct(db, wortel);
+
+        ProductInShopEntity wortelinshop = new ProductInShopEntity();
+        wortelinshop.setPrice(10.33f);
+        wortelinshop.setProductname("Wortel");
+        wortelinshop.setShopname("Colruyt");
+        wortelinshop.setAvailability(false);
+
+        DatabasePopulator.addProductInShop(db, wortelinshop);
+
+        ProductInShopEntity wortelinshop1 = new ProductInShopEntity();
+        wortelinshop1.setPrice(11.55f);
+        wortelinshop1.setProductname("Wortel");
+        wortelinshop1.setShopname("Delhaize");
+        wortelinshop1.setAvailability(true);
+
+        DatabasePopulator.addProductInShop(db, wortelinshop1);
+
+
 
 
     }

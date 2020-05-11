@@ -9,11 +9,13 @@ public class ProductInShop {
     private String m_productname;
     private float m_price_in_shop;
     private String m_shopname;
+    private boolean m_availability;
 
-    public ProductInShop(String m_productname, float m_price_in_shop, String m_shopname) {
+    public ProductInShop(String m_productname, float m_price_in_shop, String m_shopname, boolean availability) {
         this.m_productname = m_productname;
         this.m_price_in_shop = m_price_in_shop;
         this.m_shopname = m_shopname;
+        this.m_availability = availability;
     }
 
 
@@ -43,5 +45,13 @@ public class ProductInShop {
 
     public void setM_shopname(String m_shopname) {
         this.m_shopname = m_shopname;
+    }
+
+    public boolean isM_availability() {
+        return m_availability;
+    }
+
+    public void setM_availability(boolean m_availability) {
+        this.m_availability = m_availability;
     }
 }

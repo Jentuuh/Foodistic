@@ -81,7 +81,7 @@ public class ComparisonFragment extends Fragment {
      */
     private void parseIntoObjects(List<ProductInShopEntity> db_data){
         for(ProductInShopEntity comparison : db_data){
-            m_comparisons.add(new ProductInShop(comparison.getProductname(),comparison.getPrice(),comparison.getShopname()));
+            m_comparisons.add(new ProductInShop(comparison.getProductname(),comparison.getPrice(),comparison.getShopname(), comparison.isAvailability()));
         }
     }
 
