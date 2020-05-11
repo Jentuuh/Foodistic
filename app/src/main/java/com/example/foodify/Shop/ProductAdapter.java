@@ -303,7 +303,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                 // TODO : actually add the product to the list
                 Bundle bundle = new Bundle();
                 bundle.putString("productName", prodItem.getName());
-                (NavHostFragment.findNavController(mContext)).navigate(R.id.action_shopFragment_to_chooseListFragment, bundle);
+                (NavHostFragment.findNavController(mContext)).navigate(R.id.chooseListFragment, bundle);
 
             }
         });

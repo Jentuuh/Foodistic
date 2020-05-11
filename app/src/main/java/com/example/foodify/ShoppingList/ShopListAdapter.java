@@ -1,6 +1,7 @@
 package com.example.foodify.ShoppingList;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +14,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Product.ProductItem;
 import com.example.foodify.R;
+import com.example.foodify.ShoppingCart.ShoppingCart;
 import com.example.foodify.ShoppingCart.ShoppingCartItem;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 /**
  * @author jentevandersanden
@@ -30,6 +33,7 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
         private int resourceLayout;
         private Context mContext;
         private ShoppingList mList;
+        private ArrayList<ShoppingCartItem> mFilteredList;
         private final ShopListAdapter selfref = this;
         private ListFragment m_fragment;
 
@@ -39,17 +43,71 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
             mContext = context;
             mList = list;
             m_fragment = fragm;
+            mFilteredList = new ArrayList<ShoppingCartItem>();
+            fillFilteredList();
         }
 
+    public void fillFilteredList(){
+            mFilteredList.clear();
+            mFilteredList.addAll(mList.getList());
+            notifyDataSetChanged();
+    }
 
-        public View getView(final int position, View convertView, ViewGroup parent){
+
+    public void filter(final String text) {
+
+        // Searching could be complex..so we will dispatch it to a different thread...
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                // Clear the filter list
+                mFilteredList.clear();
+                // If there is no search value, then add all original list items to filter list
+                if (TextUtils.isEmpty(text)) {
+                    mFilteredList.addAll(mList.getList());
+                }
+                else {
+
+                    // Iterate in the original List and add it to filter list...
+                    for (ShoppingCartItem item : mList.getList()) {
+                        if (item.getItem().getName().toLowerCase().contains(text.toLowerCase()) ) {
+                            // Adding Matched items
+                            mFilteredList.add(item);
+                        }
+                    }
+                }
+
+                // Set on UI Thread
+                (m_fragment).getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Notify the List that the DataSet has changed...
+                        notifyDataSetChanged();
+                    }
+                });
+
+            }
+        }).start();
+
+    }
+
+    @Override
+    public int getCount() {
+            Log.v("listcount", ""+mFilteredList.size());
+            super.getCount();
+            return mFilteredList.size();
+
+    }
+
+    public View getView(final int position, View convertView, ViewGroup parent){
             View view = convertView;
             if(view == null){
                 LayoutInflater inflater = LayoutInflater.from(mContext);
                 view = inflater.inflate(resourceLayout, null);
 
             }
-            ShoppingCartItem cartItem = mList.getProducts().get(position);
+            ShoppingCartItem cartItem = mFilteredList.get(position);
             final ProductItem item = cartItem.getItem();
 
             if (item != null){
@@ -68,7 +126,7 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
                 if (prodName !=null)
                     prodName.setText(item.getName());
                 if (prodPrice != null)
-                    prodPrice.setText("€ " + String.valueOf(item.getPrice()));
+                    prodPrice.setText("€ " + new DecimalFormat("###.##").format(item.calculatePrice()));
                 if (prodQuantity != null)
                     prodQuantity.setText(Integer.toString(cartItem.getQuantity()));
 
@@ -88,7 +146,7 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
                     plus.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mList.addByPos(position, mContext);
+                            mList.addByName(mFilteredList.get(position).getItem().getName(), mContext);
                             notifyDataSetChanged();
                             m_fragment.updatePrice();
                         }
@@ -99,7 +157,7 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
                         @Override
                         public void onClick(View v) {
 
-                            mList.removeByPos(position, mContext, selfref);
+                            mList.removeByName(mFilteredList.get(position).getItem().getName() , mContext, selfref);
                             notifyDataSetChanged();
                             updatePriceAndMessage();
 
@@ -149,6 +207,16 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
             return view;
         }
 
+        public void removeFromFilter(String name){
+            ArrayList<ShoppingCartItem> removeItems = new ArrayList<ShoppingCartItem>();
+            for (ShoppingCartItem item:mFilteredList){
+                if (item.getItem().getName().equals(name)){
+                    removeItems.add(item);
+                }
+            }
+            mFilteredList.removeAll(removeItems);
+
+        }
 
     public void updatePriceAndMessage(){
         m_fragment.updatePrice();
