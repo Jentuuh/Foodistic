@@ -30,7 +30,7 @@
         android:id="@+id/shoppingBasket"
         android:icon="@drawable/basket_with_count"
         android:title="@string/shoppingbasket"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
 
 

@@ -18,6 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
@@ -182,13 +183,15 @@ public class MainActivity extends AppCompatActivity implements Observer {
         // Add toolbar
         getMenuInflater().inflate(R.menu.toolbarmenuitems, menu);
         MenuItem searchItem = menu.findItem(R.id.search_icon);
-        searchItem.setVisible(false);
         SearchView my_search_view = (SearchView) searchItem.getActionView();
+        my_search_view.setSubmitButtonEnabled(false);
         ImageView searchIcon = (ImageView)my_search_view.findViewById(androidx.appcompat.R.id.search_button);
         searchIcon.setImageResource(R.drawable.ic_search_black_24dp);
         SearchView.SearchAutoComplete searchAutoComplete = my_search_view.findViewById(androidx.appcompat.R.id.search_src_text);
         searchAutoComplete.setHintTextColor(getResources().getColor(R.color.white));
         searchAutoComplete.setTextColor(getResources().getColor(android.R.color.white));
+        searchItem.setVisible(false);
+
 
 
 
@@ -196,6 +199,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
        // updateTotalBasket();
         setCount(this, mShoppingCart.getCount());
         setupDestinationListeners();
+        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp));
 
 
         return true;
