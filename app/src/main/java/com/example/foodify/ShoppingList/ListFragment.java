@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.Entities.ProductEntity;
@@ -44,6 +45,7 @@ public class ListFragment extends Fragment implements SearchView.OnQueryTextList
     private ListView m_productcontainer;
     private TextView m_total_price;
     private Button m_uncheck_all_button;
+    private Button m_remove_checked_button;
     private ShoppingList m_list_to_display;
     private ShopListAdapter adapter;
     private TextView m_emptyMessage;
@@ -105,6 +107,19 @@ public class ListFragment extends Fragment implements SearchView.OnQueryTextList
             }
         });
 
+        m_remove_checked_button = (Button) getActivity().findViewById(R.id.remove_checked);
+        m_remove_checked_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    AppDatabase db = AppDatabase.getDatabase(getContext());
+                    db.m_foodisticDAO().deleteAllChecked(true);
+                    getListData();
+                    Toast.makeText(getContext(), "Geselecteerde producten werden van '" + m_list_name + "' verwijderd.", Toast.LENGTH_SHORT).show();
+                    adapter.notifyDataSetChanged();
+                    adapter.fillFilteredList();
+            }
+        });
+
         m_list_to_display = new ShoppingList(m_list_name, getArguments().getInt("listID"));
 
         // Retrieve list container from layout
@@ -117,8 +132,6 @@ public class ListFragment extends Fragment implements SearchView.OnQueryTextList
         // Retrieve the list data
         getListData();
         adapter.fillFilteredList();
-
-
 
     }
 
