@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
         setupToolbar();
         setupBasket();
         NavigationUI.setupWithNavController(mToolbar, mNavController, mAppBarConfig);
-        setupDestinationListeners();
 //        insertTestData();
 
 
@@ -134,14 +133,14 @@ public class MainActivity extends AppCompatActivity implements Observer {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
 
-                if(destination.getId() == R.id.profileFragment){
+                if(destination.getId() == R.id.shopPromotionActivity){
 
                     //mToolbar.setVisibility(View.GONE);
                     //mBottomNav.setVisibility(View.GONE);
                 }
                 else{
-                    mToolbar.setVisibility(View.VISIBLE);
-                    mBottomNav.setVisibility(View.VISIBLE);
+                    mMenu.findItem(R.id.points_icon).setVisible(false);
+
                 }
             }
         });
@@ -196,6 +195,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
         //createBasketTests();
        // updateTotalBasket();
         setCount(this, mShoppingCart.getCount());
+        setupDestinationListeners();
+
 
         return true;
     }

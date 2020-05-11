@@ -70,21 +70,28 @@
             android:id="@+id/listcoll_to_createList"
             app:destination="@id/createShoppingList" />
     </fragment>
-    <activity
+    <fragment
         android:id="@+id/nameShoppingListActivity"
         android:name="com.example.foodify.ShoppingList.NameShoppingListActivity"
-        android:label="activity_name_shopping_list"
+        android:label="Maken van een nieuwe lijst"
         tools:layout="@layout/activity_name_shopping_list" />
     <activity
         android:id="@+id/loginActivity"
         android:name="com.example.foodify.Login.LoginActivity"
         android:label="activity_login"
         tools:layout="@layout/activity_login" />
-    <activity
+    <fragment
         android:id="@+id/shopPromotionActivity"
         android:name="com.example.foodify.PointSystem.ShopPromotionListActivity"
         android:label="Shop Promoties"
-        tools:layout="@layout/activity_shop_promotion_list" />
+        tools:layout="@layout/activity_shop_promotion_list" >
+        <argument
+            android:name="SHOP_NAME"
+            app:argType="string" />
+        <argument
+            android:name="SHOP_POINTS"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/shopFilterFragment"
         android:name="com.example.foodify.Shop.ShopFilterFragment"
