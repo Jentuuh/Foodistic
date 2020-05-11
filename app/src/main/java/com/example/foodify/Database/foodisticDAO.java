@@ -178,7 +178,7 @@ public interface foodisticDAO {
      * Insert a new product into a certain list
      * @param new_product_on_list
      */
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addProductToList(ProductOnListEntity new_product_on_list);
 
     /**
