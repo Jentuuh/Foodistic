@@ -3,10 +3,15 @@ package com.example.foodify.ShoppingList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,6 +29,7 @@ import com.example.foodify.R;
 import com.example.foodify.ShoppingCart.ShoppingCartItem;
 import com.example.foodify.User.User;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +39,7 @@ import java.util.List;
  * @author jentevandersanden
  * A simple {@link Fragment} subclass.
  */
-public class ListFragment extends Fragment {
+public class ListFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private String m_list_name;
     private ListView m_productcontainer;
@@ -43,6 +49,8 @@ public class ListFragment extends Fragment {
     private ShoppingList m_list_to_display;
     private ShopListAdapter adapter;
     private TextView m_emptyMessage;
+    private SearchView mSearchFilter;
+    private Menu mMenu;
 
 
     @Override
@@ -60,6 +68,18 @@ public class ListFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        mMenu = menu;
+        setupSearchFilter();
+    }
 
     @Override
     public void onStart() {
@@ -109,9 +129,9 @@ public class ListFragment extends Fragment {
 
         // Set the adapter for the listcontainer
         m_productcontainer.setAdapter(adapter);
-
         // Retrieve the list data
         getListData();
+        adapter.fillFilteredList();
 
 
     }
@@ -184,6 +204,7 @@ public class ListFragment extends Fragment {
                 list_item.setQuantity(product_on_list.getQuantity());;
                 list_item.setChecked(product_on_list.isChecked());
                 m_list_to_display.addItem(list_item);
+
             }
         }
     }
@@ -197,7 +218,7 @@ public class ListFragment extends Fragment {
     }
 
     public void updatePrice(){
-        m_total_price.setText("Totaal: €" + Float.toString(calculatePrice()));
+        m_total_price.setText("Totaal: €" + new DecimalFormat("###.##").format(calculatePrice()));
     }
 
     public void updateEmptyMessage(){
@@ -210,4 +231,24 @@ public class ListFragment extends Fragment {
         }
     }
 
+    public void setupSearchFilter(){
+        mMenu.findItem(R.id.search_icon).setVisible(true);
+        mSearchFilter = (SearchView) mMenu.findItem(R.id.search_icon).getActionView();
+        //mSearchFilter = (SearchView) getView().findViewById(R.id.search_filter);
+        //mSearchFilter.setIconifiedByDefault(false);
+        mSearchFilter.setOnQueryTextListener(this);
+        mSearchFilter.setSubmitButtonEnabled(true);
+        mSearchFilter.setQueryHint("Search Here");
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapter.filter(newText);
+        return true;
+    }
 }

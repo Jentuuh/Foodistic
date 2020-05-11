@@ -34,7 +34,12 @@ public class ShoppingList extends Observable {
         loadProductsFromDatabase(name);
     }
 
-
+    public ArrayList<ShoppingCartItem> getList(){
+        return m_products_on_list;
+    }
+    public void setList(ArrayList<ShoppingCartItem> newList) {
+        m_products_on_list = newList;
+    }
     private void loadProductsFromDatabase(String listname){
         // TODO implement (fill products_on_list)
     }
@@ -89,12 +94,14 @@ public class ShoppingList extends Observable {
 
     /**
      * Makes sure the quantity goes up by one.
-     * @param pos
+     * @param name
      */
-    public void addByPos(int pos, Context context){
-        if(m_products_on_list.get(pos) != null) {
-            m_products_on_list.get(pos).addOne();
-            updateDataBase(m_products_on_list.get(pos).getItem(), CartItemModification.PLUS, context);
+    public void addByName(String name, Context context){
+        for(ShoppingCartItem item:m_products_on_list){
+            if (item.getItem().getName().equals(name)){
+                item.addOne();
+                updateDataBase(item.getItem(), CartItemModification.PLUS, context);
+            }
         }
         setChanged();
         notifyObservers();
@@ -103,37 +110,47 @@ public class ShoppingList extends Observable {
     /**
      * Makes sure the quantity goes down by one, if the quantity is 0,
      * the product will be removed
-     * @param pos
+     * @param name
      */
-    public void removeByPos(int pos, final Context context, final ShopListAdapter adapter){
-        final ShoppingCartItem item = m_products_on_list.get(pos);
-        if (item.getQuantity() > 1){
-            item.removeOne();
-            updateDataBase(item.getItem(), CartItemModification.MINUS, context);
+    public void removeByName(String name, final Context context, final ShopListAdapter adapter){
+        final boolean returnbool = false;
+        ShoppingCartItem item = null;
+        for(ShoppingCartItem i:m_products_on_list){
+            if (i.getItem().getName().equals(name)){
+                item = i;
+            }
         }
-        else{   // if theres only one left
+        if (item != null) {
+            if (item.getQuantity() > 1) {
+                item.removeOne();
+                updateDataBase(item.getItem(), CartItemModification.MINUS, context);
+            } else {   // if theres only one left
 
-            new AlertDialog.Builder(context)
-                    .setTitle("Verwijder product van lijst")
-                    .setMessage("Weet je zeker dat je dit wilt doen?")
+                final ShoppingCartItem finalItem = item;
+                new AlertDialog.Builder(context)
+                        .setTitle("Verwijder product van lijst")
+                        .setMessage("Weet je zeker dat je dit wilt doen?")
 
-                    // Specifying a listener allows you to take an action before dismissing the dialog.
-                    // The dialog is automatically dismissed when a dialog button is clicked.
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Continue with delete operation
-                            removeItem(item,context);
-                            adapter.notifyDataSetChanged();
-                            adapter.updatePriceAndMessage();
-                            Toast.makeText(context, "Product '" + item.getItem().getName()+ "' werd verwijderd van uw lijst.", Toast.LENGTH_SHORT).show();
-                        }
-                    })
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Continue with delete operation
+                                removeItem(finalItem, context);
+                                adapter.removeFromFilter(finalItem.getItem().getName());
+                                adapter.notifyDataSetChanged();
+                                adapter.updatePriceAndMessage();
+                                Toast.makeText(context, "Product '" + finalItem.getItem().getName() + "' werd verwijderd van uw lijst.", Toast.LENGTH_SHORT).show();
 
-                    // A null listener allows the button to dismiss the dialog and take no further action.
-                    .setNegativeButton(android.R.string.no, null)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
+                            }
+                        })
 
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+            }
         }
     }
 

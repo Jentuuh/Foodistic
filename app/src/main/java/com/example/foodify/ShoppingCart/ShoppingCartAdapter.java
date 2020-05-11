@@ -76,7 +76,7 @@ public class ShoppingCartAdapter extends ArrayAdapter<ShoppingCartItem> {
                     public void onClick(View v) {
                         //TODO Open item fragment once item is pressed
                         Bundle bundle = new Bundle();
-                        bundle.putInt("itemId", item.getId());
+                        bundle.putString("itemName", item.getName());
                         ((MainActivity)mContext).navigateTo(R.id.itemFragment, bundle);
 
                         Log.v("ListAdapter", "Open the item page here");

@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.foodify.Database.AppDatabase;
+import com.example.foodify.Database.Entities.ProductEntity;
 import com.example.foodify.Database.Entities.ProductOnListEntity;
 import com.example.foodify.Database.Entities.ShoppingListEntity;
 import com.example.foodify.R;
@@ -72,12 +73,23 @@ public class ChooseListFragment extends Fragment {
                 AppDatabase db = AppDatabase.getDatabase(getContext());
                 // Create a new ProductOnListEntity and add it to a list
                String listname = ((TextView)view).getText().toString();
+                ProductOnListEntity duplicate = db.m_foodisticDAO().getItemOnList(listname, getArguments().getString("productName"));
+
                 ProductOnListEntity to_add = new ProductOnListEntity();
                 to_add.setProductname(getArguments().getString("productName"));
-                to_add.setQuantity(1);
-                to_add.setChecked(false);
+                if (duplicate != null) { // if item already exists in list
+                    to_add.setQuantity(duplicate.getQuantity() + 1); // quantity + 1
+                    to_add.setID(duplicate.getID()); // give it the same id so it gets replaced with current data
+                    to_add.setChecked(duplicate.isChecked());
+
+                }
+                else{
+                    to_add.setQuantity(1);
+                    to_add.setChecked(false);
+                }
                 to_add.setListname(listname);
                 db.m_foodisticDAO().addProductToList(to_add);
+
                 NavHostFragment.findNavController(m_self_ref).navigate(R.id.action_chooseListFragment_to_shopFragment);
                 Toast.makeText(getContext(), "Product toegevoegd aan " + listname + "!", Toast.LENGTH_SHORT).show();
             }
