@@ -1,6 +1,7 @@
 package com.example.foodify.ShoppingList;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,8 +15,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.foodify.Database.AppDatabase;
+import com.example.foodify.MainActivity;
 import com.example.foodify.Product.ProductItem;
 import com.example.foodify.R;
 import com.example.foodify.ShoppingCart.ShoppingCart;
@@ -160,6 +163,21 @@ public class ShopListAdapter extends ArrayAdapter<ShoppingCartItem> {
                             mList.removeByName(mFilteredList.get(position).getItem().getName() , mContext, selfref);
                             notifyDataSetChanged();
                             updatePriceAndMessage();
+
+                        }
+                    });
+                }
+
+                if (basketItemContainer != null) {
+                    basketItemContainer.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //TODO Open item fragment once item is pressed
+                            Bundle bundle = new Bundle();
+                            bundle.putString("itemName", item.getName());
+                            NavHostFragment.findNavController(m_fragment).navigate(R.id.itemFragment, bundle);
+
+                            Log.v("ListAdapter", "Open the item page here");
 
                         }
                     });
