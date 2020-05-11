@@ -221,7 +221,7 @@ public class ShopFragment extends Fragment {
 
         //TODO remove testdata
         // testData();
-        mDiscountAdapter.addAll();
+        mDiscountAdapter.resetFilters();
         mDiscountAdapter.discountedItems();
 
     }

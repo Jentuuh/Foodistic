@@ -85,7 +85,7 @@ public class ItemFragment extends Fragment {
             else{
                 //TODO remove this, this is to test if it works
                 Drawable img = getResources().getDrawable(R.drawable.itemplaceholder);
-                mItem = new ProductItem("Test_item",  1.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.50f, img, Categories.DRANKEN);
+                mItem = new ProductItem("No  such item",  1.5555555555555f, "Very interesting item it is an item that has item values and stuff, u know the item things...", 0.5f,null, 0.50f, img, Categories.DRANKEN);
                 Log.v("ItemFragment" ,"Id was -1");
 
             }
@@ -143,6 +143,7 @@ public class ItemFragment extends Fragment {
         }
         else{
             prodPrice.setText("€ " + new DecimalFormat("###.##").format(mItem.getPrice()));
+            prodPrice.setTextColor(getResources().getColor(android.R.color.secondary_text_light));
 
         }
         prodImg.setImageDrawable(mItem.getImage());
