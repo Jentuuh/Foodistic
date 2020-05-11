@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -134,17 +135,27 @@ public class MainActivity extends AppCompatActivity implements Observer {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
 
-                if(destination.getId() == R.id.shopPromotionActivity){
+                if(destination.getId() == R.id.shopFilterFragment){
 
                     //mToolbar.setVisibility(View.GONE);
                     //mBottomNav.setVisibility(View.GONE);
                 }
                 else{
                     mMenu.findItem(R.id.points_icon).setVisible(false);
+                    showSoftwareKeyboard(false);
 
                 }
             }
         });
+    }
+
+
+    private void showSoftwareKeyboard(boolean showKeyboard){
+
+        final InputMethodManager inputManager = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (this.getCurrentFocus() != null) {
+            inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), showKeyboard ? InputMethodManager.SHOW_FORCED : InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     public void setupBasket(){
