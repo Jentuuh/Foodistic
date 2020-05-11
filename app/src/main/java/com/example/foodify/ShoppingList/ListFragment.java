@@ -38,6 +38,7 @@ public class ListFragment extends Fragment {
     private ListView m_productcontainer;
     private TextView m_total_price;
     private Button m_uncheck_all_button;
+    private Button m_remove_checked_button;
     private ShoppingList m_list_to_display;
     private ShopListAdapter adapter;
     private TextView m_emptyMessage;
@@ -85,6 +86,18 @@ public class ListFragment extends Fragment {
             }
         });
 
+        m_remove_checked_button = (Button) getActivity().findViewById(R.id.remove_checked);
+        m_remove_checked_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    AppDatabase db = AppDatabase.getDatabase(getContext());
+                    db.m_foodisticDAO().deleteAllChecked(true);
+                    getListData();
+                    adapter.notifyDataSetChanged();
+
+            }
+        });
+
         m_list_to_display = new ShoppingList(m_list_name, getArguments().getInt("listID"));
 
         // Retrieve list container from layout
@@ -97,7 +110,6 @@ public class ListFragment extends Fragment {
 
         // Retrieve the list data
         getListData();
-
 
 
     }

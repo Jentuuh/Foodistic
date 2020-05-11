@@ -147,8 +147,8 @@
     <fragment
         android:id="@+id/filterFragment"
         android:name="com.example.foodify.Shop.FilterFragment"
-        android:label="fragment_filter"
-        tools:layout="@layout/fragment_filter" >
+        android:label="Stel filters in"
+        tools:layout="@layout/fragment_filter">
         <argument
             android:name="filterType"
             app:argType="string[]" />

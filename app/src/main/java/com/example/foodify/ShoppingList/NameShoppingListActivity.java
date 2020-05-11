@@ -16,6 +16,8 @@ import com.example.foodify.Database.Entities.ShoppingListEntity;
 import com.example.foodify.MainActivity;
 import com.example.foodify.R;
 
+import java.util.List;
+
 
 /**
  * @author jentevandersanden
@@ -64,10 +66,17 @@ public class NameShoppingListActivity extends AppCompatActivity {
      * create a new empty shopping list with a certain name.
      */
     private void onConfirmClick(){
-        if(nameDoesntAlreadyExist()) {
-            createShoppingList(m_name_field.getText().toString());
-            showShoppingListActivity(m_name_field.getText().toString());
-
+        if(nameDoesntAlreadyExist(m_name_field.getText().toString())) {
+            if(m_name_field.getText().toString().matches("")){
+                Toast.makeText(getApplicationContext(), "Vul een naam in.", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                createShoppingList(m_name_field.getText().toString());
+                showShoppingListActivity(m_name_field.getText().toString());
+            }
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Je hebt reeds een lijstje met deze naam. Gelieve een andere naam te kiezen.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -99,16 +108,17 @@ public class NameShoppingListActivity extends AppCompatActivity {
      * Method that checks whether a shopping list with the current chosen name already exists.
      * @return boolean
      */
-    private boolean nameDoesntAlreadyExist(){
-        //TODO: ask database if this name already exists
-        if(true){ //TODO
-            return true;
+    private boolean nameDoesntAlreadyExist(String name){
+
+        AppDatabase db = AppDatabase.getDatabase(getApplicationContext());
+        List<ShoppingListEntity> lists = db.m_foodisticDAO().getAllShoppingLists();
+
+        for(ShoppingListEntity list : lists){
+            if(list.getName().matches(name)){
+                return false;
+            }
         }
-        else {
-            // Give the user feedback that this name already exists.
-            Toast.makeText(this, "You already have a shopping list with this name. Choose another name.", Toast.LENGTH_SHORT);
-            return false;
-        }
+        return true;
     }
 
     /**

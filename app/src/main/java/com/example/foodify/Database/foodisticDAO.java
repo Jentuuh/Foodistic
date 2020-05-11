@@ -174,6 +174,9 @@ public interface foodisticDAO {
     @Query("UPDATE ProductsOnList SET checked = :check WHERE listname LIKE :list_name")
     void uncheckAll(boolean check, String list_name);
 
+    @Query("DELETE FROM ProductsOnList WHERE checked LIKE :check_status")
+    void deleteAllChecked(boolean check_status);
+
     /**
      * Insert a new product into a certain list
      * @param new_product_on_list
