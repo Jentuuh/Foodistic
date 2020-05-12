@@ -145,6 +145,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
                     mMenu.findItem(R.id.points_icon).setVisible(false);
                     showSoftwareKeyboard(false);
 
+
+
                 }
             }
         });
@@ -207,11 +209,13 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
 
 
+
         //createBasketTests();
        // updateTotalBasket();
         setCount(this, mShoppingCart.getCount());
+        //mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp));
         setupDestinationListeners();
-        mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp));
+
 
 
         return true;
