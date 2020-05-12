@@ -310,4 +310,7 @@ public interface foodisticDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void createProductInShop(ProductInShopEntity product);
 
+    @Query("DELETE FROM ProductsInShops")
+    void deleteProductsInShops();
+
 }

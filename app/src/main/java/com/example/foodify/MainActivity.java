@@ -36,6 +36,7 @@ import android.widget.TextView;
 
 import com.example.foodify.Database.AppDatabase;
 import com.example.foodify.Database.DatabasePopulator;
+import com.example.foodify.Database.Entities.CommentEntity;
 import com.example.foodify.Database.Entities.ProductEntity;
 import com.example.foodify.Enums.Categories;
 import com.example.foodify.Database.Entities.UserEntity;
@@ -75,11 +76,9 @@ public class MainActivity extends AppCompatActivity implements Observer {
         setupToolbar();
         setupBasket();
         NavigationUI.setupWithNavController(mToolbar, mNavController, mAppBarConfig);
-//        insertTestData();
 
-
-        // INSERT ALL SAMPLE DATA
-        //insertTestData();
+        // Insert test data
+        insertTestData();
     }
 
     /**
@@ -300,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
         AppDatabase db = AppDatabase.getDatabase(getApplicationContext());
 
-        // Reset the db
+        // RESET THE DATABASE
         //DatabasePopulator.clearDatabase(db);
 
         UserEntity user = new UserEntity();
@@ -311,44 +310,96 @@ public class MainActivity extends AppCompatActivity implements Observer {
         user.setPassword("test");
         DatabasePopulator.addUser(db, user);
 
-        // TEST PRODUCT
+        // COCA COLA (nodiscount)
         ProductEntity test_item = new ProductEntity();
-        test_item.setName("Nodiscount");
-        test_item.setPrice(1.5555555f);
+        test_item.setName("Coca-Cola");
+        test_item.setPrice(2.55f);
         test_item.setDiscount(0f);
-        test_item.setLikability(20.3f);
-        test_item.setDescription("testtesttesttest");
+        test_item.setLikability(0.83f);
+        test_item.setDescription("Drink hem ijskoud.");
         test_item.setFoodstyle(FoodStyle.OMNIVORE);
         test_item.setCategory(Categories.DRANKEN);
         DatabasePopulator.addProduct(db, test_item);
 
+        ProductInShopEntity colainshop = new ProductInShopEntity();
+        colainshop.setPrice(2.55f);
+        colainshop.setProductname("Coca-Cola");
+        colainshop.setShopname("Delhaize");
+        colainshop.setAvailability(false);
+
+        DatabasePopulator.addProductInShop(db, colainshop);
+
+        CommentEntity cola_comment = new CommentEntity();
+        cola_comment.setProductname("Coca-Cola");
+        cola_comment.setCommentText("Mijn favoriete drankje!");
+        cola_comment.setAuthor("Mr Beast");
+
+        DatabasePopulator.addComment(db, cola_comment);
+
+        // GEHAKT
+
         ProductEntity gehakt = new ProductEntity();
         gehakt.setName("Gehakt");
-        gehakt.setPrice(1.5555555f);
+        gehakt.setPrice(1.56f);
         gehakt.setDiscount(0f);
-        gehakt.setLikability(20.3f);
+        gehakt.setLikability(0.23f);
         gehakt.setDescription("1 ton goedkoop gehakt");
         gehakt.setFoodstyle(FoodStyle.OMNIVORE);
         gehakt.setCategory(Categories.VLEES);
         DatabasePopulator.addProduct(db ,gehakt);
 
+        ProductInShopEntity gehaktinshop = new ProductInShopEntity();
+        gehaktinshop.setPrice(1.56f);
+        gehaktinshop.setProductname("Gehakt");
+        gehaktinshop.setShopname("Okay");
+        gehaktinshop.setAvailability(true);
+
+        DatabasePopulator.addProductInShop(db, gehaktinshop);
+
         // TEST PRODUCT "peren"
         ProductEntity peer = new ProductEntity();
         peer.setName("Peer");
         peer.setPrice(10.33f);
-        peer.setDescription("1 mooie duue peer speciaal voor jou");
-        peer.setLikability(0.13f);
+        peer.setDescription("Verse peren van het nieuwe seizoen.");
+        peer.setLikability(0.73f);
         peer.setDiscount(0.10f);
         peer.setFoodstyle(FoodStyle.VEGAN);
         peer.setCategory(Categories.FRUIT);
 
         DatabasePopulator.addProduct(db, peer);
 
+        ProductInShopEntity peerinshop = new ProductInShopEntity();
+        peerinshop.setPrice(10.33f);
+        peerinshop.setProductname("Peer");
+        peerinshop.setShopname("Okay");
+        peerinshop.setAvailability(true);
+
+
+
+        DatabasePopulator.addProductInShop(db, peerinshop);
+
+        ProductInShopEntity peerinshop1 = new ProductInShopEntity();
+        peerinshop1.setPrice(12.33f);
+        peerinshop1.setProductname("Peer");
+        peerinshop1.setShopname("Carrefour");
+        peerinshop1.setAvailability(true);
+
+        DatabasePopulator.addProductInShop(db, peerinshop1);
+
+
+        CommentEntity pear_comment = new CommentEntity();
+        pear_comment.setProductname("Peer");
+        pear_comment.setCommentText("Nog nooit zo'n verse en lekkere peren gegeten!");
+        pear_comment.setAuthor("peerlover99");
+
+        DatabasePopulator.addComment(db, pear_comment);
+
+        // WORTEL
 
         ProductEntity wortel = new ProductEntity();
         wortel.setName("Wortel");
         wortel.setPrice(10.33f);
-        wortel.setDescription("1 mooie Wortel peer speciaal voor jou");
+        wortel.setDescription("Vers en gezond.");
         wortel.setLikability(0.93f);
         wortel.setDiscount(0.15f);
         wortel.setFoodstyle(FoodStyle.VEGAN);
@@ -370,9 +421,9 @@ public class MainActivity extends AppCompatActivity implements Observer {
         wortelinshop1.setShopname("Delhaize");
         wortelinshop1.setAvailability(true);
 
+
+
         DatabasePopulator.addProductInShop(db, wortelinshop1);
-
-
 
 
     }

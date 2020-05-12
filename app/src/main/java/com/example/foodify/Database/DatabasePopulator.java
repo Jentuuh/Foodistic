@@ -88,6 +88,7 @@ public class DatabasePopulator{
         db.m_foodisticDAO().deletePromotions();
         db.m_foodisticDAO().deleteShoppingLists();
         db.m_foodisticDAO().deleteUsers();
+        db.m_foodisticDAO().deleteProductsInShops();
     }
 
 

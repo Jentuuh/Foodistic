@@ -21,9 +21,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="200px"
         android:layout_marginTop="50px"
-        android:textAlignment="center"
         android:text="Geef uw nieuwe lijstje een naam"
-        android:textColor="#5BC438"
+        android:textAlignment="center"
+        android:textColor="#009688"
         android:textSize="24sp" />
 
     <EditText

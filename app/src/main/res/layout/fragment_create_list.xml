@@ -10,9 +10,9 @@
     <ImageView
         android:id="@+id/drawing"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="350px"
-        tools:srcCompat="@tools:sample/avatars[1]" />
+        android:layout_height="110dp"
+        android:layout_marginTop="200px"
+        android:src="@drawable/man_with_list" />
 
     <TextView
         android:id="@+id/infoText"
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="200px"
-        android:layout_marginTop="400px"
+        android:layout_marginTop="270px"
         android:text="Lijst aanmaken      +" />
 
 </LinearLayout>
