@@ -65,8 +65,6 @@ public class ShopPromotionListActivity extends Fragment {
         // Load data
         getPromotions();
         setHasOptionsMenu(true);
-
-
     }
 
     @Nullable
@@ -87,9 +85,6 @@ public class ShopPromotionListActivity extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         mMenu = menu;
         setupToolbar();
-
-
-
     }
 
     @Override
@@ -112,7 +107,9 @@ public class ShopPromotionListActivity extends Fragment {
     private void setupToolbar() {
         mToolbar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         mMenu.findItem(R.id.points_icon).setVisible(true);
+        mToolbar.setTitle(shopName);
     }
+
     private void setupPromotionList() {
         adapter = new ShopPromotionAdapter(getActivity(), shopPromotionList);
 
@@ -123,7 +120,6 @@ public class ShopPromotionListActivity extends Fragment {
             public void onItemClick(AdapterView parent, View v, int position, long id) { onPromotionPress(position); }
         });
     }
-
 
 
     /**
