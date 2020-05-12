@@ -112,7 +112,11 @@
         android:id="@+id/createShoppingList"
         android:name="com.example.foodify.ShoppingList.CreateShoppingListFragment"
         android:label="Maak een lijstje aan"
-        tools:layout="@layout/fragment_create_list" />
+        tools:layout="@layout/fragment_create_list" >
+        <action
+            android:id="@+id/action_createShoppingList_to_nameShoppingListActivity"
+            app:destination="@id/nameShoppingListActivity" />
+    </fragment>
     <fragment
         android:id="@+id/itemFragment"
         android:name="com.example.foodify.ProductPage.ItemFragment"

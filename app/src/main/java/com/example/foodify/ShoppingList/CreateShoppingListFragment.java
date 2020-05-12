@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
 import android.widget.ListView;
@@ -68,7 +69,6 @@ public class CreateShoppingListFragment extends Fragment {
      * This will open a new activity in which the user will be asked to name the new shopping list.
      */
     private void onCreateClick(){
-        Intent intent = new Intent(getActivity(), NameShoppingListActivity.class);
-        startActivity(intent);
+        NavHostFragment.findNavController(this).navigate(R.id.action_createShoppingList_to_nameShoppingListActivity);
     }
 }

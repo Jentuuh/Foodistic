@@ -149,16 +149,13 @@ public class NameShoppingListActivity extends Fragment {
      * This method switches to the shopping list activity after a shopping list was succesfully made.
      */
     private void showShoppingListActivity(String name) {
-      //  Intent intent = new Intent(this, MainActivity.class);
-     //   intent.putExtra("TabToStart", 3);
-        // Update database with the created shoppinglist
-//        ListCollectionFragment listcollection = new ListCollectionFragment();
-//        ShoppingList to_add = new ShoppingList(name);
-//        listcollection.addShoppingList(to_add);
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        intent.putExtra("TabToStart", 3);
 
-        // Go back to the MainActivity
-    //    startActivity(intent);
-     //   Toast.makeText(getApplicationContext(), "Lijst '" + name + "' werd aangemaakt!", Toast.LENGTH_SHORT).show();
+
+         // Go back to the MainActivity
+        startActivity(intent);
+        Toast.makeText(getContext(), "Lijst '" + name + "' werd aangemaakt!", Toast.LENGTH_SHORT).show();
 
 
     }
