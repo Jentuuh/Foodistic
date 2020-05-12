@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fontFamily="sans-serif-condensed-medium"
+    android:padding="10dp"
     android:text="Testlijst"
     android:textAlignment="center"
     android:textColor="#000000"
-    android:textSize="18sp" />
+    android:textSize="20sp" />

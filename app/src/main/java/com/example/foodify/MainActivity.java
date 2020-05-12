@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         NavigationUI.setupWithNavController(mToolbar, mNavController, mAppBarConfig);
 
         // Insert test data
-        insertTestData();
+        //insertTestData();
     }
 
     /**

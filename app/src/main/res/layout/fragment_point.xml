@@ -60,7 +60,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout.submit"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#00A694"
         android:visibility="visible"
@@ -135,6 +135,7 @@
         android:id="@+id/listView.shop_point_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="5dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="10.0sp"
         android:paddingLeft="10dp"
