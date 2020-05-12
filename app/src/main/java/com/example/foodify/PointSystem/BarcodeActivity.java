@@ -67,7 +67,7 @@ public class BarcodeActivity extends AppCompatActivity {
      */
     private void showPurchaseToast() {
         Context context = getApplicationContext();
-        CharSequence text =  "Je hebt net " + promotionName + " gekocht voor " + promotionPoints + " punten." ;
+        CharSequence text =  "Je hebt " + promotionName + " gekocht voor " + promotionPoints + " punten." ;
         int duration = Toast.LENGTH_LONG;
 
         Toast.makeText(context, text, duration).show();
